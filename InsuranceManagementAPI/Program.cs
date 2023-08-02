@@ -13,17 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Configure Database Services
-//builder.Services.AddDbContext<PolicyDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PolicyAPIConnectionString")));
+//Configure Database Services
+builder.Services.AddDbContext<PolicyDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PolicyAPIConnectionString")));
 
-//// Configure Autor Mapper
-//builder.Services.AddAutoMapper(typeof(Program));
+// Configure Autor Mapper
+builder.Services.AddAutoMapper(typeof(Program));
 
-//// Configure App Services
-//builder.Services.AddScoped<IBankService, BankService>();
+// Configure App Services
+builder.Services.AddScoped<IBankService, BankService>();
 
-//// Configure App Repositories
-//builder.Services.AddScoped<IBankRepository, BankRepository>();
+// Configure App Repositories
+builder.Services.AddScoped<IBankRepository, BankRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
