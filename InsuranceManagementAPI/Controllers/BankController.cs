@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace InsuranceManagementAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}")]
+    [ApiVersion("1.0")]
     public class BankController : ControllerBase
     {
         private readonly IBankService _bankService;
@@ -14,13 +15,20 @@ namespace InsuranceManagementAPI.Controllers
         {
             _bankService = bankService;
         }
-        [HttpGet("")]
-        public async Task<ActionResult> GetAllBanks()
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("Banks")]
+        public  ActionResult<IEnumerable<Bank>> GetAllBanks()
         {
             IEnumerable<Bank> response;
             try
             {
-                response = await _bankService.GetAllBanks();
+                response = _bankService.GetAllBanks().Result;
+                
+                if(response == null || !response.Any())
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {
