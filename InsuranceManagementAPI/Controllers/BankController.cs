@@ -32,7 +32,7 @@ namespace InsuranceManagementAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
             }
             return Ok(response);
         }

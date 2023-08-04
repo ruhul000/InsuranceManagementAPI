@@ -2,6 +2,8 @@ using InsuranceManagementAPI;
 using InsuranceManagementAPI.Data;
 using InsuranceManagementAPI.Data.Repository;
 using InsuranceManagementAPI.Extensions;
+using InsuranceManagementAPI.Helper;
+using InsuranceManagementAPI.Models.Factories;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -19,11 +21,23 @@ builder.Services.AddDbContext<PolicyDBContext>(options => options.UseSqlServer(b
 // Configure Autor Mapper
 builder.Services.AddAutoMapper(typeof(Program));
 
+// Configure Helper
+builder.Services.AddScoped(typeof(IMappingFactory<>), typeof(MappingFactory<>));
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
+
 // Configure App Services
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBankService, BankService>();
 
+
 // Configure App Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
+
+
+// Configure App Factories
+builder.Services.AddScoped<IBankFactory, BankFactory>();
+builder.Services.AddScoped<IUserFactory, UserFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -37,6 +51,7 @@ builder.Services.AddApiVersioning(opt =>
                                                     new HeaderApiVersionReader("x-api-version"),
                                                     new MediaTypeApiVersionReader("x-api-version"));
 });
+
 // Add ApiExplorer to discover versions
 builder.Services.AddVersionedApiExplorer(setup =>
 {
@@ -46,7 +61,6 @@ builder.Services.AddVersionedApiExplorer(setup =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 var app = builder.Build();

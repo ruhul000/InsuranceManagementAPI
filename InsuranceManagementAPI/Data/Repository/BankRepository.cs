@@ -15,19 +15,9 @@ namespace InsuranceManagementAPI.Data.Repository
             _context = context;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<Bank>> GetAllBanks()
+        public async Task<IEnumerable<BankDto>> GetAllBanks()
         {
-            try
-            {
-               var records = await _context.Bank.ToListAsync();
-                return _mapper.Map<List<Bank>>(records);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message, ex);
-            }
-
-            return Enumerable.Empty<Bank>();
+            return await _context.Bank.ToListAsync();
         }
     }
 }
