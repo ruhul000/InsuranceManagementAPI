@@ -22,7 +22,11 @@ namespace InsuranceManagementAPI.Data.Repository
         }
         public async Task<UserDto> GetById(int id)
         {
-            return await _context.Users.FirstAsync(obj => obj.UserId == id);
+            return await _context.Users.FirstOrDefaultAsync(obj => obj.UserId == id);
+        }
+        public async Task<UserDto> GetByUserName(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(obj => obj.UserName == username || obj.Email == username);
         }
         public async Task<bool> Add(UserDto userDto)
         {
