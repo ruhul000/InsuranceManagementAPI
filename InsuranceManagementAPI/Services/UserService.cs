@@ -4,6 +4,7 @@ using InsuranceManagementAPI.Data.Repository;
 using InsuranceManagementAPI.Helper;
 using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Models.Factories;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
 namespace InsuranceManagementAPI.Services
@@ -14,31 +15,35 @@ namespace InsuranceManagementAPI.Services
 
         private readonly IUserFactory _userFactory;
         private readonly IUserRepository _userRepository;
-        private readonly IEncryptionService _encryptionService;
-        public UserService(IUserRepository userRepository, IUserFactory userFactory, IEncryptionService encryptionService) {
+        private readonly IAuthenticationService _authenticationService;
+        public UserService(IUserRepository userRepository, IUserFactory userFactory, IAuthenticationService authenticationService) {
             _userRepository = userRepository;
             _userFactory = userFactory;
-            _encryptionService = encryptionService; 
+            _authenticationService = authenticationService; 
         }
 
         public async Task<UserResponse> Registration(UserRequest userRequest)
         {
-            UserResponse response = new UserResponse();
+            UserResponse? response = null;
 
-            var salt = _encryptionService.GenerateSalt();
-            var passwordHash = _encryptionService.EncryptPassword(userRequest.Password, salt);
+            var userDto = _userRepository.GetByUserName(userRequest.UserName).Result;
+            
+            if (userDto != null) return response;
+
+            var salt = _authenticationService.GenerateSalt();
+            var passwordHash = _authenticationService.EncryptPassword(userRequest.Password, salt);
 
             User user = new User
             {
                 FullName = userRequest.FullName,
-                UserName = userRequest.Username,
+                UserName = userRequest.UserName,
                 Email = userRequest.Email,
                 Password = passwordHash,
                 Salt = salt,
                 IsActive = true
             };
 
-            UserDto userDto = _userFactory.CreateFrom(user);
+            userDto = _userFactory.CreateFrom(user);
 
             if(!_userRepository.Add(userDto).Result)
             {
@@ -49,6 +54,37 @@ namespace InsuranceManagementAPI.Services
 
             return _userFactory.CreateResponseFrom(userDto);
 
+        }
+
+        public async Task<AuthResponse> UserLogin(UserLoginRequest loginRequest)
+        {
+            AuthResponse authResponse = new AuthResponse();
+
+            User user = VerifyUser(loginRequest);
+
+            if (user == null) return authResponse;
+
+            authResponse.Token = _authenticationService.GenerateJWT(user);
+
+            return authResponse;
+        }
+
+        private User VerifyUser(UserLoginRequest loginRequest)
+        {
+            User? response = null;
+
+            var userDto = _userRepository.GetByUserName(loginRequest.UserName).Result;
+
+            if (userDto == null) return response;
+
+            var passwordHash = _authenticationService.EncryptPassword(loginRequest.Password, userDto.Salt);
+
+            if(passwordHash.Equals(userDto.Password) && userDto.IsActive == true)
+            {
+                response = _userFactory.CreateFrom(userDto);
+            }
+
+            return response;
         }
     }
 }

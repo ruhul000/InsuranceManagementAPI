@@ -24,9 +24,7 @@ namespace InsuranceManagementAPI
             // add swagger document for every API version discovered
             foreach (var description in _provider.ApiVersionDescriptions)
             {
-                options.SwaggerDoc(
-                    description.GroupName,
-                    CreateVersionInfo(description));
+                options.SwaggerDoc(description.GroupName, CreateVersionInfo(description));
             }
         }
 
@@ -45,8 +43,7 @@ namespace InsuranceManagementAPI
         /// </summary>
         /// <param name="description"></param>
         /// <returns>Information about the API</returns>
-        private OpenApiInfo CreateVersionInfo(
-                ApiVersionDescription desc)
+        private OpenApiInfo CreateVersionInfo(ApiVersionDescription desc)
         {
             var info = new OpenApiInfo()
             {
