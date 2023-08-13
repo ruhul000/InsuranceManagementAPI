@@ -1,6 +1,7 @@
 ﻿using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InsuranceManagementAPI.Controllers
 {
@@ -39,14 +40,14 @@ namespace InsuranceManagementAPI.Controllers
 
         [HttpPost("Login")]
         [MapToApiVersion("1.0")]
-        public ActionResult<AuthResponse> UserLogin(UserLoginRequest userLoginRequest)
+        public ActionResult<AuthInformation> UserLogin(UserLoginRequest userLoginRequest)
         {
-            AuthResponse response;
+            AuthInformation response;
             try
             {
                 response = _userService.UserLogin(userLoginRequest).Result;
 
-                if (response.Token == "")
+                if (response.Token.IsNullOrEmpty() && response.RefreshToken.IsNullOrEmpty())
                 {
                     return Unauthorized();
                 }
@@ -57,5 +58,27 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
         }
+
+        [HttpPost("Refresh")]
+        [MapToApiVersion("1.0")]
+        public ActionResult<AuthInformation> RefreshToken(AuthInformation authInfo)
+        {
+            AuthInformation response;
+            try
+            {
+                response = _userService.RefreshToken(authInfo).Result;
+
+                if (response.Token.IsNullOrEmpty() && response.RefreshToken.IsNullOrEmpty())
+                {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
     }
 }

@@ -39,7 +39,7 @@ builder.Services.AddScoped<IBankService, BankService>();
 // Configure App Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
-
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
@@ -66,6 +66,8 @@ builder.Services.AddVersionedApiExplorer(setup =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+
+// Add JWT Authentication Option in Swagger
 builder.Services.AddSwaggerGen(c =>{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{ 
         Description = "JWT Authorization",
@@ -92,6 +94,7 @@ builder.Services.AddSwaggerGen(c =>{
 });
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
+// Configure JWT Validation
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
     options.TokenValidationParameters = new TokenValidationParameters { 
         ValidateIssuer = true,
