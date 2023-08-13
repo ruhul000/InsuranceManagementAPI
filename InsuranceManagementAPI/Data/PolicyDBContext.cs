@@ -1,4 +1,5 @@
-﻿using InsuranceManagementAPI.Models;
+﻿using InsuranceManagementAPI.Data.Models;
+using InsuranceManagementAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InsuranceManagementAPI.Data
@@ -9,5 +10,8 @@ namespace InsuranceManagementAPI.Data
         {
         }
         public virtual DbSet<BankDto> Bank { get; set; }
+        public virtual DbSet<UserDto> Users { get; set; }
+        public virtual DbSet<RefreshTokenDto> RefreshTokens { get; set; }
+
     }
 }
