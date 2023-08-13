@@ -2,16 +2,24 @@ using InsuranceManagementAPI;
 using InsuranceManagementAPI.Data;
 using InsuranceManagementAPI.Data.Repository;
 using InsuranceManagementAPI.Extensions;
+using InsuranceManagementAPI.Helper;
+using InsuranceManagementAPI.Models.Factories;
 using InsuranceManagementAPI.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options => {
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 
 //Configure Database Services
 builder.Services.AddDbContext<PolicyDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PolicyAPIConnectionString")));
@@ -19,11 +27,23 @@ builder.Services.AddDbContext<PolicyDBContext>(options => options.UseSqlServer(b
 // Configure Autor Mapper
 builder.Services.AddAutoMapper(typeof(Program));
 
+// Configure Helper
+builder.Services.AddScoped(typeof(IMappingFactory<>), typeof(MappingFactory<>));
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
 // Configure App Services
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBankService, BankService>();
 
+
 // Configure App Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
+
+
+// Configure App Factories
+builder.Services.AddScoped<IBankFactory, BankFactory>();
+builder.Services.AddScoped<IUserFactory, UserFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -37,6 +57,7 @@ builder.Services.AddApiVersioning(opt =>
                                                     new HeaderApiVersionReader("x-api-version"),
                                                     new MediaTypeApiVersionReader("x-api-version"));
 });
+
 // Add ApiExplorer to discover versions
 builder.Services.AddVersionedApiExplorer(setup =>
 {
@@ -45,9 +66,43 @@ builder.Services.AddVersionedApiExplorer(setup =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{ 
+        Description = "JWT Authorization",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
 
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id= "Bearer"
+                }
+            },
+            new string[]{ }
+        }
+    });
+});
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+    options.TokenValidationParameters = new TokenValidationParameters { 
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWTSettings:Issuer"],
+        ValidAudience = builder.Configuration["JWTSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:Key"]))
+    };
+});
 
 var app = builder.Build();
 
@@ -68,6 +123,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
