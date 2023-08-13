@@ -7,5 +7,6 @@ namespace InsuranceManagementAPI.Helper
         string GenerateSalt();
         string EncryptPassword(string password, string salt);
         string GenerateJWT(User user);
+        string GenerateRefreshToken(string username);
     }
 }
