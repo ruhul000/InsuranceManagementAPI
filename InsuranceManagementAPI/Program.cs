@@ -34,16 +34,19 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 // Configure App Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBankService, BankService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 
 
 // Configure App Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
 builder.Services.AddScoped<IUserFactory, UserFactory>();
+builder.Services.AddScoped<IClientFactory, ClientFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
