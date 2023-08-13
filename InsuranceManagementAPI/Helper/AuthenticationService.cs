@@ -1,5 +1,4 @@
-﻿using InsuranceManagementAPI.Data.Models;
-using InsuranceManagementAPI.Models;
+﻿using InsuranceManagementAPI.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.IdentityModel.Tokens;
@@ -61,7 +60,7 @@ namespace InsuranceManagementAPI.Helper
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key));
             var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
+            var token = new JwtSecurityToken(               
                 jwtSettings.Issuer, 
                 jwtSettings.Audience, 
                 claims,
@@ -71,7 +70,14 @@ namespace InsuranceManagementAPI.Helper
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-
-
+        public string GenerateRefreshToken(string username)
+        {
+            var randomNumber = new byte[32];
+            using (var randomNumberGenerator = RandomNumberGenerator.Create())
+            {
+                randomNumberGenerator.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
     }
 }

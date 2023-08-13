@@ -10,7 +10,8 @@ namespace InsuranceManagementAPI.Data
         {
         }
         public virtual DbSet<BankDto> Bank { get; set; }
-
         public virtual DbSet<UserDto> Users { get; set; }
+        public virtual DbSet<RefreshTokenDto> RefreshTokens { get; set; }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
 using InsuranceManagementAPI.Data.Models;
 using InsuranceManagementAPI.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -10,10 +10,8 @@ namespace InsuranceManagementAPI.Data.Repository
     public class UserRepository : IUserRepository
     {
         private readonly PolicyDBContext _context;
-        private readonly IMapper _mapper;
-        public UserRepository(PolicyDBContext context, IMapper mapper) {
+        public UserRepository(PolicyDBContext context) {
             _context = context;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<UserDto>> GetAll()

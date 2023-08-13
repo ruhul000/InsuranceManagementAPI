@@ -1,4 +1,4 @@
-﻿namespace InsuranceManagementAPI.Data.Models
+﻿namespace InsuranceManagementAPI.Models
 {
     public class JWTSettings
     {
