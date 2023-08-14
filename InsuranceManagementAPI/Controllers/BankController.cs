@@ -8,7 +8,7 @@ namespace InsuranceManagementAPI.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/v{version:apiVersion}")]
+    [Route("api/v{version:apiVersion}/Bank")]
     [ApiVersion("1.0")]
     public class BankController : ControllerBase
     {
@@ -30,6 +30,27 @@ namespace InsuranceManagementAPI.Controllers
                 if(response == null || !response.Any())
                 {
                     return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+        
+        [MapToApiVersion("1.0")]
+        [HttpPost("Create")]
+        public ActionResult<Bank> CreateBank(Bank bank)
+        {
+            Bank? response;
+            try
+            {
+                response = _bankService.Create(bank).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Bank creation failed!");
                 }
             }
             catch (Exception ex)

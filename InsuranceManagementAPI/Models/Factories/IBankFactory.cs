@@ -1,4 +1,5 @@
 ﻿using InsuranceManagementAPI.Data;
+using InsuranceManagementAPI.Data.Models;
 
 namespace InsuranceManagementAPI.Models.Factories
 {
@@ -6,5 +7,8 @@ namespace InsuranceManagementAPI.Models.Factories
     {
         IEnumerable<BankDto> CreateMultipleFrom(IEnumerable<Bank> Bank);
         IEnumerable<Bank> CreateMultipleFrom(IEnumerable<BankDto> BankDtos);
+
+        Bank CreateFrom(BankDto bankDto);
+        BankDto CreateFrom(Bank bank);
     }
 }
