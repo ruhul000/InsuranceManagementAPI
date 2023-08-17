@@ -1,6 +1,7 @@
 ﻿using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace InsuranceManagementAPI.Controllers
             _clientService = clientService;
         }
 
+        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpGet("Clients")]
         public ActionResult<IEnumerable<Client>> GetAllClients()
@@ -40,6 +42,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Client> CreateClient(Client client) 

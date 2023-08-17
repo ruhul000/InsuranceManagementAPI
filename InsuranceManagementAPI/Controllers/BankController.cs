@@ -2,6 +2,7 @@
 using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
@@ -18,6 +19,7 @@ namespace InsuranceManagementAPI.Controllers
             _bankService = bankService;
         }
 
+        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpGet("Banks")]
         public  ActionResult<IEnumerable<Bank>> GetAllBanks()
@@ -38,7 +40,8 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
         }
-        
+
+        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Bank> CreateBank(Bank bank)
