@@ -116,16 +116,31 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Policy1",
         policy =>
         {
-            policy.WithOrigins("http://example.com",
-                                "http://www.contoso.com");
+            policy.WithOrigins("http://localhost:3000/");
         });
 
     options.AddPolicy("Policy",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "https://localhost:7141/")
+            policy.WithOrigins("http://localhost:3000")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
+        });
+
+
+});
+
+
+// Default Policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                                
         });
 });
 
