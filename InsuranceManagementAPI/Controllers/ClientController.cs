@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}")]
     [ApiVersion("1.0")]
