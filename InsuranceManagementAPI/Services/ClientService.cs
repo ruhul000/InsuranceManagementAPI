@@ -28,12 +28,13 @@ namespace InsuranceManagementAPI.Services
             
             try
             {
-                if (!_clientRepository.Add(clientDto).Result)
+                var insertedId = _clientRepository.Add(clientDto).Result;
+                if (insertedId==0)
                 {
                     return response;
                 }
 
-                clientDto = await _clientRepository.GetClientByID(clientDto.ClientKey);
+                clientDto = await _clientRepository.GetClientByID(insertedId);
 
                 response = _clientFactory.CreateFrom(clientDto);
             }

@@ -6,6 +6,6 @@ namespace InsuranceManagementAPI.Data.Repository
     {
         Task<IEnumerable<ClientDto>> GetAllClients();
         Task<ClientDto> GetClientByID(long id);
-        Task<bool> Add(ClientDto clientDto);
+        Task<long> Add(ClientDto clientDto);
     }
 }
