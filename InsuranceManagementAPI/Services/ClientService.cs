@@ -21,6 +21,12 @@ namespace InsuranceManagementAPI.Services
 
             return _clientFactory.CreateMultipleFrom(clientDtos);
         }
+        public async Task<Client> GetClientById(long clientKey)
+        {
+            var clientDto = await _clientRepository.GetClientByID(clientKey);
+
+            return _clientFactory.CreateFrom(clientDto);
+        }
         public async Task<Client?> Create (Client client)
         {
             Client? response = null;
@@ -35,6 +41,30 @@ namespace InsuranceManagementAPI.Services
                 }
 
                 clientDto = await _clientRepository.GetClientByID(insertedId);
+
+                response = _clientFactory.CreateFrom(clientDto);
+            }
+            catch (Exception ex)
+            {
+                return response;
+            }
+
+            return response;
+        }
+        public async Task<Client?> UpdateClient(Client client)
+        {
+            Client? response = null;
+            var clientDto = _clientFactory.CreateFrom(client);
+
+            try
+            {
+                var result = _clientRepository.Update(clientDto).Result;
+                if (result)
+                {
+                    return response;
+                }
+
+                clientDto = await _clientRepository.GetClientByID(clientDto.ClientKey);
 
                 response = _clientFactory.CreateFrom(clientDto);
             }
