@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace InsuranceManagementAPI.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}")]
+    [Route("api/v{version:apiVersion}/User")]
     [ApiVersion("1.0")]
     public class UserController : ControllerBase
     {

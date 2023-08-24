@@ -8,7 +8,7 @@ namespace InsuranceManagementAPI.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/v{version:apiVersion}")]
+    [Route("api/v{version:apiVersion}/Bank")]
     [ApiVersion("1.0")]
     public class BankController : ControllerBase
     {
