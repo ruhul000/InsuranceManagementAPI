@@ -3,6 +3,7 @@ using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace InsuranceManagementAPI.Controllers
 {
@@ -23,12 +24,41 @@ namespace InsuranceManagementAPI.Controllers
         [HttpGet("Clients")]
         public ActionResult<IEnumerable<Client>> GetAllClients()
         {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                // or
+                //identity.FindFirst("").Value;
+            }
+
             IEnumerable<Client> response;
             try
             {
                 response = _clientService.GetAllClients().Result;
 
                 if (response == null || !response.Any())
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("Client/{clientKey}")]
+        public ActionResult<IEnumerable<Client>> GetClientByID(long clientKey)
+        {
+           Client? response;
+            try
+            {
+                response = _clientService.GetClientById(clientKey).Result;
+
+                if (response == null)
                 {
                     return NotFound();
                 }
@@ -60,5 +90,28 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
         }
+
+        [MapToApiVersion("1.0")]
+        [HttpPut("Update")]
+        public ActionResult<Client> UpdateClient(Client client)
+        {
+            Client? response;
+            try
+            {
+                response = _clientService.UpdateClient(client).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Client update failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+
+        }
+
     }
 }

@@ -71,8 +71,9 @@ builder.Services.AddVersionedApiExplorer(setup =>
 builder.Services.AddEndpointsApiExplorer();
 
 // Add JWT Authentication Option in Swagger
-builder.Services.AddSwaggerGen(c =>{
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{ 
+builder.Services.AddSwaggerGen(c => {
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
         Description = "JWT Authorization",
         Name = "Authorization",
         In = ParameterLocation.Header,
@@ -99,7 +100,8 @@ builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 // Configure JWT Validation
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-    options.TokenValidationParameters = new TokenValidationParameters { 
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
@@ -108,6 +110,40 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = builder.Configuration["JWTSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:Key"]))
     };
+});
+
+//Cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy1",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000/");
+        });
+
+    options.AddPolicy("Policy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+
+
+});
+
+
+// Default Policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+
+        });
 });
 
 var app = builder.Build();
@@ -127,6 +163,18 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
+
+
+
+builder.Services.AddControllers();
+
+
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
