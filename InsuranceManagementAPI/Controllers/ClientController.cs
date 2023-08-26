@@ -53,7 +53,7 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors]
         [MapToApiVersion("1.0")]
-        [HttpGet("Client/{clientKey}")]
+        [HttpGet("{clientKey}")]
         public ActionResult<IEnumerable<Client>> GetClientByID(long clientKey)
         {
            Client? response;
