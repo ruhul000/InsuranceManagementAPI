@@ -1,12 +1,13 @@
 ﻿using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace InsuranceManagementAPI.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}")]
+    [Route("api/v{version:apiVersion}/User")]
     [ApiVersion("1.0")]
     public class UserController : ControllerBase
     {
@@ -17,6 +18,7 @@ namespace InsuranceManagementAPI.Controllers
             _userService = userService;            
         }
 
+        [EnableCors("Policy")]
         [HttpPost("Register")]
         [MapToApiVersion("1.0")]
         public ActionResult<UserResponse> Registration(UserRequest userRequest)
@@ -38,6 +40,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors("Policy")]
         [HttpPost("Login")]
         [MapToApiVersion("1.0")]
         public ActionResult<AuthInformation> UserLogin(UserLoginRequest userLoginRequest)
@@ -59,6 +62,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors("Policy")]
         [HttpPost("Refresh")]
         [MapToApiVersion("1.0")]
         public ActionResult<AuthInformation> RefreshToken(AuthInformation authInfo)

@@ -1,4 +1,5 @@
 ﻿using InsuranceManagementAPI.Data;
+using InsuranceManagementAPI.Data.Models;
 using InsuranceManagementAPI.Helper;
 
 namespace InsuranceManagementAPI.Models.Factories
@@ -23,6 +24,15 @@ namespace InsuranceManagementAPI.Models.Factories
         {
             IEnumerable<Bank> response = _bankFactory.CreateMultipleFrom(BankDtos);
             return response;
+        }
+
+        public Bank CreateFrom(BankDto bankDto)
+        {
+            return _bankFactory.CreateFrom(bankDto);
+        }
+        public BankDto CreateFrom(Bank bank)
+        {
+            return _bankDtoFactory.CreateFrom(bank);
         }
     }
 }

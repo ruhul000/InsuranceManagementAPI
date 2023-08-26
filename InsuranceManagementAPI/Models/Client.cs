@@ -1,4 +1,6 @@
-﻿namespace InsuranceManagementAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InsuranceManagementAPI.Models
 {
     public class Client
     {
