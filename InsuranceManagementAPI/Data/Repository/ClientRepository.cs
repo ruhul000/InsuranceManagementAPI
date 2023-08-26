@@ -115,7 +115,7 @@ namespace InsuranceManagementAPI.Data.Repository
         public async Task<bool> Update(ClientDto client)
         {
             var paramList = new List<SqlParameter>();
-            paramList.Add(new SqlParameter { ParameterName = "@Result", Direction = System.Data.ParameterDirection.Output });
+            paramList.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
             paramList.Add(new SqlParameter { ParameterName = "@ClientKey", Value = client.ClientKey });
             paramList.Add(new SqlParameter { ParameterName = "@BranchKey", Value = client.BranchKey });
             paramList.Add(new SqlParameter { ParameterName = "@ClientName", Value = client.ClientName.ToDBNullIfNothing() });
@@ -160,6 +160,14 @@ namespace InsuranceManagementAPI.Data.Repository
 
             var result = Convert.ToBoolean(paramList[0].Value);
             return result;
+        }
+
+        public async Task<bool> Remove(long clientKey)
+        {
+            ClientDto clientDto = new ClientDto { ClientKey = clientKey };
+            _context.Clients.Remove(clientDto);
+         
+            return (_context.SaveChanges()>0);
         }
     }
 }

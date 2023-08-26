@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Client")]
     [ApiVersion("1.0")]
@@ -54,7 +54,7 @@ namespace InsuranceManagementAPI.Controllers
         [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpGet("{clientKey}")]
-        public ActionResult<IEnumerable<Client>> GetClientByID(long clientKey)
+        public ActionResult<Client> GetClientByID(long clientKey)
         {
            Client? response;
             try
@@ -114,6 +114,27 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
 
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpDelete("Delete")]
+        public ActionResult DeleteClient(long clientKey) 
+        {
+            bool deleted;
+            try
+            {
+                deleted = _clientService.DeleteClient(clientKey).Result;
+
+                if (!deleted)
+                {
+                    return BadRequest("Client deleted failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(deleted);
         }
 
     }

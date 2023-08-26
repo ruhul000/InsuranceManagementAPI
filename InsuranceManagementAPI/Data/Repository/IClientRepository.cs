@@ -8,5 +8,6 @@ namespace InsuranceManagementAPI.Data.Repository
         Task<ClientDto> GetClientByID(long id);
         Task<long> Add(ClientDto clientDto);
         Task<bool> Update(ClientDto client);
+        Task<bool> Remove(long clientKey);
     }
 }
