@@ -1,13 +1,14 @@
 ﻿using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Client")]
     [ApiVersion("1.0")]
@@ -20,6 +21,7 @@ namespace InsuranceManagementAPI.Controllers
             _clientService = clientService;
         }
 
+        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpGet("Clients")]
         public ActionResult<IEnumerable<Client>> GetAllClients()
@@ -49,8 +51,9 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors]
         [MapToApiVersion("1.0")]
-        [HttpGet("Client/{clientKey}")]
+        [HttpGet("{clientKey}")]
         public ActionResult<IEnumerable<Client>> GetClientByID(long clientKey)
         {
            Client? response;

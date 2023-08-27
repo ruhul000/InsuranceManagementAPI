@@ -1,9 +1,12 @@
-﻿namespace InsuranceManagementAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace InsuranceManagementAPI.Models
 {
     public class Client
     {
         public long ClientKey { get; set; }
         public int BranchKey { get; set; }
+        [Required]
         public string? ClientName { get; set; }
         public string? ClientNameExtar { get; set; }
         public string? ClientAddress { get; set; }
