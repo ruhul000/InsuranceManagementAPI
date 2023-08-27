@@ -75,5 +75,23 @@ namespace InsuranceManagementAPI.Services
 
             return response;
         }
+        public async Task<bool> DeleteClient(long clientKey)
+        {
+            var deleted = false;
+            try
+            {
+                deleted = await _clientRepository.Remove(clientKey);
+                if (deleted)
+                {
+                    return deleted;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return deleted;
+        }
     }
 }
