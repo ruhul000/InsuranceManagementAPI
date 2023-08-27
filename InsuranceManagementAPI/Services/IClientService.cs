@@ -8,5 +8,6 @@ namespace InsuranceManagementAPI.Services
         Task<Client> GetClientById(long clientKey);
         Task<Client> Create(Client client);
         Task<Client?> UpdateClient(Client client);
+        Task<bool> DeleteClient(long clientKey);
     }
 }
