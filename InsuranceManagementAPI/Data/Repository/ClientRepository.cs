@@ -153,7 +153,7 @@ namespace InsuranceManagementAPI.Data.Repository
             paramList.Add(new SqlParameter { ParameterName = "@Date_C", Value = client.Date_C.ToDBNullIfNothing() });
             paramList.Add(new SqlParameter { ParameterName = "@BackupType", Value = client.BackupType.ToDBNullIfNothing() });
 
-            await _context.Database.ExecuteSqlRawAsync("EXECUTE UpdateClient @Result, @ClientKey, @BranchKey, @ClientName, @ClientNameExtar, @ClientAddress, @ClientMobile, @ClientType, @ClientTypeTwo, " +
+            await _context.Database.ExecuteSqlRawAsync("EXECUTE UpdateClient @Result OUT, @ClientKey, @BranchKey, @ClientName, @ClientNameExtar, @ClientAddress, @ClientMobile, @ClientType, @ClientTypeTwo, " +
                 "@ClientSector, @ClientVATNo, @ClientBINNo, @ClientTINNo, @Client_VAT_Exemption, @GroupKey, @ClientPhone, @ClientFax, @ClientEMail, @ClientRelation, @ClientWeb, @ClientContractPer, " +
                 "@ClientDesignation, @SpecDiscount, @EmpKeyDirectorRef, @Status, @Int_A, @Int_B, @Int_C, @Int_D, @Str_A, @Str_B, @Str_C, @Str_D, @Date_A, @Date_B, @Date_C, @BackupType",
                 paramList);

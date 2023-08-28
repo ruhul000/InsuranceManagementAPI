@@ -59,7 +59,7 @@ namespace InsuranceManagementAPI.Services
             try
             {
                 var result = _clientRepository.Update(clientDto).Result;
-                if (result)
+                if (!result)
                 {
                     return response;
                 }
