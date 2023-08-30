@@ -109,3 +109,30 @@ GO
 
 Print 'Table Created Successfully : tab_Client'
 GO
+
+
+
+/****** Object:  Table [dbo].[BankBranch]    Script Date: 08/28/2023 11:56:23 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[BankBranch](
+	[BranchId] [int] IDENTITY(1,1) NOT NULL,
+	[BranchName] [varchar](200) NULL,
+	[BankId] [int] NULL,
+	[BranchAddress] [varchar](500) NULL,
+	[SwiftCode] [varchar](50) NULL,
+	[RoutingNumber] [varchar](50) NULL,
+	[Status] [bit] NULL,
+	[EntryUserID] [int] NULL,
+	[EntryTime] [datetime] NULL,
+	[UpdateUserID] [int] NULL,
+	[UpdateTime] [datetime] NULL
+) ON [PRIMARY]
+GO
+
+
+

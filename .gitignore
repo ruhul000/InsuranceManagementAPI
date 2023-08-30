@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 /InsuranceManagementAPI/appsettings.json
 /InsuranceManagementAPI/appsettings.Development.json
+/InsuranceManagementAPI/Data/Models/BankBranchDto.cs
+/InsuranceManagementAPI/Models/BankBranch.cs
+/InsuranceManagementAPI/Services/IBankBranchService.cs
