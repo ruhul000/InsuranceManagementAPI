@@ -34,17 +34,20 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 // Configure App Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBankService, BankService>();
+builder.Services.AddScoped<IBankBranchService, BankBranchService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 
 
 // Configure App Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
+builder.Services.AddScoped<IBankBranchRepository, BankBranchRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
+builder.Services.AddScoped<IBankBranchFactory, BankBranchFactory>();
 builder.Services.AddScoped<IUserFactory, UserFactory>();
 builder.Services.AddScoped<IClientFactory, ClientFactory>();
 
@@ -110,6 +113,40 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+//Cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy1",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000/");
+        });
+
+    options.AddPolicy("Policy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+
+
+});
+
+
+// Default Policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                                
+        });
+});
+
 var app = builder.Build();
 
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
@@ -127,6 +164,18 @@ if (app.Environment.IsDevelopment())
         }
     });
 }
+
+
+
+builder.Services.AddControllers();
+
+
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
