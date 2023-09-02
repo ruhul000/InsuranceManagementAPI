@@ -73,6 +73,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Client> CreateClient(Client client) 
@@ -94,6 +95,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Client> UpdateClient(Client client)
@@ -116,6 +118,7 @@ namespace InsuranceManagementAPI.Controllers
 
         }
 
+        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpDelete("Delete")]
         public ActionResult DeleteClient(long clientKey) 

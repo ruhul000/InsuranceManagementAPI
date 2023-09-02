@@ -233,3 +233,138 @@ END
 GO
 Print 'Sproc Created Successfully : UpdateClient'
 GO
+
+CREATE PROCEDURE [dbo].[GetAllBankBranches] 
+	@BankName nvarchar(200) ,
+	@Branchname nvarchar(200) 
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	WHERe Bank.BankName like '%' + @BankName +'%' AND BankBranch.BranchName like '%' + @Branchname +'%'
+	Order by Bank.BankName, BankBranch.BranchName
+    
+END
+
+GO
+
+USE [Policy]
+GO
+
+/****** Object:  StoredProcedure [dbo].[BankBranchAdd]    Script Date: 8/31/2023 5:26:45 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+-- =============================================
+CREATE PROCEDURE [dbo].[BankBranchAdd]
+	@BranchId [int] OUT,
+	@BankId [int],
+	@BranchName varchar(200) = NULL,
+	@BranchAddress [varchar](1000) = NULL,
+	@SwiftCode [varchar](1000) = NULL,
+	@ClientMobile [varchar](100) = NULL,
+	@RoutingNumber [varchar](100) = NULL,
+	@Status bit = NULL,
+	@EntryUserID [varchar](100) = NULL,
+	@EntryTime [varchar](100) = NULL,
+	@UpdateUserID [varchar](100) = NULL,
+	@UpdateTime [varchar](100) = NULL
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+	INSERT INTO dbo.BankBranch
+	(
+		BranchName,
+		BankId,
+		BranchAddress,
+		SwiftCode,
+		RoutingNumber,
+		[Status],
+		EntryUserID,
+		EntryTime,
+		UpdateUserID,
+		UpdateTime
+	)
+	VALUES
+	(	
+		@BranchName,
+		@BankId,
+		@BranchAddress,
+		@SwiftCode,
+		@RoutingNumber,
+		@Status,
+		@EntryUserID,
+		@EntryTime,
+		@UpdateUserID,
+		@UpdateTime
+	)
+	SET @BranchId=SCOPE_IDENTITY()
+    
+END
+GO
+
+
+CREATE PROCEDURE BankUpdate
+	@Result [int] OUT,
+	@BankId int,
+	@BankName varchar(100)
+AS
+BEGIN
+	UPDATE Bank SET BankName=@BankName WHEre BankId=@BankId
+	SET @Result = 1
+END
+GO
+
+
+CREATE PROCEDURE BankBranchUpdate
+	@Result [int] OUT,
+	@BranchId int,
+	@BranchName varchar(100),
+	@BankId  int,
+	@BranchAddress nvarchar(500),
+	@SwiftCode varchar(50),
+	@RoutingNumber varchar(50),
+	@Status bit,
+	@UpdateUserID int,
+	@UpdateTime datetime
+AS
+BEGIN
+	UPDATE BankBranch SET BranchName=@BranchName, BankId=@BankId,BranchAddress=@BranchAddress,SwiftCode=@SwiftCode,
+	RoutingNumber=@RoutingNumber,Status=@Status,UpdateUserID=@UpdateUserID,UpdateTime=@UpdateTime WHEre BranchId=@BranchId
+	SET @Result = 1
+END
+GO
+
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllBankBranches]    Script Date: 09/02/2023 1:57:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[GetBankBranchById] 
+	@BranchId int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	WHERe BankBranch.Branchid= @BranchId
+	
+    
+END
+
+
+
+
+
+
