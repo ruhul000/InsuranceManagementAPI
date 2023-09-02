@@ -110,6 +110,29 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors]
         [MapToApiVersion("1.0")]
+        [HttpPut("Update")]
+        public ActionResult<BankBranch> Update(BankBranch bankBranch)
+        {
+            BankBranch? response;
+            try
+            {
+                response = _bankBranchService.Update(bankBranch).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Bank Branch update failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
         [HttpDelete("Delete")]
         public ActionResult DeleteClient(int branchId)
         {

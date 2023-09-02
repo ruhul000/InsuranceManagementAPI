@@ -8,8 +8,7 @@ namespace InsuranceManagementAPI.Data.Models
     {
         [Key]
         public int BranchId { get; set; }
-        public string? BranchName { get; set; } = string.Empty;
-        
+        public string? BranchName { get; set; } = string.Empty;      
         public string? BankName { get; set; } = string.Empty;
         public int? BankId { get; set; }
         public string? BranchAddress { get; set; } = string.Empty;

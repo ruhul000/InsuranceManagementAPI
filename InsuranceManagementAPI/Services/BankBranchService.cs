@@ -41,7 +41,8 @@ namespace InsuranceManagementAPI.Services
                     return response;
                 }
 
-                bankBranchDto = await _bankBranchRepository.GetBankBranchById(bankBranchDto.BranchId);
+                //bankBranchDto = await _bankBranchRepository.GetBankBranchById(bankBranchDto.BranchId);
+                bankBranchDto.BranchId = insertedId;
 
                 response = _bankBranchFactory.CreateFrom(bankBranchDto);
             }
@@ -58,6 +59,31 @@ namespace InsuranceManagementAPI.Services
             var bankBranchDto = await _bankBranchRepository.GetBankBranchById(BranchId);
 
             return _bankBranchFactory.CreateFrom(bankBranchDto);
+        }
+
+        public async Task<BankBranch?> Update(BankBranch bankBranch)
+        {
+            BankBranch? response = null;
+            var bankBranchDto = _bankBranchFactory.CreateFrom(bankBranch);
+
+            try
+            {
+                var result = _bankBranchRepository.Update(bankBranchDto).Result;
+                if (!result)
+                {
+                    return response;
+                }
+
+                //bankBranchDto = await _bankBranchRepository.GetBankBranchByID(bankDto.BankId);
+
+                response = _bankBranchFactory.CreateFrom(bankBranchDto);
+            }
+            catch (Exception ex)
+            {
+                return response;
+            }
+
+            return response;
         }
 
         public async Task<bool> Delete(int branchId)

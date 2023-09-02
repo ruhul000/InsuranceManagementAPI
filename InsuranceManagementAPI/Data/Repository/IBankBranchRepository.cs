@@ -8,6 +8,7 @@ namespace InsuranceManagementAPI.Data.Repository
         Task<int> Add(BankBranchDto bankBranchDto);
         Task<IEnumerable<BankBranchDto>> GetBankBranches(int bankId);
         Task<BankBranchDto> GetBankBranchById(int branchId);
+        Task<bool> Update(BankBranchDto bankBranchDto);
         Task<bool> Remove(int branchId);
 
     }

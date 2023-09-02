@@ -8,6 +8,7 @@ namespace InsuranceManagementAPI.Data
     {
         [Key]
         public int BankId { get; set; }
+        
         public string BankName { get; set; }
     }
 }

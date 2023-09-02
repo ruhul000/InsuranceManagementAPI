@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using InsuranceManagementAPI.Data.Models;
+using InsuranceManagementAPI.Extensions;
 using InsuranceManagementAPI.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace InsuranceManagementAPI.Data.Repository
@@ -27,6 +29,28 @@ namespace InsuranceManagementAPI.Data.Repository
         {
             _context.Bank.Add(bank);
             return (await _context.SaveChangesAsync() > 0);
+        }
+
+        public async Task<bool> Update(BankDto bank)
+        {
+            var paramList = new List<SqlParameter>();
+            paramList.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
+            paramList.Add(new SqlParameter { ParameterName = "@BankId", Value = bank.BankId});
+            paramList.Add(new SqlParameter { ParameterName = "@BankName", Value = bank.BankName });
+
+
+            await _context.Database.ExecuteSqlRawAsync("EXECUTE BankUpdate @Result OUT, @BankId, @BankName",
+                paramList);
+
+            var result = Convert.ToBoolean(paramList[0].Value);
+            return result;
+        }
+        public async Task<bool> Remove(int bankId)
+        {
+            BankDto bankDto = new BankDto { BankId = bankId };
+            _context.Bank.Remove(bankDto);
+
+            return (_context.SaveChanges() > 0);
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Bank")]
     [ApiVersion("1.0")]
@@ -41,6 +41,51 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpGet("{bankId}")]
+        public ActionResult<Bank> GetBankByID(int bankId)
+        {
+            Bank? response;
+            try
+            {
+                response = _bankService.GetBankById(bankId).Result;
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpPut("Update")]
+        public ActionResult<Client> Update(Bank bank)
+        {
+            Bank? response;
+            try
+            {
+                response = _bankService.Update(bank).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Bank update failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+
+        }
+
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
@@ -62,5 +107,29 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
         }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpDelete("Delete")]
+        public ActionResult<bool>DeleteBank(int  bankId)
+        {
+            bool deleted;
+            try
+            {
+                deleted = _bankService.Delete(bankId).Result;
+
+                if (!deleted)
+                {
+                    return BadRequest("Bank delete failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(deleted);
+
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using InsuranceManagementAPI.Data.Models;
+﻿using AutoMapper;
+using InsuranceManagementAPI.Data.Models;
+using InsuranceManagementAPI.Extensions;
 using InsuranceManagementAPI.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +32,13 @@ namespace InsuranceManagementAPI.Data.Repository
 
         public async Task<BankBranchDto> GetBankBranchById(int id)
         {
-            return await _context.BankBranch.FirstOrDefaultAsync(obj => obj.BranchId == id);
-        }
+            //return await _context.BankBranch.FirstOrDefaultAsync(obj => obj.BranchId == id);
 
+            var result = _context.BankBranch.FromSqlRaw("EXECUTE GetBankBranchById {0}", id).AsEnumerable().FirstOrDefault();
+
+            return result;
+        }
+    
         public async Task<IEnumerable<BankBranchDto>> GetBankBranches(int bankId)
         {
             return await _context.BankBranch.Where(obj => obj.BankId == bankId).ToListAsync();
@@ -78,6 +84,25 @@ namespace InsuranceManagementAPI.Data.Repository
             return (_context.SaveChanges() > 0);
         }
 
-       
+        public async Task<bool> Update(BankBranchDto bankBranchDto)
+        {
+            var paramList = new List<SqlParameter>();
+            paramList.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
+            paramList.Add(new SqlParameter { ParameterName = "@BranchId", Value = bankBranchDto.BranchId });
+            paramList.Add(new SqlParameter { ParameterName = "@BranchName", Value = bankBranchDto.BranchName });            
+            paramList.Add(new SqlParameter { ParameterName = "@BankId", Value = bankBranchDto.BankId });
+            paramList.Add(new SqlParameter { ParameterName = "@BranchAddress", Value = bankBranchDto.BranchAddress });
+            paramList.Add(new SqlParameter { ParameterName = "@SwiftCode", Value = bankBranchDto.SwiftCode });
+            paramList.Add(new SqlParameter { ParameterName = "@RoutingNumber", Value = bankBranchDto.RoutingNumber });
+            paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranchDto.Status });
+            paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = bankBranchDto.UpdateUserID });
+            paramList.Add(new SqlParameter { ParameterName = "@UpdateTime", Value = bankBranchDto.UpdateTime });
+
+
+            await _context.Database.ExecuteSqlRawAsync("EXECUTE BankBranchUpdate @Result OUT,@BranchId ,@BranchName ,@BankId,@BranchAddress ,@SwiftCode ,@RoutingNumber ,@Status ,@UpdateUserID ,@UpdateTime", paramList);
+
+            var result = Convert.ToBoolean(paramList[0].Value);
+            return result;
+        }
     }
 }

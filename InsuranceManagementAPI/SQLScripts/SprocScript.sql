@@ -261,10 +261,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
--- =============================================
--- Author:		Omar Faruk
--- Create date: 31/08/2023
--- Description:	<Description,,>
+
 -- =============================================
 CREATE PROCEDURE [dbo].[BankBranchAdd]
 	@BranchId [int] OUT,
@@ -313,6 +310,60 @@ BEGIN
     
 END
 GO
+
+
+CREATE PROCEDURE BankUpdate
+	@Result [int] OUT,
+	@BankId int,
+	@BankName varchar(100)
+AS
+BEGIN
+	UPDATE Bank SET BankName=@BankName WHEre BankId=@BankId
+	SET @Result = 1
+END
+GO
+
+
+CREATE PROCEDURE BankBranchUpdate
+	@Result [int] OUT,
+	@BranchId int,
+	@BranchName varchar(100),
+	@BankId  int,
+	@BranchAddress nvarchar(500),
+	@SwiftCode varchar(50),
+	@RoutingNumber varchar(50),
+	@Status bit,
+	@UpdateUserID int,
+	@UpdateTime datetime
+AS
+BEGIN
+	UPDATE BankBranch SET BranchName=@BranchName, BankId=@BankId,BranchAddress=@BranchAddress,SwiftCode=@SwiftCode,
+	RoutingNumber=@RoutingNumber,Status=@Status,UpdateUserID=@UpdateUserID,UpdateTime=@UpdateTime WHEre BranchId=@BranchId
+	SET @Result = 1
+END
+GO
+
+GO
+/****** Object:  StoredProcedure [dbo].[GetAllBankBranches]    Script Date: 09/02/2023 1:57:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+Create PROCEDURE [dbo].[GetBankBranchById] 
+	@BranchId int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	WHERe BankBranch.Branchid= @BranchId
+	
+    
+END
+
+
 
 
 
