@@ -362,6 +362,22 @@ BEGIN
 	
     
 END
+GO
+
+
+Create PROCEDURE [dbo].[GetBankBranches] 
+	@BankId int
+AS
+BEGIN
+	
+	SET NOCOUNT ON;
+
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	WHERe BankBranch.BankId= @BankId
+	
+    
+END
+GO
 
 
 

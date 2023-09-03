@@ -41,7 +41,12 @@ namespace InsuranceManagementAPI.Data.Repository
     
         public async Task<IEnumerable<BankBranchDto>> GetBankBranches(int bankId)
         {
-            return await _context.BankBranch.Where(obj => obj.BankId == bankId).ToListAsync();
+            //return await _context.BankBranch.Where(obj => obj.BankId == bankId).ToListAsync();
+            var result = _context.BankBranch.FromSqlRaw<BankBranchDto>("EXECUTE GetBankBranches {0}", bankId).ToList();
+
+
+
+            return result;
         }
         
 
@@ -94,7 +99,7 @@ namespace InsuranceManagementAPI.Data.Repository
             paramList.Add(new SqlParameter { ParameterName = "@BranchAddress", Value = bankBranchDto.BranchAddress });
             paramList.Add(new SqlParameter { ParameterName = "@SwiftCode", Value = bankBranchDto.SwiftCode });
             paramList.Add(new SqlParameter { ParameterName = "@RoutingNumber", Value = bankBranchDto.RoutingNumber });
-            paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranchDto.Status });
+            paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranchDto.Status==null?DBNull.Value:bankBranchDto.Status });
             paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = bankBranchDto.UpdateUserID });
             paramList.Add(new SqlParameter { ParameterName = "@UpdateTime", Value = bankBranchDto.UpdateTime });
 
