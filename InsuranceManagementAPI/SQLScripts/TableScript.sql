@@ -134,5 +134,30 @@ CREATE TABLE [dbo].[BankBranch](
 ) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[InsuranceCompany](
+	[CompanyId] [int] IDENTITY(1,1) NOT NULL,
+	[CompanyName] [varchar](100) NULL,
+	[status] [bit] NULL,
+	[EntryUserID] [int] NULL,
+	[EntryTime] [datetime] NULL,
+	[UpdateUserID] [int] NULL,
+	[UpdateTime] [datetime] NULL,
+ CONSTRAINT [PK_InsuranceCompany] PRIMARY KEY CLUSTERED 
+(
+	[CompanyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
 
+SET ANSI_PADDING ON
+GO
 
+/****** Object:  Index [IX_InsuranceCompany]    Script Date: 9/5/2023 2:50:28 PM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [IX_InsuranceCompany] ON [dbo].[InsuranceCompany]
+(
+	[CompanyName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[InsuranceCompany] ADD  CONSTRAINT [DF_InsuranceCompany_EntryTime]  DEFAULT (getdate()) FOR [EntryTime]
+GO

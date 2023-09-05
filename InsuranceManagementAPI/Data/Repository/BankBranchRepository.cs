@@ -64,13 +64,13 @@ namespace InsuranceManagementAPI.Data.Repository
                 paramList.Add(new SqlParameter { ParameterName = "@BranchAddress", Value = bankBranch.BranchAddress.ToString() });
                 paramList.Add(new SqlParameter { ParameterName = "@SwiftCode", Value = bankBranch.SwiftCode.ToString() });
                 paramList.Add(new SqlParameter { ParameterName = "@RoutingNumber", Value = bankBranch.RoutingNumber.ToString() });
-                paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranch.Status });
+                paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranch.Status.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@EntryUserID", Value = bankBranch.EntryUserID });
                 paramList.Add(new SqlParameter { ParameterName = "@EntryTime", Value = DateTime.Now });
                 paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = bankBranch.UpdateUserID });
                 paramList.Add(new SqlParameter { ParameterName = "@UpdateTime", Value = DateTime.Now });
 
-                await _context.Database.ExecuteSqlRawAsync("EXECUTE BankBranchAdd @BranchId OUT, @BranchName, @BankId, @BranchAddress, @SwiftCode, @RoutingNumber, @Status, @EntryUserID, @EntryTime, @UpdateUserID, @UpdateTime",    paramList);
+                await _context.Database.ExecuteSqlRawAsync("EXECUTE BankBranchAdd @BranchId OUT, @BankId, @BranchName,  @BranchAddress, @SwiftCode, @RoutingNumber, @Status, @EntryUserID, @EntryTime, @UpdateUserID, @UpdateTime",    paramList);
 
                 BranchId = Convert.ToInt32(paramList[0].Value);
             }
@@ -99,7 +99,7 @@ namespace InsuranceManagementAPI.Data.Repository
             paramList.Add(new SqlParameter { ParameterName = "@BranchAddress", Value = bankBranchDto.BranchAddress });
             paramList.Add(new SqlParameter { ParameterName = "@SwiftCode", Value = bankBranchDto.SwiftCode });
             paramList.Add(new SqlParameter { ParameterName = "@RoutingNumber", Value = bankBranchDto.RoutingNumber });
-            paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranchDto.Status==null?DBNull.Value:bankBranchDto.Status });
+            paramList.Add(new SqlParameter { ParameterName = "@Status", Value = bankBranchDto.Status.ToDBNullIfNothing()});
             paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = bankBranchDto.UpdateUserID });
             paramList.Add(new SqlParameter { ParameterName = "@UpdateTime", Value = bankBranchDto.UpdateTime });
 

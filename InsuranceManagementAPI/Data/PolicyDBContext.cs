@@ -14,5 +14,6 @@ namespace InsuranceManagementAPI.Data
         public virtual DbSet<UserDto> Users { get; set; }
         public virtual DbSet<RefreshTokenDto> RefreshTokens { get; set; }
         public virtual DbSet<ClientDto> Clients { get; set; }
+        public virtual DbSet<InsuranceCompanyDto> InsuranceCompany { get; set; }
     }
 }

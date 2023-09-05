@@ -379,6 +379,73 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE [dbo].[GetAllInsuranceCompanies]
+	
+AS
+BEGIN
+	SELECT * FROM InsuranceCompany
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[GetInsuranceCompanyById] 
+	@CompanyId int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT * from InsuranceCompany
+	WHERe InsuranceCompany.CompanyId= @CompanyId
+	
+    
+END
+GO
+CREATE PROCEDURE [dbo].[InsuranceCompanyUpdate]
+	@Result bit output,
+	@CompanyId int,
+	@CompanyName varchar(100),
+	@status bit,
+	@UpdateUserId int,
+	@UpdateTime datetime
+AS
+
+BEGIN
+	
+	DECLARE @ThisCount AS INT
+	SELECT @ThisCount=COUNT(*) FROM InsuranceCompany WHERE CompanyId=@CompanyId
+
+	IF @ThisCount > 0
+	BEGIN
+		UPDATE InsuranceCompany SET CompanyName=@CompanyName,status= @status,UpdateUserId=@UpdateUserId,UpdateTime=@UpdateTime WHERE CompanyId=@CompanyId
+		SET @Result = 1
+	END
+	ELSE
+	BEGIN
+		SET @Result = 0
+	END
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsuranceCompanyAdd]
+	@CompanyId int out,
+	@CompanyName varchar(100),
+	@status bit,
+	@EntryUserID int,
+	@EntryTime datetime,
+	@UpdateUserID int,
+	@UpdateTime datetime
+
+AS
+BEGIN
+	INSERT INTO dbo.InsuranceCompany (CompanyName,status,EntryUserID,EntryTime,UpdateUserID,UpdateTime) values(@CompanyName,@status,@EntryUserID,@EntryTime,@UpdateUserID,@UpdateTime)
+
+    SET @CompanyId=SCOPE_IDENTITY()
+	
+END
+GO
+
 
 
 
