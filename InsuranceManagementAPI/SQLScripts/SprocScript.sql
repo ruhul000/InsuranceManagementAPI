@@ -446,6 +446,28 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE SP_Company_Add
+	@CompanyId int OUT,
+	@Name varchar(100) ,
+	@ShortCode varchar(10) ,
+	@Address varchar(500) ,
+	@Phone varchar(50) ,
+	@Fax varchar(50) ,
+	@MobileNo varchar(50) ,
+	@Email varchar(50) ,
+	@IssuingPlace varchar(50) ,
+	@Web varchar(50) ,
+	@Logo image ,
+	@Banner image 
+AS
+BEGIN
+	INSERT INTO dbo.Company ([Name],ShortCode,[Address],Phone,Fax,MobileNo,Email,IssuingPlace,Web,Logo,Banner)
+	VALUES(@Name,@ShortCode,@Address,@Phone,@Fax,@MobileNo,@Email,@IssuingPlace,@Web,@Logo,@Banner)
+	SET @CompanyId =SCOPE_IDENTITY()
+END
+GO
+
+
 
 
 

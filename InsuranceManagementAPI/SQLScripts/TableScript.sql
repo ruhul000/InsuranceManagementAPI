@@ -161,3 +161,23 @@ GO
 
 ALTER TABLE [dbo].[InsuranceCompany] ADD  CONSTRAINT [DF_InsuranceCompany_EntryTime]  DEFAULT (getdate()) FOR [EntryTime]
 GO
+
+CREATE TABLE [dbo].[Company](
+	[CompanyId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](100) NULL,
+	[ShortCode] [varchar](10) NULL,
+	[Address] [varchar](500) NULL,
+	[Phone] [varchar](50) NULL,
+	[Fax] [varchar](50) NULL,
+	[MobileNo] [varchar](50) NULL,
+	[Email] [varchar](50) NULL,
+	[IssuingPlace] [varchar](50) NULL,
+	[Web] [varchar](50) NULL,
+	[Logo] [image] NULL,
+	[Banner] [image] NULL,
+ CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED 
+(
+	[CompanyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
