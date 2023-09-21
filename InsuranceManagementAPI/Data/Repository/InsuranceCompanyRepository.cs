@@ -15,18 +15,18 @@ namespace InsuranceManagementAPI.Data.Repository
         {
             _context = context;
         }
-        public async Task<Int32> Add(InsuranceCompanyDto insuranceCompanyDto)
+        public async Task<Int32> Add(InsurancebranchDto insurancebranchDto)
         {
             int CompanyId = 0;
             try
             {
                 var paramList = new List<SqlParameter>();
                 paramList.Add(new SqlParameter { ParameterName = "@CompanyId", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
-                paramList.Add(new SqlParameter { ParameterName = "@CompanyName", Value = insuranceCompanyDto.CompanyName.ToString() });
-                paramList.Add(new SqlParameter { ParameterName = "@status", Value = insuranceCompanyDto.status.ToDBNullIfNothing() });
-                paramList.Add(new SqlParameter { ParameterName = "@EntryUserID", Value = insuranceCompanyDto.EntryUserID.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@CompanyName", Value = insurancebranchDto.CompanyName.ToString() });
+                paramList.Add(new SqlParameter { ParameterName = "@status", Value = insurancebranchDto.status.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@EntryUserID", Value = insurancebranchDto.EntryUserID.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@EntryTime", Value = DateTime.Now });
-                paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = insuranceCompanyDto.UpdateUserID.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = insurancebranchDto.UpdateUserID.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@UpdateTime", Value = DateTime.Now });
 
                 await _context.Database.ExecuteSqlRawAsync("EXECUTE InsuranceCompanyAdd @CompanyId OUT, @CompanyName, @status, @EntryUserID, @EntryTime, @UpdateUserID, @UpdateTime", paramList);
@@ -39,15 +39,15 @@ namespace InsuranceManagementAPI.Data.Repository
             return CompanyId;
         }
 
-        public async Task<IEnumerable<InsuranceCompanyDto>> GetAll()
+        public async Task<IEnumerable<InsurancebranchDto>> GetAll()
         {
-            var result = _context.InsuranceCompany.FromSqlRaw<InsuranceCompanyDto>("EXECUTE GetAllInsuranceCompanies").ToList();
+            var result = _context.InsuranceCompany.FromSqlRaw<InsurancebranchDto>("EXECUTE GetAllInsuranceCompanies").ToList();
 
 
             return result;
         }
 
-        public async Task<InsuranceCompanyDto> GetByID(int id)
+        public async Task<InsurancebranchDto> GetByID(int id)
         {
             var result = _context.InsuranceCompany.FromSqlRaw("EXECUTE GetInsuranceCompanyById {0}", id).AsEnumerable().FirstOrDefault();
 
@@ -56,20 +56,20 @@ namespace InsuranceManagementAPI.Data.Repository
 
         public async Task<bool> Remove(int companyId)
         {
-            InsuranceCompanyDto insuranceCompanyDto = new InsuranceCompanyDto { CompanyId = companyId};
-            _context.InsuranceCompany.Remove(insuranceCompanyDto);
+            InsurancebranchDto insurancebranchDto = new InsurancebranchDto { CompanyId = companyId};
+            _context.InsuranceCompany.Remove(insurancebranchDto);
 
             return (_context.SaveChanges() > 0);
         }
 
-        public async Task<bool> Update(InsuranceCompanyDto insuranceCompanyDto)
+        public async Task<bool> Update(InsurancebranchDto insurancebranchDto)
         {
             var paramList = new List<SqlParameter>();
             paramList.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
-            paramList.Add(new SqlParameter { ParameterName = "@CompanyId", Value = insuranceCompanyDto.CompanyId });
-            paramList.Add(new SqlParameter { ParameterName = "@CompanyName", Value = insuranceCompanyDto.CompanyName.ToDBNullIfNothing() });
-            paramList.Add(new SqlParameter { ParameterName = "@status", Value = insuranceCompanyDto.status.ToDBNullIfNothing() });
-            paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = insuranceCompanyDto.UpdateUserID.ToDBNullIfNothing() });
+            paramList.Add(new SqlParameter { ParameterName = "@CompanyId", Value = insurancebranchDto.CompanyId });
+            paramList.Add(new SqlParameter { ParameterName = "@CompanyName", Value = insurancebranchDto.CompanyName.ToDBNullIfNothing() });
+            paramList.Add(new SqlParameter { ParameterName = "@status", Value = insurancebranchDto.status.ToDBNullIfNothing() });
+            paramList.Add(new SqlParameter { ParameterName = "@UpdateUserID", Value = insurancebranchDto.UpdateUserID.ToDBNullIfNothing() });
             paramList.Add(new SqlParameter { ParameterName = "@UpdateTime", Value = DateTime.Now });
 
 

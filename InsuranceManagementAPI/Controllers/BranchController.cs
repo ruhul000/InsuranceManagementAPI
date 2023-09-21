@@ -9,27 +9,50 @@ namespace InsuranceManagementAPI.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/v{version:apiVersion}/Bank")]
+    [Route("api/v{version:apiVersion}/Branch")]
     [ApiVersion("1.0")]
-    public class BankController : ControllerBase
+    public class BranchController : ControllerBase
     {
-        private readonly IBankService _bankService;
-        public BankController(IBankService bankService)
+
+        private readonly IBranchService _branchService;
+        public BranchController(IBranchService branchService)
         {
-            _bankService = bankService;
+            _branchService = branchService;
         }
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
-        [HttpGet("Banks")]
-        public  ActionResult<IEnumerable<Bank>> GetAllBanks()
+        [HttpPost("Create")]
+        public ActionResult<Branch> Create(Branch branch)
         {
-            IEnumerable<Bank> response;
+            Branch? response;
             try
             {
-                response = _bankService.GetAllBanks().Result;
-                
-                if(response == null || !response.Any())
+                response = _branchService.Create(branch).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Branch creation failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [EnableCors("Policy")]
+        [MapToApiVersion("1.0")]
+        [HttpGet("Branches")]
+        public ActionResult<IEnumerable<Branch>> GetAll()
+        {
+            IEnumerable<Branch> response;
+            try
+            {
+                response = _branchService.GetAll().Result;
+
+                if (response == null || !response.Any())
                 {
                     return NotFound();
                 }
@@ -41,20 +64,48 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
-        [HttpGet("{bankId}")]
-        public ActionResult<Bank> GetBankByID(int bankId)
+        [HttpGet("company/{ComKey}")]
+        public ActionResult<IEnumerable<Branch>> GetAllByCompanyId(int ComKey)
         {
-            Bank? response;
+            IEnumerable<Branch> response;
             try
             {
-                response = _bankService.GetBankById(bankId).Result;
+                response = _branchService.GetAllByCompanyID(ComKey).Result;
 
                 if (response == null)
                 {
                     return NotFound();
                 }
+                else if(response.Count()==0)
+                {
+                    return Ok(response);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [EnableCors("Policy")]
+        [MapToApiVersion("1.0")]
+        [HttpGet("{BranchKey}")]
+        public ActionResult<Branch> GetById(int BranchKey)
+        {
+            Branch? response;
+            try
+            {
+                response = _branchService.GetById(BranchKey).Result;
+
+                if (response == null)
+                {
+                    return NotFound();
+                }               
+
             }
             catch (Exception ex)
             {
@@ -66,16 +117,16 @@ namespace InsuranceManagementAPI.Controllers
         [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
-        public ActionResult<Bank> Update(Bank bank)
+        public ActionResult<Branch> Update(Branch branch)
         {
-            Bank? response;
+            Branch? response;
             try
             {
-                response = _bankService.Update(bank).Result;
+                response = _branchService.Update(branch).Result;
 
                 if (response == null)
                 {
-                    return BadRequest("Bank update failed!");
+                    return BadRequest("Branch update failed!");
                 }
             }
             catch (Exception ex)
@@ -83,51 +134,6 @@ namespace InsuranceManagementAPI.Controllers
                 return BadRequest(ex.Message);
             }
             return Ok(response);
-
-        }
-
-        [EnableCors("Policy")]
-        [MapToApiVersion("1.0")]
-        [HttpPost("Create")]
-        public ActionResult<Bank> CreateBank(Bank bank)
-        {
-            Bank? response;
-            try
-            {
-                response = _bankService.Create(bank).Result;
-
-                if (response == null)
-                {
-                    return BadRequest("Bank creation failed!");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(response);
-        }
-
-        [EnableCors]
-        [MapToApiVersion("1.0")]
-        [HttpDelete("Delete")]
-        public ActionResult<bool>DeleteBank(int  bankId)
-        {
-            bool deleted;
-            try
-            {
-                deleted = _bankService.Delete(bankId).Result;
-
-                if (!deleted)
-                {
-                    return BadRequest("Bank delete failed!");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(deleted);
 
         }
 

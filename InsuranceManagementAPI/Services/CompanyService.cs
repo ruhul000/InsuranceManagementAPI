@@ -16,20 +16,20 @@ namespace InsuranceManagementAPI.Services
         public async Task<Company> Create(Company company)
         {
             Company? response = null;
-            var companyDto = _companyFactory.CreateFrom(company);
+            var branchDto = _companyFactory.CreateFrom(company);
 
             try
             {
-                var insertedId = _companyRepository.Add(companyDto).Result;
+                var insertedId = _companyRepository.Add(branchDto).Result;
                 if (insertedId == 0)
                 {
                     return response;
                 }
 
                 //bankBranchDto = await _bankBranchRepository.GetBankBranchById(bankBranchDto.BranchId);
-                companyDto.CompanyId = insertedId;
+                branchDto.ComKey = insertedId;
 
-                response = _companyFactory.CreateFrom(companyDto);
+                response = _companyFactory.CreateFrom(branchDto);
             }
             catch (Exception ex)
             {
@@ -44,19 +44,43 @@ namespace InsuranceManagementAPI.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Company>> GetAll()
+        public async Task<IEnumerable<Company>> GetAll()
         {
-            throw new NotImplementedException();
+            var branchDtos = await _companyRepository.GetAll();
+
+            return _companyFactory.CreateMultipleFrom(branchDtos);
         }
 
-        public Task<Company> GetById(int CompanyId)
+        public async Task<Company> GetById(int CompanyId)
         {
-            throw new NotImplementedException();
+            var branchDto = await _companyRepository.GetByID(CompanyId);
+
+            return _companyFactory.CreateFrom(branchDto);
         }
 
         public Task<Company> Update(Company company)
         {
-            throw new NotImplementedException();
+            Company? response = null;
+            var branchDto = _companyFactory.CreateFrom(company);
+
+            try
+            {
+                var result =  _companyRepository.Update(branchDto).Result;
+                if (!result)
+                {
+                    return Task.FromResult<Company>(response);
+                }
+
+                
+
+                response = _companyFactory.CreateFrom(branchDto);
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult<Company>(response);
+            }
+
+            return Task.FromResult(response);
         }
     }
 }

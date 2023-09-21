@@ -22,20 +22,21 @@ namespace InsuranceManagementAPI.Data.Repository
             try
             {
                 var paramList = new List<SqlParameter>();
-                paramList.Add(new SqlParameter { ParameterName = "@CompanyId", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
-                paramList.Add(new SqlParameter { ParameterName = "@Name", Value = companyDto.Name.ToString() });
-                paramList.Add(new SqlParameter { ParameterName = "@ShortCode", Value = companyDto.ShortCode.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@ComKey", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
+                paramList.Add(new SqlParameter { ParameterName = "@CompanyName", Value = companyDto.CompanyName.ToString() });
+                paramList.Add(new SqlParameter { ParameterName = "@ShortName", Value = companyDto.ShortName.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Address", Value = companyDto.Address.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Phone", Value = companyDto.Phone.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Fax", Value = companyDto.Fax.ToDBNullIfNothing() });
-                paramList.Add(new SqlParameter { ParameterName = "@MobileNo", Value = companyDto.Fax.ToDBNullIfNothing() }); 
+                paramList.Add(new SqlParameter { ParameterName = "@Mobile", Value = companyDto.Mobile.ToDBNullIfNothing() }); 
                 paramList.Add(new SqlParameter { ParameterName = "@Email", Value = companyDto.Email.ToDBNullIfNothing()});
-                paramList.Add(new SqlParameter { ParameterName = "@IssuingPlace", Value = companyDto.IssuingPlace.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@IssuingPlaceHO", Value = companyDto.IssuingPlaceHO.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Web", Value = companyDto.Web.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Logo", Value = companyDto.Logo.ToDBNullIfNothing() });
-                paramList.Add(new SqlParameter { ParameterName = "@Banner", Value = companyDto.Banner.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@LHead", Value = companyDto.LHead.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@BackupType", Value = companyDto.BackupType.ToDBNullIfNothing() });
 
-                await _context.Database.ExecuteSqlRawAsync("EXECUTE SP_Company_Add @CompanyId OUT, @Name, @ShortCode, @Address, @Phone, @Fax,@MobileNo, @Email,@IssuingPlace, @Web, @Logo, @Banner", paramList);
+                await _context.Database.ExecuteSqlRawAsync("EXECUTE SP_Company_Add @ComKey OUT, @CompanyName, @ShortName, @Address, @Phone, @Fax,@Mobile, @Email,@IssuingPlaceHO, @Web, @Logo, @LHead,@BackupType", paramList);
 
                 CompanyId = Convert.ToInt32(paramList[0].Value);
             }
@@ -45,14 +46,14 @@ namespace InsuranceManagementAPI.Data.Repository
             return CompanyId;
         }
 
-        public async Task<IEnumerable<CompanyDto>> GetAllBanks()
+        public async Task<IEnumerable<CompanyDto>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Company.ToListAsync();
         }
 
-        public async Task<CompanyDto> GetBankByID(int companyId)
+        public async Task<CompanyDto> GetByID(int companyId)
         {
-            throw new NotImplementedException();
+            return await _context.Company.FirstOrDefaultAsync(obj => obj.ComKey== companyId);
         }
 
         public async Task<bool> Remove(int companyId)
@@ -60,9 +61,36 @@ namespace InsuranceManagementAPI.Data.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<bool> Update(CompanyDto bankDto)
+        public async Task<bool> Update(CompanyDto companyDto)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            try
+            {
+                var paramList = new List<SqlParameter>();
+                paramList.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
+                paramList.Add(new SqlParameter { ParameterName = "@ComKey", Value = companyDto.ComKey });
+                paramList.Add(new SqlParameter { ParameterName = "@CompanyName", Value = companyDto.CompanyName.ToString() });
+                paramList.Add(new SqlParameter { ParameterName = "@ShortName", Value = companyDto.ShortName.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Address", Value = companyDto.Address.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Phone", Value = companyDto.Phone.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Fax", Value = companyDto.Fax.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Mobile", Value = companyDto.Mobile.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Email", Value = companyDto.Email.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@IssuingPlaceHO", Value = companyDto.IssuingPlaceHO.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Web", Value = companyDto.Web.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@Logo", Value = companyDto.Logo.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@LHead", Value = companyDto.LHead.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@BackupType", Value = companyDto.BackupType.ToDBNullIfNothing() });
+
+                await _context.Database.ExecuteSqlRawAsync("EXECUTE SP_Company_Update @result OUT, @ComKey, @CompanyName, @ShortName, @Address, @Phone, @Fax,@Mobile, @Email,@IssuingPlaceHO, @Web, @Logo, @LHead,@BackupType", paramList);
+
+                result = Convert.ToBoolean(paramList[0].Value);
+                
+            }
+            catch (Exception ex)
+            {
+            }
+            return result;
         }
     }
 }
