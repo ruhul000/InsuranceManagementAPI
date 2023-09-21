@@ -7,33 +7,33 @@ namespace InsuranceManagementAPI.Models.Factories
     public class InsuranceCompanyFactory: IInsuranceCompanyFactory
     {
         IMappingFactory<InsuranceCompany> _insuranceCompanyFactory;
-        IMappingFactory<InsuranceCompanyDto> _insuranceCompanyDtoFactory;
+        IMappingFactory<InsurancebranchDto> _insurancebranchDtoFactory;
 
-        public InsuranceCompanyFactory(IMappingFactory<InsuranceCompany> insuranceCompanyFactory, IMappingFactory<InsuranceCompanyDto> insuranceCompanyDtoFactory)
+        public InsuranceCompanyFactory(IMappingFactory<InsuranceCompany> insuranceCompanyFactory, IMappingFactory<InsurancebranchDto> insurancebranchDtoFactory)
         {
             _insuranceCompanyFactory = insuranceCompanyFactory;
-            _insuranceCompanyDtoFactory = insuranceCompanyDtoFactory;
+            _insurancebranchDtoFactory = insurancebranchDtoFactory;
         }
 
-        public InsuranceCompany CreateFrom(InsuranceCompanyDto insuranceCompanyDto)
+        public InsuranceCompany CreateFrom(InsurancebranchDto insurancebranchDto)
         {
-            return _insuranceCompanyFactory.CreateFrom(insuranceCompanyDto);
+            return _insuranceCompanyFactory.CreateFrom(insurancebranchDto);
         }
 
-        public InsuranceCompanyDto CreateFrom(InsuranceCompany insuranceCompany)
+        public InsurancebranchDto CreateFrom(InsuranceCompany insuranceCompany)
         {
-            return _insuranceCompanyDtoFactory.CreateFrom(insuranceCompany);
+            return _insurancebranchDtoFactory.CreateFrom(insuranceCompany);
         }
 
-        public IEnumerable<InsuranceCompanyDto> CreateMultipleFrom(IEnumerable<InsuranceCompany> insuranceCompany)
+        public IEnumerable<InsurancebranchDto> CreateMultipleFrom(IEnumerable<InsuranceCompany> insuranceCompany)
         {
-            IEnumerable<InsuranceCompanyDto> response = _insuranceCompanyDtoFactory.CreateMultipleFrom(insuranceCompany);
+            IEnumerable<InsurancebranchDto> response = _insurancebranchDtoFactory.CreateMultipleFrom(insuranceCompany);
             return response;
         }
 
-        public IEnumerable<InsuranceCompany> CreateMultipleFrom(IEnumerable<InsuranceCompanyDto> insuranceCompanyDto)
+        public IEnumerable<InsuranceCompany> CreateMultipleFrom(IEnumerable<InsurancebranchDto> insurancebranchDto)
         {
-            IEnumerable<InsuranceCompany> response = _insuranceCompanyFactory.CreateMultipleFrom(insuranceCompanyDto);
+            IEnumerable<InsuranceCompany> response = _insuranceCompanyFactory.CreateMultipleFrom(insurancebranchDto);
             return response;
         }
     }

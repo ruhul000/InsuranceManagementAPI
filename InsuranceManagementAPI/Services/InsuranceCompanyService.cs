@@ -17,20 +17,20 @@ namespace InsuranceManagementAPI.Services
         public async Task<InsuranceCompany> Create(InsuranceCompany insuranceCompany)
         {
             InsuranceCompany? response = null;
-            var insuranceCompanyDto = _insuranceCompanyFactory.CreateFrom(insuranceCompany);
+            var insurancebranchDto = _insuranceCompanyFactory.CreateFrom(insuranceCompany);
 
             try
             {
-                var insertedId = _insuranceCompanyRepository.Add(insuranceCompanyDto).Result;
+                var insertedId = _insuranceCompanyRepository.Add(insurancebranchDto).Result;
                 if (insertedId == 0)
                 {
                     return response;
                 }
 
                 //bankBranchDto = await _bankBranchRepository.GetBankBranchById(bankBranchDto.BranchId);
-                insuranceCompanyDto.CompanyId = insertedId;
+                insurancebranchDto.CompanyId = insertedId;
 
-                response = _insuranceCompanyFactory.CreateFrom(insuranceCompanyDto);
+                response = _insuranceCompanyFactory.CreateFrom(insurancebranchDto);
             }
             catch (Exception ex)
             {
@@ -61,34 +61,34 @@ namespace InsuranceManagementAPI.Services
 
         public async Task<IEnumerable<InsuranceCompany>> GetAll()
         {
-            var insuranceCompanyDto = await _insuranceCompanyRepository.GetAll();
+            var insurancebranchDto = await _insuranceCompanyRepository.GetAll();
 
-            return _insuranceCompanyFactory.CreateMultipleFrom(insuranceCompanyDto);
+            return _insuranceCompanyFactory.CreateMultipleFrom(insurancebranchDto);
         }
 
         public async Task<InsuranceCompany> GetById(int CompanyId)
         {
-            var insuranceCompanyDto = await _insuranceCompanyRepository.GetByID(CompanyId);
+            var insurancebranchDto = await _insuranceCompanyRepository.GetByID(CompanyId);
 
-            return _insuranceCompanyFactory.CreateFrom(insuranceCompanyDto);
+            return _insuranceCompanyFactory.CreateFrom(insurancebranchDto);
         }
 
         public async Task<InsuranceCompany> Update(InsuranceCompany insuranceCompany)
         {
             InsuranceCompany? response = null;
-            var insuranceCompanyDto = _insuranceCompanyFactory.CreateFrom(insuranceCompany);
+            var insurancebranchDto = _insuranceCompanyFactory.CreateFrom(insuranceCompany);
 
             try
             {
-                var result = _insuranceCompanyRepository.Update(insuranceCompanyDto).Result;
+                var result = _insuranceCompanyRepository.Update(insurancebranchDto).Result;
                 if (!result)
                 {
                     return response;
                 }
 
-                insuranceCompanyDto = await _insuranceCompanyRepository.GetByID(insuranceCompanyDto.CompanyId);
+                insurancebranchDto = await _insuranceCompanyRepository.GetByID(insurancebranchDto.CompanyId);
 
-                response = _insuranceCompanyFactory.CreateFrom(insuranceCompanyDto);
+                response = _insuranceCompanyFactory.CreateFrom(insurancebranchDto);
             }
             catch (Exception ex)
             {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace InsuranceManagementAPI.Data.Models
 {    
     [Table("InsuranceCompany")]
-    public class InsuranceCompanyDto
+    public class InsurancebranchDto
     {   
         [Key]
         public int CompanyId { get; set; }

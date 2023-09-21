@@ -4,10 +4,10 @@ namespace InsuranceManagementAPI.Models.Factories
 {
     public interface IInsuranceCompanyFactory
     {
-        IEnumerable<InsuranceCompanyDto> CreateMultipleFrom(IEnumerable<InsuranceCompany> insuranceCompany);
-        IEnumerable<InsuranceCompany> CreateMultipleFrom(IEnumerable<InsuranceCompanyDto> insuranceCompanyDto);
+        IEnumerable<InsurancebranchDto> CreateMultipleFrom(IEnumerable<InsuranceCompany> insuranceCompany);
+        IEnumerable<InsuranceCompany> CreateMultipleFrom(IEnumerable<InsurancebranchDto> insurancebranchDto);
 
-        InsuranceCompany CreateFrom(InsuranceCompanyDto insuranceCompanyDto);
-        InsuranceCompanyDto CreateFrom(InsuranceCompany insuranceCompany);
+        InsuranceCompany CreateFrom(InsurancebranchDto insurancebranchDto);
+        InsurancebranchDto CreateFrom(InsuranceCompany insuranceCompany);
     }
 }

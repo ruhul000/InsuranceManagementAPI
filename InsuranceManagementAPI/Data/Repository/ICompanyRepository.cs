@@ -4,10 +4,10 @@ namespace InsuranceManagementAPI.Data.Repository
 {
     public interface ICompanyRepository
     {
-        Task<IEnumerable<CompanyDto>> GetAllBanks();
-        Task<CompanyDto> GetBankByID(int companyId);
-        Task<Int32> Add(CompanyDto bankDto);
-        Task<bool> Update(CompanyDto bankDto);
+        Task<IEnumerable<CompanyDto>> GetAll();
+        Task<CompanyDto> GetByID(int companyId);
+        Task<Int32> Add(CompanyDto companyDto);
+        Task<bool> Update(CompanyDto companyDto);
         Task<bool> Remove(int companyId);
 
     }
