@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using InsuranceManagementAPI.Data.Models;
 using InsuranceManagementAPI.Extensions;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace InsuranceManagementAPI.Data.Repository
 {
@@ -15,8 +16,15 @@ namespace InsuranceManagementAPI.Data.Repository
         }
         public async Task<IEnumerable<ClientDto>> GetAllClients()
         {
-            return await _context.Clients.ToListAsync();
+            //return await _context.Clients.Where(p => p.ClientName.StartsWith("As")).ToListAsync().Take(10);
+            return await _context.Clients.Take(50).ToListAsync();
         }
+
+        public async Task<IEnumerable<ClientDto>> GetAllClientsByName(String searchWord)
+        {            
+            return await _context.Clients.Where(c=> c.ClientName.Contains(searchWord)).Take(50).ToListAsync();
+        }
+
 
         public async Task<ClientDto> GetClientByID(long id)
         {
