@@ -3,6 +3,7 @@ using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace InsuranceManagementAPI.Controllers
 {
@@ -75,6 +76,59 @@ namespace InsuranceManagementAPI.Controllers
                 if (response.Token.IsNullOrEmpty() && response.RefreshToken.IsNullOrEmpty())
                 {
                     return Unauthorized();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpGet("{UserId}")]
+        public ActionResult<User> GetByID(int UserId)
+        {
+            User? response;
+            try
+            {
+                response = _userService.GetById(UserId).Result;
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpGet("User")]
+        public ActionResult<User> GetByClaim()
+        {
+            int UserId = 0;
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                // or
+                //identity.FindFirst("").Value;
+            }
+
+            User? response;
+            try
+            {
+                response = _userService.GetById(UserId).Result;
+
+                if (response == null)
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
