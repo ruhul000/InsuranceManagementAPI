@@ -55,8 +55,8 @@ namespace InsuranceManagementAPI.Controllers
         [MapToApiVersion("1.0")]
         [HttpGet("search/{searchWord}")]
         public ActionResult<IEnumerable<Client>> GetAllClientsByName(String searchWord)
-        {            
-
+        {
+            searchWord = searchWord.Replace("~", "/");
             IEnumerable<Client> response;
             try
             {
@@ -64,6 +64,7 @@ namespace InsuranceManagementAPI.Controllers
 
                 if (response == null || !response.Any())
                 {
+                    response = new List<Client>();
                     return Ok(response);
                 }
             }
