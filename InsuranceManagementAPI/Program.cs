@@ -39,6 +39,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IInsuranceCompanyService, InsuranceCompanyService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 
 // Configure App Repositories
@@ -50,6 +51,7 @@ builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
@@ -59,6 +61,7 @@ builder.Services.AddScoped<IClientFactory, ClientFactory>();
 builder.Services.AddScoped<IInsuranceCompanyFactory, InsuranceCompanyFactory>();
 builder.Services.AddScoped<ICompanyFactory, CompanyFactory>();
 builder.Services.AddScoped<IBranchFactory, BranchFactory>();
+builder.Services.AddScoped<IDepartmentFactory, DepartmentFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 

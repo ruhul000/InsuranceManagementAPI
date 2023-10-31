@@ -266,3 +266,16 @@ CREATE UNIQUE NONCLUSTERED INDEX [IX_tab_BranchInfo] ON [dbo].[tab_BranchInfo]
 GO
 ALTER TABLE [dbo].[InsuranceCompany] ADD  CONSTRAINT [DF_InsuranceCompany_EntryTime]  DEFAULT (getdate()) FOR [EntryTime]
 GO
+
+CREATE TABLE [dbo].[tab_DepartmentInfo](
+	[DepKey] [int] NOT NULL,
+	[DepName] [varchar](50) NOT NULL,
+	[DepNameShort] [varchar](10) NULL,
+	[DepOrderKey] [int] NULL,
+ CONSTRAINT [PK_DepartmentInfo] PRIMARY KEY CLUSTERED 
+(
+	[DepKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
