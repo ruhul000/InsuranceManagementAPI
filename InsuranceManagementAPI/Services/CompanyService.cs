@@ -16,20 +16,20 @@ namespace InsuranceManagementAPI.Services
         public async Task<Company> Create(Company company)
         {
             Company? response = null;
-            var branchDto = _companyFactory.CreateFrom(company);
+            var companyDto = _companyFactory.CreateFrom(company);
 
             try
             {
-                var insertedId = _companyRepository.Add(branchDto).Result;
+                var insertedId = _companyRepository.Add(companyDto).Result;
                 if (insertedId == 0)
                 {
                     return response;
                 }
 
                 //bankBranchDto = await _bankBranchRepository.GetBankBranchById(bankBranchDto.BranchId);
-                branchDto.ComKey = insertedId;
+                companyDto.ComKey = insertedId;
 
-                response = _companyFactory.CreateFrom(branchDto);
+                response = _companyFactory.CreateFrom(companyDto);
             }
             catch (Exception ex)
             {
@@ -46,26 +46,26 @@ namespace InsuranceManagementAPI.Services
 
         public async Task<IEnumerable<Company>> GetAll()
         {
-            var branchDtos = await _companyRepository.GetAll();
+            var companyDtos = await _companyRepository.GetAll();
 
-            return _companyFactory.CreateMultipleFrom(branchDtos);
+            return _companyFactory.CreateMultipleFrom(companyDtos);
         }
 
         public async Task<Company> GetById(int CompanyId)
         {
-            var branchDto = await _companyRepository.GetByID(CompanyId);
+            var companyDto = await _companyRepository.GetByID(CompanyId);
 
-            return _companyFactory.CreateFrom(branchDto);
+            return _companyFactory.CreateFrom(companyDto);
         }
 
         public Task<Company> Update(Company company)
         {
             Company? response = null;
-            var branchDto = _companyFactory.CreateFrom(company);
+            var companyDto = _companyFactory.CreateFrom(company);
 
             try
             {
-                var result =  _companyRepository.Update(branchDto).Result;
+                var result =  _companyRepository.Update(companyDto).Result;
                 if (!result)
                 {
                     return Task.FromResult<Company>(response);
@@ -73,7 +73,7 @@ namespace InsuranceManagementAPI.Services
 
                 
 
-                response = _companyFactory.CreateFrom(branchDto);
+                response = _companyFactory.CreateFrom(companyDto);
             }
             catch (Exception ex)
             {

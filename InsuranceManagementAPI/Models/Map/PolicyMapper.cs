@@ -17,6 +17,7 @@ namespace InsuranceManagementAPI.Models.Map
             CreateMap<InsurancebranchDto,InsuranceCompany>().ReverseMap();
             CreateMap<CompanyDto, Company>().ReverseMap();
             CreateMap<BranchDto, Branch>().ReverseMap();
+            CreateMap<DepartmentDto, Department>().ReverseMap();
 
         }
     }

@@ -17,5 +17,6 @@ namespace InsuranceManagementAPI.Data
         public virtual DbSet<InsurancebranchDto> InsuranceCompany { get; set; }
         public virtual DbSet<CompanyDto> Company { get; set; }
         public virtual DbSet<BranchDto> Branch{ get; set; }
+        public virtual DbSet<DepartmentDto> Department{ get; set; }
     }
 }
