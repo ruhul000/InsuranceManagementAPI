@@ -8,25 +8,24 @@ namespace InsuranceManagementAPI.Data.Models
     {
         [Key]
         public int EmpKey { get; set; }
-        public String EmpID { get; set; }
+        public String? EmpID { get; set; }
         public int EmpCode { get; set; }
         public int EmpKey_Group { get; set; }
         public int BranchKey { get; set; }
         public Boolean BranchIncharge { get; set; }
-        public String Title { get; set; }
-        public String EmpName { get; set; }
-        public String EmpSurName { get; set; }
-        public String EmpShortName { get; set; }
-        public String Department { get; set; }
-        public Boolean DepIncharge { get; set; }
-        public String Designation { get; set; }
-        public String EmpType { get; set; }
-        public String EmpSex { get; set; }
+        public String? Title { get; set; }
+        public String? EmpName { get; set; }
+        public String? EmpSurName { get; set; }
+        public String? EmpShortName { get; set; }
+        public int? DepKey { get; set; }
+        public Boolean? DepIncharge { get; set; }
+        public int? DegKey { get; set; }
+        public String? EmpType { get; set; }
+        public String? EmpSex { get; set; }
         public Boolean Director { get; set; }
         public Boolean JobContinue { get; set; }
         public DateTime? DOJ { get; set; }
         public DateTime? DOC { get; set; }//date of confirmation
-
         public DateTime? DOB { get; set; }
         public String? AGE { get; set; }
         public DateTime? Resign_Date { get; set; }
@@ -50,8 +49,7 @@ namespace InsuranceManagementAPI.Data.Models
         public String? Home_District { get; set; }
         public String? Phone { get; set; }
         public String? Mobile { get; set; }
-        public String? Email { get; set; }
-        public String? Fax { get; set; }
+        public String? Email { get; set; }        
         public String? Emp_Image { get; set; }
         public Boolean? Active { get; set; }
         public DateTime? LastPromotion_Date { get; set; }

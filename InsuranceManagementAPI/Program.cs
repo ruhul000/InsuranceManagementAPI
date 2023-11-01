@@ -40,6 +40,8 @@ builder.Services.AddScoped<IInsuranceCompanyService, InsuranceCompanyService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDesignationService, DesignationService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 
 // Configure App Repositories
@@ -52,6 +54,8 @@ builder.Services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyReposito
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
@@ -62,6 +66,8 @@ builder.Services.AddScoped<IInsuranceCompanyFactory, InsuranceCompanyFactory>();
 builder.Services.AddScoped<ICompanyFactory, CompanyFactory>();
 builder.Services.AddScoped<IBranchFactory, BranchFactory>();
 builder.Services.AddScoped<IDepartmentFactory, DepartmentFactory>();
+builder.Services.AddScoped<IDesignationFactory, DesignationFactory>();
+builder.Services.AddScoped<IEmployeeFactory, EmployeeFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 

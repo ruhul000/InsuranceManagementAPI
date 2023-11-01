@@ -2,6 +2,7 @@
 using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Models.Factories;
 using System.ComponentModel.Design;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace InsuranceManagementAPI.Services
 {
@@ -9,6 +10,12 @@ namespace InsuranceManagementAPI.Services
     {
         private readonly IDepartmentRepository _departmentRepository;
         private readonly IDepartmentFactory _departmentFactory;
+
+        public DepartmentService(IDepartmentRepository departmentRepository, IDepartmentFactory departmentFactory)
+        {
+            _departmentRepository = departmentRepository;
+            _departmentFactory = departmentFactory;
+        }
         public async Task<Department> Create(Department department)
         {
             Department? response = null;
@@ -23,7 +30,7 @@ namespace InsuranceManagementAPI.Services
                 }
 
                 
-                departmentDto.DepKey = insertedId;
+                //departmentDto.DepKey = insertedId;
 
                 response = _departmentFactory.CreateFrom(departmentDto);
             }
@@ -35,7 +42,7 @@ namespace InsuranceManagementAPI.Services
             return response;
         }
 
-        public async Task<bool> Delete(int DepId)
+        public  Task<bool> Delete(int DepId)
         {
             throw new NotImplementedException();
         }
@@ -54,9 +61,30 @@ namespace InsuranceManagementAPI.Services
             return _departmentFactory.CreateFrom(departmentDto);
         }
 
-        public async Task<Department> Update(Department department)
+        public Task<Department> Update(Department department)
         {
-            throw new NotImplementedException();
+            Department? response = null;
+            var departmentDto = _departmentFactory.CreateFrom(department);
+
+            try
+            {
+                var result = _departmentRepository.Update(departmentDto).Result;
+                if (!result)
+                {
+                    return Task.FromResult<Department>(response);
+                }
+
+
+
+                response = _departmentFactory.CreateFrom(departmentDto);
+            }
+            catch (Exception ex)
+            {
+                return Task.FromResult<Department>(response);
+            }
+
+            return Task.FromResult(response);
+
         }
     }
 }
