@@ -279,3 +279,17 @@ CREATE TABLE [dbo].[tab_DepartmentInfo](
 ) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[tab_DesignationInfo](
+	[DegKey] [int] NOT NULL,
+	[Deg_Name] [varchar](100) NULL,
+	[ShortDeg] [varchar](50) NULL,
+	[GradeName] [varchar](250) NULL,
+	[Salary_Scale] [varchar](50) NULL,
+	[OrderKey] [int] NULL,
+ CONSTRAINT [PK_DesignationInfo] PRIMARY KEY CLUSTERED 
+(
+	[DegKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+

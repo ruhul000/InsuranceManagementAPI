@@ -8,31 +8,31 @@ namespace InsuranceManagementAPI.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/v{version:apiVersion}/Department")]
+    [Route("api/v{version:apiVersion}/Employee")]
     [ApiVersion("1.0")]
-    public class DepartmentController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
-        private readonly IDepartmentService _departmentService;
-        public DepartmentController(IDepartmentService departmentService)
+        private readonly IEmployeeService _employeeService;
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _departmentService = departmentService;
+            _employeeService = employeeService;
         }
 
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
-        public ActionResult<Department> Create(Department department)
+        public ActionResult<Employee> Create(Employee employee)
         {
 
-            Department? response;
+            Employee? response;
             try
             {
-                response = _departmentService.Create(department).Result;
+                response = _employeeService.Create(employee).Result;
 
                 if (response == null)
                 {
-                    return BadRequest("Department creation failed!");
+                    return BadRequest("Employee creation failed!");
                 }
             }
             catch (Exception ex)
@@ -44,18 +44,18 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
-        [HttpGet("Departments")]
-        public ActionResult<IEnumerable<Department>> GetAll()
+        [HttpGet("Employees")]
+        public ActionResult<IEnumerable<Employee>> GetAll()
         {
 
-            IEnumerable<Department> response;
+            IEnumerable<Employee> response;
             try
             {
-                response = _departmentService.GetAll().Result;
+                response = _employeeService.GetAll().Result;
 
                 if (response == null || !response.Any())
                 {
-                    response= new List<Department>();
+                    response = new List<Employee>();
                 }
             }
             catch (Exception ex)
@@ -67,13 +67,13 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors]
         [MapToApiVersion("1.0")]
-        [HttpGet("{DepKey}")]
-        public ActionResult<Department> GetByID(int DepKey)
+        [HttpGet("{EmpKey}")]
+        public ActionResult<Employee> GetByID(int EmpKey)
         {
-            Department? response;
+            Employee? response;
             try
             {
-                response = _departmentService.GetById(DepKey).Result;
+                response = _employeeService.GetById(EmpKey).Result;
 
                 if (response == null)
                 {
@@ -90,16 +90,16 @@ namespace InsuranceManagementAPI.Controllers
         [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
-        public ActionResult<Department> Update(Department department)
+        public ActionResult<Employee> Update(Employee employee)
         {
-            Department? response;
+            Employee? response;
             try
             {
-                response = _departmentService.Update(department).Result;
+                response = _employeeService.Update(employee).Result;
 
                 if (response == null)
                 {
-                    return BadRequest("Department update failed!");
+                    return BadRequest("Employee update failed!");
                 }
             }
             catch (Exception ex)

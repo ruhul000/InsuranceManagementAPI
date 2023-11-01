@@ -8,6 +8,5 @@ namespace InsuranceManagementAPI.Data.Repository
         Task<DepartmentDto> GetByID(int depId);
         Task<int> Add(DepartmentDto departmentDto);
         Task<bool> Update(DepartmentDto departmentDto);
-        Task<bool> Remove(int depId);
     }
 }

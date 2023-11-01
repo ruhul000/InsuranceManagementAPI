@@ -8,31 +8,31 @@ namespace InsuranceManagementAPI.Controllers
 {
     //[Authorize]
     [ApiController]
-    [Route("api/v{version:apiVersion}/Department")]
+    [Route("api/v{version:apiVersion}/Designation")]
     [ApiVersion("1.0")]
-    public class DepartmentController : ControllerBase
+    public class DesignationController : ControllerBase
     {
-        private readonly IDepartmentService _departmentService;
-        public DepartmentController(IDepartmentService departmentService)
+        private readonly IDesignationService _designationService;
+        public DesignationController(IDesignationService designationService)
         {
-            _departmentService = departmentService;
+            _designationService = designationService;
         }
 
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
-        public ActionResult<Department> Create(Department department)
+        public ActionResult<Designation> Create(Designation Designation)
         {
 
-            Department? response;
+            Designation? response;
             try
             {
-                response = _departmentService.Create(department).Result;
+                response = _designationService.Create(Designation).Result;
 
                 if (response == null)
                 {
-                    return BadRequest("Department creation failed!");
+                    return BadRequest("Designation creation failed!");
                 }
             }
             catch (Exception ex)
@@ -44,18 +44,18 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
-        [HttpGet("Departments")]
-        public ActionResult<IEnumerable<Department>> GetAll()
+        [HttpGet("Designations")]
+        public ActionResult<IEnumerable<Designation>> GetAll()
         {
 
-            IEnumerable<Department> response;
+            IEnumerable<Designation> response;
             try
             {
-                response = _departmentService.GetAll().Result;
+                response = _designationService.GetAll().Result;
 
                 if (response == null || !response.Any())
                 {
-                    response= new List<Department>();
+                    response = new List<Designation>();
                 }
             }
             catch (Exception ex)
@@ -67,13 +67,13 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors]
         [MapToApiVersion("1.0")]
-        [HttpGet("{DepKey}")]
-        public ActionResult<Department> GetByID(int DepKey)
+        [HttpGet("{DesKey}")]
+        public ActionResult<Designation> GetByID(int DesKey)
         {
-            Department? response;
+            Designation? response;
             try
             {
-                response = _departmentService.GetById(DepKey).Result;
+                response = _designationService.GetById(DesKey).Result;
 
                 if (response == null)
                 {
@@ -90,16 +90,16 @@ namespace InsuranceManagementAPI.Controllers
         [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
-        public ActionResult<Department> Update(Department department)
+        public ActionResult<Designation> Update(Designation designation)
         {
-            Department? response;
+            Designation? response;
             try
             {
-                response = _departmentService.Update(department).Result;
+                response = _designationService.Update(designation).Result;
 
                 if (response == null)
                 {
-                    return BadRequest("Department update failed!");
+                    return BadRequest("Designation update failed!");
                 }
             }
             catch (Exception ex)
