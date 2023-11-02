@@ -20,6 +20,7 @@ namespace InsuranceManagementAPI.Models.Map
             CreateMap<DepartmentDto, Department>().ReverseMap();
             CreateMap<DesignationDto, Designation>().ReverseMap();
             CreateMap<EmployeeDto, Employee>().ReverseMap();
+            CreateMap<AgentDto, Agent>().ReverseMap();
 
         }
     }
