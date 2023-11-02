@@ -60,10 +60,10 @@ namespace InsuranceManagementAPI.Data.Models
         public int? Probation_Period { get; set; }
         public DateTime? Probation_Date { get; set; }
         public String? Mobile_Set_Name { get; set; }
-        public double? Mobile_Bill_Amount { get; set; }
-        public Double? Car_Fuel_Amount { get; set; }
-        public Double? Car_Maintains_Amount { get; set; }
-        public double? Other_Maintains_Amount { get; set; }
+        public Decimal? Mobile_Bill_Amount { get; set; }
+        public Decimal? Car_Fuel_Amount { get; set; }
+        public Decimal? Car_Maintains_Amount { get; set; }
+        public Decimal? Other_Maintains_Amount { get; set; }
         public string? Facility_Remarks { get; set; }
         public DateTime? Contract_Date { get; set; }
         public string? Remarks { get; set; }

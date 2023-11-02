@@ -379,4 +379,35 @@ CREATE TABLE [dbo].[tab_EmployeeInfo](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[tab_AgentInfo](
+	[BranchKey] [int] NULL,
+	[AgentKey] [int] NOT NULL,
+	[AgentID] [varchar](50) NULL,
+	[AgentCode] [varchar](100) NULL,
+	[Agent_Title] [varchar](50) NULL,
+	[AgentName] [varchar](200) NULL,
+	[Agent_Address] [varchar](500) NULL,
+	[Agent_License_No] [varchar](200) NULL,
+	[Agent_Bank_Name] [varchar](200) NULL,
+	[Agent_Bank_Branch_Name] [varchar](200) NULL,
+	[Agent_Bank_Account_No] [varchar](200) NULL,
+	[Ref_EmpKey] [int] NULL,
+	[Validity_From] [smalldatetime] NULL,
+	[Validity_To] [smalldatetime] NULL,
+	[Remarks] [varchar](200) NULL,
+	[Agent_Status] [int] NULL,
+	[NIDNo] [varchar](100) NULL,
+	[TINNo] [varchar](100) NULL,
+	[Agent_MobileNo] [varchar](100) NULL,
+	[EUser] [int] NULL,
+	[EDate] [datetime] NULL,
+	[UUser] [int] NULL,
+	[UDate] [datetime] NULL,
+ CONSTRAINT [PK_Agent_Info] PRIMARY KEY CLUSTERED 
+(
+	[AgentKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 
