@@ -410,4 +410,16 @@ CREATE TABLE [dbo].[tab_AgentInfo](
 ) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[CurrencyInfo](
+	[CurrencyKey] [int] NOT NULL,
+	[CurrencyName] [varchar](5) NULL,
+	[Coll] [numeric](18, 2) NULL,
+	[BankRate] [numeric](18, 4) NULL,
+	[BackupType] [bit] NULL
+) ON [PRIMARY]
+GO
+
+
+
+
 

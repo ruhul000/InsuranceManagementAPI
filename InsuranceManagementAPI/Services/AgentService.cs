@@ -52,6 +52,13 @@ namespace InsuranceManagementAPI.Services
             return _agentFactory.CreateMultipleFrom(agentDtos);
         }
 
+        public async Task<IEnumerable<Agent>> GetAllByBranch(int branchKey)
+        {
+            var agentDtos = await _agentRepository.GetAllByBranch(branchKey);
+
+            return _agentFactory.CreateMultipleFrom(agentDtos);
+        }
+
         public async Task<Agent> GetById(int AgentKey)
         {
             var agentDto = await _agentRepository.GetByID(AgentKey);

@@ -22,6 +22,11 @@ namespace InsuranceManagementAPI.Data.Repository
             return await _context.Agent.ToListAsync();
         }
 
+        public async Task<IEnumerable<AgentDto>> GetAllByBranch(int branchKey)
+        {
+            return await _context.Agent.Where(a=> a.BranchKey == branchKey).OrderBy(a=>a.AgentName).ToListAsync();
+        }
+
         public async Task<AgentDto> GetByID(int AgentKey)
         {
             return await _context.Agent.FirstOrDefaultAsync(obj => obj.AgentKey == AgentKey);
