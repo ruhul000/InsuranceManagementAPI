@@ -6,6 +6,7 @@ using InsuranceManagementAPI.Helper;
 using InsuranceManagementAPI.Models.Factories;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDesignationService, DesignationService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IAgentService, AgentService>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 
 
 // Configure App Repositories
@@ -58,6 +60,7 @@ builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAgentRepository, AgentRepository>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
@@ -71,6 +74,7 @@ builder.Services.AddScoped<IDepartmentFactory, DepartmentFactory>();
 builder.Services.AddScoped<IDesignationFactory, DesignationFactory>();
 builder.Services.AddScoped<IEmployeeFactory, EmployeeFactory>();
 builder.Services.AddScoped<IAgentFactory, AgentFactory>();
+builder.Services.AddScoped<ICurrencyFactory, CurrencyFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -204,6 +208,8 @@ if (app.Environment.IsDevelopment())
         {
             options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
                 description.GroupName.ToUpperInvariant());
+
+            options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
         }
     });
 }

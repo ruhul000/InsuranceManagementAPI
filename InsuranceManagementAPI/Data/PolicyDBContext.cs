@@ -21,5 +21,6 @@ namespace InsuranceManagementAPI.Data
         public virtual DbSet<DesignationDto> Designation { get; set; }
         public virtual DbSet<EmployeeDto> Employee { get; set; }
         public virtual DbSet<AgentDto> Agent { get; set; }
+        public virtual DbSet<CurrencyDto> Currency{ get; set; }
     }
 }
