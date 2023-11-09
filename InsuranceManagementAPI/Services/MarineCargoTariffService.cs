@@ -27,19 +27,32 @@ namespace InsuranceManagementAPI.Services
             return _marineCargoTariffFactory.CreateMultipleFrom(marineCargoTariffDtos);
         }       
 
-        public Task<IEnumerable<MarineCargoTariff>> GetTypeA(string TariffCategory, string RiskType, string ItemName)
+        public async Task<IEnumerable<MarineCargoTariff>> GetTypeA(string TariffCategory, string RiskType, string ItemName)
         {
-            throw new NotImplementedException();
+            var marineCargoTariffDtos = await _marineCargoTariffRepository.GetTypeA(TariffCategory, RiskType,ItemName);
+            
+            return _marineCargoTariffFactory.CreateMultipleFrom(marineCargoTariffDtos);
         }
 
-        public Task<IEnumerable<MarineCargoTariff>> GetTypeB(string TariffCategory, string RiskType, string ItemName, string TypeA)
+        public async Task<IEnumerable<MarineCargoTariff>> GetTypeB(string TariffCategory, string RiskType, string ItemName, string TypeA)
         {
-            throw new NotImplementedException();
+            var marineCargoTariffDtos = await _marineCargoTariffRepository.GetTypeB(TariffCategory, RiskType, ItemName, TypeA);
+
+            return _marineCargoTariffFactory.CreateMultipleFrom(marineCargoTariffDtos);
         }
 
-        public Task<IEnumerable<MarineCargoTariff>> GetTypeC(string TariffCategory, string RiskType, string ItemName, string TypeA, string TypeB)
+        public async Task<IEnumerable<MarineCargoTariff>> GetTypeC(string TariffCategory, string RiskType, string ItemName, string TypeA, string TypeB)
         {
-            throw new NotImplementedException();
+            var marineCargoTariffDtos = await _marineCargoTariffRepository.GetTypeC(TariffCategory, RiskType, ItemName, TypeA, TypeB);
+
+            return _marineCargoTariffFactory.CreateMultipleFrom(marineCargoTariffDtos);
+        }
+
+        public async Task<IEnumerable<MarineCargoTariff>> GetRate(string TariffCategory, string RiskType, string ItemName, string TypeA, string TypeB, string TypeC)
+        {
+            var marineCargoTariffDtos = await _marineCargoTariffRepository.GetRate(TariffCategory, RiskType, ItemName, TypeA, TypeB, TypeC);
+
+            return _marineCargoTariffFactory.CreateMultipleFrom(marineCargoTariffDtos);
         }
     }
 }

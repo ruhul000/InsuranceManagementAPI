@@ -765,3 +765,237 @@ BEGIN
 	END
 END
 GO
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff]
+AS
+BEGIN 
+	Select Distinct Tariff_Catagory, null as ItemName, null as Per, null as TariffKey, null as TypeA, null as TypeB, null as TypeC, null as TypeOfRisk from Marine_Cargo_Tariff
+END
+
+
+GO
+
+/****** Object:  NumberedStoredProcedure [dbo].[SpMC_Tariff];2    Script Date: 09/11/2023 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff];2
+@Tariff_Catagory VARCHAR(50)=NULL,
+@TypeOfRisk	 VARCHAR(50)=NULL
+AS
+BEGIN
+	Select Distinct null Tariff_Catagory, ItemName, null as Per, null as TariffKey, null as TypeA, null as TypeB, null as TypeC, null as TypeOfRisk 
+			 from Marine_Cargo_Tariff
+			 where Tariff_Catagory=@Tariff_Catagory
+			       AND TypeOfRisk=@TypeOfRisk
+	
+END
+GO
+
+/****** Object:  NumberedStoredProcedure [dbo].[SpMC_Tariff];3    Script Date: 09/11/2023 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff];3
+@Tariff_Catagory VARCHAR(50)=NULL,
+@TypeOfRisk	 VARCHAR(50)=NULL,
+@ItemName	 VARCHAR(250)=NULL
+
+AS
+BEGIN
+
+	DECLARE @RecordCount as int
+	SELECT @RecordCount =  COUNT( Distinct TypeA ) 
+			 from Marine_Cargo_Tariff
+			 where Tariff_Catagory=@Tariff_Catagory
+			       AND TypeOfRisk=@TypeOfRisk
+			       AND ItemName=@ItemName
+				AND TypeA IS NOT NULL
+
+	IF(@RecordCount >0)
+	BEGIN
+	Select Distinct TypeA , null as Tariff_Catagory, null as ItemName, null as Per, null as TariffKey,  null as TypeB, null as TypeC, null as TypeOfRisk 
+			 from Marine_Cargo_Tariff
+			 where Tariff_Catagory=@Tariff_Catagory
+			       AND TypeOfRisk=@TypeOfRisk
+			       AND ItemName=@ItemName
+				AND TypeA IS NOT NULL
+
+	END
+	ELSE
+	BEGIN
+	Select ISNULL(Per,0)AS Per, null as TypeA , null as Tariff_Catagory, null as ItemName,  null as TariffKey,  null as TypeB, null as TypeC, null as TypeOfRisk 
+			 From Marine_Cargo_Tariff
+			 where
+	 		 Tariff_Catagory=@Tariff_Catagory
+  		  	 AND TypeOfRisk=@TypeOfRisk
+  		  	 AND ItemName=@ItemName
+	
+	END
+	
+END
+
+
+GO
+
+/****** Object:  NumberedStoredProcedure [dbo].[SpMC_Tariff];4    Script Date: 09/11/2023 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff];4
+@Tariff_Catagory VARCHAR(50)=NULL,
+@TypeOfRisk	 VARCHAR(50)=NULL,
+@ItemName	 VARCHAR(250)=NULL,
+@TypeA		 VARCHAR(250)=NULL
+AS
+BEGIN
+
+	DECLARE @RecordCount as int
+	SELECT @RecordCount =  COUNT( Distinct TypeB ) 
+			 from Marine_Cargo_Tariff
+			 where Tariff_Catagory=@Tariff_Catagory
+			       AND TypeOfRisk=@TypeOfRisk
+			       AND ItemName=@ItemName
+				   AND TypeA=@TypeA
+				AND TypeB IS NOT NULL
+
+	IF(@RecordCount >0)
+		BEGIN
+			Select Distinct TypeB, null as Tariff_Catagory, null as ItemName, null as Per, null as TariffKey,  null as TypeA, null as TypeC, null as TypeOfRisk 
+				 from Marine_Cargo_Tariff
+				 where Tariff_Catagory=@Tariff_Catagory
+					   AND TypeOfRisk=@TypeOfRisk
+					   AND ItemName=@ItemName
+					   AND TypeA=@TypeA
+	                 		AND TypeB IS NOT NULL
+
+		END
+	ELSE
+		BEGIN
+			Select ISNULL(Per,0)AS Per, null as Tariff_Catagory, null as ItemName, null as TariffKey,  null as TypeA, null as TypeB, null as TypeC, null as TypeOfRisk 
+				 From Marine_Cargo_Tariff
+				 where
+	 			 Tariff_Catagory=@Tariff_Catagory
+  		  		 AND TypeOfRisk=@TypeOfRisk
+  		  		 AND ItemName=@ItemName
+  		  		 AND TypeA=@TypeA
+		END
+	
+END
+
+
+GO
+
+/****** Object:  NumberedStoredProcedure [dbo].[SpMC_Tariff];5    Script Date: 09/11/2023 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff];5
+@Tariff_Catagory VARCHAR(50)=NULL,
+@TypeOfRisk	 VARCHAR(50)=NULL,
+@ItemName	 VARCHAR(250)=NULL,
+@TypeA		 VARCHAR(250)=NULL,
+@TypeB		 VARCHAR(250)=NULL
+AS
+BEGIN
+
+	DECLARE @RecordCount as int
+	SELECT @RecordCount =  COUNT( Distinct TypeC ) 
+			 from Marine_Cargo_Tariff
+			 where Tariff_Catagory=@Tariff_Catagory
+			       AND TypeOfRisk=@TypeOfRisk
+			       AND ItemName=@ItemName
+				   AND TypeA=@TypeA
+				   AND TypeB = @TypeB
+				AND TypeB IS NOT NULL
+    IF(@RecordCount > 0)
+	BEGIN
+		Select Distinct TypeC, null as Tariff_Catagory, null as ItemName, null as Per, null as TariffKey,  null as TypeA, null as TypeB, null as TypeOfRisk 
+			 from Marine_Cargo_Tariff
+			 where Tariff_Catagory=@Tariff_Catagory
+			       AND TypeOfRisk=@TypeOfRisk
+			       AND ItemName=@ItemName
+			       AND TypeA=@TypeA
+			       AND TypeB=@TypeB
+                         	AND TypeC IS NOT NULL
+
+	END
+	ELSE
+	BEGIN
+
+		Select ISNULL(Per,0)AS Per,null as Tariff_Catagory, null as ItemName,  null as TariffKey,  null as TypeA,null as TypeB, null as TypeC, null as TypeOfRisk 
+			 From Marine_Cargo_Tariff
+			 where
+	 		 Tariff_Catagory=@Tariff_Catagory
+  		  	 AND TypeOfRisk=@TypeOfRisk
+  		  	 AND ItemName=@ItemName
+  		  	 AND TypeA=@TypeA
+  		  	 AND TypeB=@TypeB
+	END
+END
+
+
+GO
+
+/****** Object:  NumberedStoredProcedure [dbo].[SpMC_Tariff];6    Script Date: 09/11/2023 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff];6
+@Tariff_Catagory VARCHAR(50)=NULL,
+@TypeOfRisk	 VARCHAR(50)=NULL,
+@ItemName	 VARCHAR(250)=NULL,
+@TypeA		 VARCHAR(250)=NULL,
+@TypeB		 VARCHAR(250)=NULL,
+@TypeC		 VARCHAR(250)=NULL
+AS
+BEGIN
+
+	
+		Select ISNULL(Per,0)AS Per,null as Tariff_Catagory, null as ItemName,  null as TariffKey,  null as TypeA,null as TypeB, null as TypeC, null as TypeOfRisk 
+			 From Marine_Cargo_Tariff
+			 where
+	 		 Tariff_Catagory=@Tariff_Catagory
+  		  	 AND TypeOfRisk=@TypeOfRisk
+  		  	 AND ItemName=@ItemName
+  		  	 AND TypeA=@TypeA
+  		  	 AND TypeB=@TypeB
+			 AND TypeC=@TypeC
+END
+
+
+GO
+
+/****** Object:  NumberedStoredProcedure [dbo].[SpMC_Tariff];7    Script Date: 09/11/2023 17:01:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE PROCEDURE [dbo].[SpMC_Tariff];7
+AS
+BEGIN 
+	Select * from Marine_Cargo_Tariff_FBIG order by Item_Name
+END
+
+
+GO
