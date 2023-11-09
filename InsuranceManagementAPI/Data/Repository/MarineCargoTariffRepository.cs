@@ -20,30 +20,46 @@ namespace InsuranceManagementAPI.Data.Repository
         }
         public async Task<IEnumerable<MarineCargoTariffDto>> GetItemNames(string TariffCategory, string RiskType)
         {
-            var paramList = new List<SqlParameter>();            
-            paramList.Add(new SqlParameter { ParameterName = "@Tariff_Catagory", Value = TariffCategory });
-            paramList.Add(new SqlParameter { ParameterName = "@TypeOfRisk", Value = RiskType});
 
-            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff;2 @Tariff_Catagory,@TypeOfRisk", paramList).ToList();
+
+            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff;2 " + "'"+ TariffCategory+"','"+ RiskType +"'" ).ToList();
+            
 
             return result;
         }
 
         
 
-        public Task<IEnumerable<MarineCargoTariffDto>> GetTypeA(string TariffCategory, string RiskType, string ItemName)
+        public async Task<IEnumerable<MarineCargoTariffDto>> GetTypeA(string TariffCategory, string RiskType, string ItemName)
         {
-            throw new NotImplementedException();
+            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff;3 {0},{1},{2}",TariffCategory,RiskType,ItemName).ToList();
+
+
+            return result;
         }
 
-        public Task<IEnumerable<MarineCargoTariffDto>> GetTypeB(string TariffCategory, string RiskType, string ItemName, string TypeA)
+        public async Task<IEnumerable<MarineCargoTariffDto>> GetTypeB(string TariffCategory, string RiskType, string ItemName, string TypeA)
         {
-            throw new NotImplementedException();
+            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff;4 {0},{1},{2},{3}", TariffCategory, RiskType, ItemName,TypeA).ToList();
+
+
+            return result;
         }
 
-        public Task<IEnumerable<MarineCargoTariffDto>> GetTypeC(string TariffCategory, string RiskType, string ItemName, string TypeA, string TypeB)
+        public async Task<IEnumerable<MarineCargoTariffDto>> GetTypeC(string TariffCategory, string RiskType, string ItemName, string TypeA, string TypeB)
         {
-            throw new NotImplementedException();
+            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff;5 {0},{1},{2},{3}, {4}", TariffCategory, RiskType, ItemName, TypeA, TypeB).ToList();
+
+
+            return result;
+        }
+
+        public async Task<IEnumerable<MarineCargoTariffDto>> GetRate(string TariffCategory, string RiskType, string ItemName, string TypeA, string TypeB,String TypeC)
+        {
+            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff;6 {0},{1},{2},{3}, {4},{5}", TariffCategory, RiskType, ItemName, TypeA, TypeB,TypeC).ToList();
+
+
+            return result;
         }
     }
 }
