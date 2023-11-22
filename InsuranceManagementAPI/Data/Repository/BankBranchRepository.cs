@@ -15,14 +15,14 @@ namespace InsuranceManagementAPI.Data.Repository
         {
             _context = context;
         }
-        public async Task<IEnumerable<BankBranchDto>> GetAllBankBranches()
+        public async Task<IEnumerable<BankBranchDto>> GetAllBankBranches(BankBranchDto bankBranchDto)
         {
             //return await _context.BankBranch.ToListAsync();
 
            
 
 
-            var result =  _context.BankBranch.FromSqlRaw<BankBranchDto>("EXECUTE GetAllBankBranches '', ''").ToList();
+            var result =  _context.BankBranch.FromSqlRaw<BankBranchDto>("EXECUTE GetAllBankBranches {0}, {1}", bankBranchDto.BankName, bankBranchDto.BranchName).ToList();
 
 
             

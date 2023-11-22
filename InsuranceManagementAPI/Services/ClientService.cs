@@ -22,9 +22,10 @@ namespace InsuranceManagementAPI.Services
             return _clientFactory.CreateMultipleFrom(clientDtos);
         }
 
-        public async Task<IEnumerable<Client>> GetAllClientsByName(String searchWord)
+        public async Task<IEnumerable<Client>> GetAllClientsByName(Client client)
         {
-            var clientDtos = await _clientRepository.GetAllClientsByName(searchWord);
+            ClientDto clientDto = _clientFactory.CreateFrom(client);
+            var clientDtos = await _clientRepository.GetAllClientsByName(clientDto);
 
             return _clientFactory.CreateMultipleFrom(clientDtos);
         }

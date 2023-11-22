@@ -21,13 +21,13 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
-        [HttpGet("BankBranches")]
-        public ActionResult<IEnumerable<BankBranch>> GetAllBankBranches()
+        [HttpPost("Search")]
+        public ActionResult<IEnumerable<BankBranch>> GetAllBankBranches(BankBranch bankBranch)
         {
             IEnumerable<BankBranch> response;
             try
             {
-                response = _bankBranchService.GetAllBankBranches().Result;
+                response = _bankBranchService.GetAllBankBranches(bankBranch).Result;
 
                 if (response == null || !response.Any())
                 {
