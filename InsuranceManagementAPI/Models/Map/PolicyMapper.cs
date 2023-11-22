@@ -23,6 +23,7 @@ namespace InsuranceManagementAPI.Models.Map
             CreateMap<AgentDto, Agent>().ReverseMap();
             CreateMap<CurrencyDto, Currency>().ReverseMap();
             CreateMap<MarineCargoTariffDto, MarineCargoTariff>().ReverseMap();
+            CreateMap<FinalMRDto, FinalMR>().ReverseMap();
 
         }
     }

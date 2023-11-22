@@ -23,6 +23,7 @@ namespace InsuranceManagementAPI.Data
         public virtual DbSet<AgentDto> Agent { get; set; }
         public virtual DbSet<CurrencyDto> Currency{ get; set; }
         public virtual DbSet<MarineCargoTariffDto> MarineCargoTariff { get; set; }
+        public virtual DbSet<FinalMRDto> FinalMR{ get; set; }
 
     }
 }

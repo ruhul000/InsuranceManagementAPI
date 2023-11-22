@@ -20,15 +20,17 @@ namespace InsuranceManagementAPI.Data.Repository
             return await _context.Clients.Take(50).OrderBy(c => c.ClientName).ToListAsync();
         }
 
-        public async Task<IEnumerable<ClientDto>> GetAllClientsByName(String searchWord)
-        {  
-            if(searchWord.StartsWith("%"))
+        public async Task<IEnumerable<ClientDto>> GetAllClientsByName(ClientDto clientDto)
+        {
+            String searchWord = "";
+            if (clientDto.ClientName.StartsWith("%"))
             {
-                searchWord = searchWord.Substring(1,searchWord.Length - 1);
+                searchWord = clientDto.ClientName.Substring(1, clientDto.ClientName.Length - 1);
                 return await _context.Clients.Where(c => c.ClientName.Contains(searchWord)).OrderBy(c => c.ClientName).Take(50).ToListAsync();
             }
             else
             {
+                searchWord = clientDto.ClientName;
                 return await _context.Clients.Where(c => c.ClientName.StartsWith(searchWord)).OrderBy(c => c.ClientName).Take(50).ToListAsync();
             }
             

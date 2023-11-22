@@ -6,7 +6,7 @@ namespace InsuranceManagementAPI.Services
     {
         Task<IEnumerable<Client>> GetAllClients();
 
-        Task<IEnumerable<Client>> GetAllClientsByName(String searchWord);
+        Task<IEnumerable<Client>> GetAllClientsByName(Client client);
         Task<Client> GetClientById(long clientKey);
         Task<Client> Create(Client client);
         Task<Client?> UpdateClient(Client client);

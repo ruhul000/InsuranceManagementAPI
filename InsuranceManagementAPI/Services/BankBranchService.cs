@@ -14,9 +14,10 @@ namespace InsuranceManagementAPI.Services
             _bankBranchRepository = bankBranchRepository;
             _bankBranchFactory = bankBranchFactory;
         }
-        public async Task<IEnumerable<BankBranch>> GetAllBankBranches()
+        public async Task<IEnumerable<BankBranch>> GetAllBankBranches(BankBranch bankBranch)
         {
-            var bankBranchDtos = await _bankBranchRepository.GetAllBankBranches();
+            BankBranchDto bankBranchDto = _bankBranchFactory.CreateFrom(bankBranch);
+            var bankBranchDtos = await _bankBranchRepository.GetAllBankBranches(bankBranchDto);
 
             return _bankBranchFactory.CreateMultipleFrom(bankBranchDtos);
         }
@@ -35,6 +36,10 @@ namespace InsuranceManagementAPI.Services
 
             try
             {
+                if (bankBranch.BankId == 0 || bankBranch.BranchName == "")
+                {
+                    return response;
+                }
                 var insertedId = _bankBranchRepository.Add(bankBranchDto).Result;
                 if (insertedId == 0)
                 {

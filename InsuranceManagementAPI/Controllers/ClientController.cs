@@ -53,14 +53,14 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors]
         [MapToApiVersion("1.0")]
-        [HttpGet("search/{searchWord}")]
-        public ActionResult<IEnumerable<Client>> GetAllClientsByName(String searchWord)
+        [HttpPost("search")]
+        public ActionResult<IEnumerable<Client>> GetAllClientsByName(Client client)
         {
-            searchWord = searchWord.Replace("~", "/");
+            //searchWord = searchWord.Replace("~", "/");
             IEnumerable<Client> response;
             try
             {
-                response = _clientService.GetAllClientsByName(searchWord).Result;
+                response = _clientService.GetAllClientsByName(client).Result;
 
                 if (response == null || !response.Any())
                 {
