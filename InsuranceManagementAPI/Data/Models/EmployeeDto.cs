@@ -35,7 +35,7 @@ namespace InsuranceManagementAPI.Data.Models
         public String? Mother_Name { get; set; }
         public String? Spouse_Name { get; set; }
         public String? Nominee { get; set; }
-        public DateTime? Merital_Status { get; set; }
+        public String? Merital_Status { get; set; }
         public DateTime? Marriage_Date { get; set; }
         public String? Religion { get; set; }
         public String? Nationality { get; set; }

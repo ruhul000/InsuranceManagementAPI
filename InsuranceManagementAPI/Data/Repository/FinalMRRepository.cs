@@ -79,7 +79,7 @@ namespace InsuranceManagementAPI.Data.Repository
                 paramList.Add(new SqlParameter { ParameterName = "@BankKey_Old", Value = finalMRDto.BankKey_Old.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@EmpKey", Value = finalMRDto.EmpKey.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@AgentKey", Value = finalMRDto.AgentKey.ToDBNullIfNothing() });
-                paramList.Add(new SqlParameter { ParameterName = "@PeriodFrom", Value = finalMRDto.PeriodFrOm.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@PeriodFrom", Value = finalMRDto.PeriodFrom.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@PeriodTo", Value = finalMRDto.PeriodTo.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Text_Field_1", Value = finalMRDto.Text_Field_1.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@Text_Field_2", Value = finalMRDto.Text_Field_2.ToDBNullIfNothing() });
