@@ -7,24 +7,24 @@ namespace InsuranceManagementAPI.Data.Models
     public class FinalMRDto
     {
         [Key]
-        public long FinalMRKey { get; set; }
-        public long FinalMRKeyREF { get; set; }
+        public Int64 FinalMRKey { get; set; }
+        public Int64 FinalMRKeyREF { get; set; }
         public int BranchKey { get; set; }
         public string? Class_Name { get; set; }
         public string? Sub_Class_Name { get; set; }
-        public int YearName { get; set; }
+        public Int16 YearName { get; set; }
         public string? MRType { get; set; }
         public string? MRType_2 { get; set; }
         public string? MRType_3 { get; set; }
         public string? MRType_4 { get; set; }
-        public int MRCode { get; set; }
+        public int? MRCode { get; set; }
         public string? MRCode_Dis { get; set; }
         public DateTime? MRDate { get; set; }
         public int DocCode { get; set; }
         public string? DocNo { get; set; }
-        public DateTime DocDate { get; set; }
+        public DateTime? DocDate { get; set; }
         public string? CoverNoteNo { get; set; }
-        public DateTime CNDate { get; set; }
+        public DateTime? CNDate { get; set; }
         public string? PolicyNo { get; set; }
         public DateTime? PODate { get; set; }
         public bool CoIns { get; set; }
@@ -49,20 +49,20 @@ namespace InsuranceManagementAPI.Data.Models
         public decimal? Ref_CoInsSumInsured { get; set; }
         public decimal? Ref_CoInsNetPremium { get; set; }
         public bool Active { get; set; }
-        public DateTime DepositDate { get; set; }
+        public DateTime? DepositDate { get; set; }
         public decimal? Depo_NetPremium { get; set; }
         public decimal? Depo_NetPremium_CoIns { get; set; }
         public decimal? Depo_VatAmount { get; set; }
         public decimal? Depo_StampDuty { get; set; }
         public int? MR_Allowable { get; set; }
         public int? Business { get; set; }
-        public Int64 ClientKey { get; set; }
-        public Int64 BankKey { get; set; }
-        public Int64 ClientKey_Old { get; set; }
-        public Int64 BankKey_Old { get; set; }
-        public int EmpKey { get; set; }
-        public int AgentKey { get; set; }
-        public DateTime? PeriodFrOm { get; set; }
+        public Int64? ClientKey { get; set; }
+        public Int64? BankKey { get; set; }
+        public Int64? ClientKey_Old { get; set; }
+        public Int64? BankKey_Old { get; set; }
+        public int? EmpKey { get; set; }
+        public int? AgentKey { get; set; }
+        public DateTime? PeriodFrom { get; set; }
         public DateTime? PeriodTo { get; set; }
         public string? Text_Field_1 { get; set; }
         public string? Text_Field_2 { get; set; }
