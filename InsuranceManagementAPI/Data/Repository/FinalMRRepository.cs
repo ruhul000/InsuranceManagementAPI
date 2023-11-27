@@ -53,6 +53,7 @@ namespace InsuranceManagementAPI.Data.Repository
                 paramList.Add(new SqlParameter { ParameterName = "@SumInsuredCoIns", Value = finalMRDto.SumInsuredCoIns.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@MRNetPremium", Value = finalMRDto.MRNetPremium.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@NetPremium", Value = finalMRDto.NetPremium.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@VatPer", Value = finalMRDto.VatPer.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@VatAmount", Value = finalMRDto.VatAmount.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@StampDuty", Value = finalMRDto.StampDuty.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@OthersAmount", Value = finalMRDto.OthersAmount.ToDBNullIfNothing() });
@@ -192,7 +193,7 @@ namespace InsuranceManagementAPI.Data.Repository
                 await _context.Database.ExecuteSqlRawAsync("EXECUTE Sptab_Final_MR " +
                     "@FinalMRKey OUT,@FinalMRKeyREF,@BranchKey,@Class_Name, @Sub_Class_Name, @YearName, @MRType, @MRType_2, @MRType_3, @MRType_4, " +
                     "@MRCode, @MRCode_Dis, @MRDate, @DocCode, @DocNo, @DocDate, @CoverNoteNo, @CNDate, @PolicyNo, @PODate, @CoIns, @ComKeyCoIns, @LeaderDocNo, " +
-                    "@CoInsPer, @We_Leader, @SumInsured,@SumInsuredCoIns, @MRNetPremium, @NetPremium, @VatAmount, @StampDuty,@OthersAmount, @Ref_SumInsured, " +
+                    "@CoInsPer, @We_Leader, @SumInsured,@SumInsuredCoIns, @MRNetPremium, @NetPremium,@VatPer, @VatAmount, @StampDuty,@OthersAmount, @Ref_SumInsured, " +
                     "@Ref_SumInsuredCoIns, @Ref_NetPremium, @Ref_VatAmount, @Ref_StampDuty, @Ref_ChargeAmount, @Ref_DocNo, @Ref_CoInsSumInsured, @Ref_CoInsNetPremium, " +
                     "@Active, @DepositDate, @Depo_NetPremium, @Depo_NetPremium_CoIns, @Depo_VatAmount, @Depo_StampDuty, @MR_Allowable, @Business,@ClientKey, " +
                     "@BankKey, @ClientKey_Old, @BankKey_Old,@EmpKey, @AgentKey, @PeriodFrom, @PeriodTo, @Text_Field_1,@Text_Field_2,@Text_Field_3,@Text_Field_4, " +

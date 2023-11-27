@@ -22,13 +22,19 @@ namespace InsuranceManagementAPI.Controllers
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
-        public ActionResult<FinalMR> Create(FinalMR FinalMR)
+        public ActionResult<FinalMR> Create(FinalMR finalMR)
         {
 
             FinalMR? response;
             try
             {
-                response = _finalMRService.Create(FinalMR).Result;
+                //validation part
+                if(finalMR.ClientKey == 0 || finalMR.ClientKey == null)
+                {
+                    return BadRequest("Select a Client");
+                }
+
+                response = _finalMRService.Create(finalMR).Result;
 
                 if (response == null)
                 {

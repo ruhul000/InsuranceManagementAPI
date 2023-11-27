@@ -36,6 +36,7 @@ namespace InsuranceManagementAPI.Data.Models
         public decimal? SumInsuredCoIns { get; set; }
         public decimal? MRNetPremium { get; set; }
         public decimal? NetPremium { get; set; }
+        public decimal? VatPer { get; set; }
         public decimal? VatAmount { get; set; }
         public decimal? StampDuty { get; set; }
         public decimal? OthersAmount { get; set; }
