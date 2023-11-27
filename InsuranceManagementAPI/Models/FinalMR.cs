@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace InsuranceManagementAPI.Models
 {
@@ -16,13 +17,17 @@ namespace InsuranceManagementAPI.Models
         public string? MRType_4 { get; set; }
         public int? MRCode { get; set; }
         public string? MRCode_Dis { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? MRDate { get; set; }
         public int DocCode { get; set; }
         public string? DocNo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DocDate { get; set; }
         public string? CoverNoteNo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? CNDate { get; set; }
         public string? PolicyNo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? PODate { get; set; }
         public bool CoIns { get; set; }
         public int ComKeyCoIns { get; set; }
@@ -33,6 +38,7 @@ namespace InsuranceManagementAPI.Models
         public decimal? SumInsuredCoIns { get; set; }
         public decimal? MRNetPremium { get; set; }
         public decimal? NetPremium { get; set; }
+        public decimal? VatPer { get; set; }
         public decimal? VatAmount { get; set; }
         public decimal? StampDuty { get; set; }
         public decimal? OthersAmount { get; set; }
@@ -46,6 +52,7 @@ namespace InsuranceManagementAPI.Models
         public decimal? Ref_CoInsSumInsured { get; set; }
         public decimal? Ref_CoInsNetPremium { get; set; }
         public bool Active { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DepositDate { get; set; }
         public decimal? Depo_NetPremium { get; set; }
         public decimal? Depo_NetPremium_CoIns { get; set; }
@@ -59,7 +66,9 @@ namespace InsuranceManagementAPI.Models
         public Int64? BankKey_Old { get; set; }
         public int? EmpKey { get; set; }
         public int? AgentKey { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? PeriodFrom { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? PeriodTo { get; set; }
         public string? Text_Field_1 { get; set; }
         public string? Text_Field_2 { get; set; }
@@ -121,14 +130,18 @@ namespace InsuranceManagementAPI.Models
         public decimal? Num_Field_28 { get; set; }
         public decimal? Num_Field_29 { get; set; }
         public decimal? Num_Field_30 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? Date_Field_1 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? Date_Field_2 { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? Date_Field_3 { get; set; }
         public int? Bank_Guarantee { get; set; }
         public string? Coll_Our_Share { get; set; }
         public int? NewClient { get; set; }
         public int? WithChargeAmount { get; set; }
         public bool DocCancel { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DocCancelDate { get; set; }
         public bool NotUtilized { get; set; }
         public bool DocEdit { get; set; }
@@ -147,6 +160,7 @@ namespace InsuranceManagementAPI.Models
         public string? BankName { get; set; }
         public string? BranchName { get; set; }
         public string? ChequeNo { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ChequeDate { get; set; }
         public decimal? ChargeAmount { get; set; }
         public bool? PrintStatus { get; set; }
@@ -163,8 +177,10 @@ namespace InsuranceManagementAPI.Models
         public bool DelFlag { get; set; }
         public string? PC_Name { get; set; }
         public int EUser { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EDate { get; set; }
         public int UUser { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime UDate { get; set; }
         public bool BackupType { get; set; }
 
