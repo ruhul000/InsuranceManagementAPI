@@ -30,14 +30,14 @@ namespace InsuranceManagementAPI.Services
             return _bankFactory.CreateFrom(bankDto);
         }
 
-        public async Task<Bank?> Create(Bank bank)
+        public async Task<Bank?> Create(Bank bank, int userId)
         {
             Bank? response = null;
             var bankDto = _bankFactory.CreateFrom(bank);
 
             try
             {
-                if (!_bankRepository.Add(bankDto).Result)
+                if (!_bankRepository.Add(bankDto, userId).Result)
                 {
                     return response;
                 }
@@ -54,14 +54,14 @@ namespace InsuranceManagementAPI.Services
             return response;
         }
 
-        public async Task<Bank?> Update(Bank bank)
+        public async Task<Bank?> Update(Bank bank, int userId)
         {
             Bank? response = null;
             var bankDto = _bankFactory.CreateFrom(bank);
 
             try
             {
-                var result = _bankRepository.Update(bankDto).Result;
+                var result = _bankRepository.Update(bankDto, userId).Result;
                 if (!result)
                 {
                     return response;

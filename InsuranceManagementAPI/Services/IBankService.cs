@@ -6,8 +6,8 @@ namespace InsuranceManagementAPI.Services
     {
         Task<IEnumerable<Bank>> GetAllBanks();
         Task<Bank> GetBankById(int bankId);
-        Task<Bank> Create(Bank bank);
-        Task<Bank> Update(Bank bank);
+        Task<Bank> Create(Bank bank, int userId);
+        Task<Bank> Update(Bank bank, int userId);
         Task<bool> Delete(int bankId);
     }
 }
