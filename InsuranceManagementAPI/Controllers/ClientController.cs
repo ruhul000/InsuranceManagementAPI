@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Client")]
     [ApiVersion("1.0")]
