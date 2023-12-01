@@ -6,6 +6,7 @@ using InsuranceManagementAPI.Helper;
 using InsuranceManagementAPI.Models.Factories;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -36,6 +37,16 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBankService, BankService>();
 builder.Services.AddScoped<IBankBranchService, BankBranchService>();
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IInsuranceCompanyService, InsuranceCompanyService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IBranchService, BranchService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDesignationService, DesignationService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IAgentService, AgentService>();
+builder.Services.AddScoped<ICurrencyService, CurrencyService>();
+builder.Services.AddScoped<IMarineCargoTariffService, MarineCargoTariffService>();
+builder.Services.AddScoped<IFinalMRService, FinalMRService>();
 
 
 // Configure App Repositories
@@ -44,12 +55,32 @@ builder.Services.AddScoped<IBankRepository, BankRepository>();
 builder.Services.AddScoped<IBankBranchRepository, BankBranchRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IInsuranceCompanyRepository, InsuranceCompanyRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IAgentRepository, AgentRepository>();
+builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+builder.Services.AddScoped<IMarineCargoTariffRepository, MarineCargoTariffRepository>();
+builder.Services.AddScoped<IFinalMRRepository, FinalMRRepository>();
 
 // Configure App Factories
 builder.Services.AddScoped<IBankFactory, BankFactory>();
 builder.Services.AddScoped<IBankBranchFactory, BankBranchFactory>();
 builder.Services.AddScoped<IUserFactory, UserFactory>();
 builder.Services.AddScoped<IClientFactory, ClientFactory>();
+builder.Services.AddScoped<IInsuranceCompanyFactory, InsuranceCompanyFactory>();
+builder.Services.AddScoped<ICompanyFactory, CompanyFactory>();
+builder.Services.AddScoped<IBranchFactory, BranchFactory>();
+builder.Services.AddScoped<IDepartmentFactory, DepartmentFactory>();
+builder.Services.AddScoped<IDesignationFactory, DesignationFactory>();
+builder.Services.AddScoped<IEmployeeFactory, EmployeeFactory>();
+builder.Services.AddScoped<IAgentFactory, AgentFactory>();
+builder.Services.AddScoped<ICurrencyFactory, CurrencyFactory>();
+builder.Services.AddScoped<IMarineCargoTariffFactory, MarineCargoTariffFactory>();
+builder.Services.AddScoped<IFinalMRFactory, FinalMRFactory>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
@@ -74,8 +105,9 @@ builder.Services.AddVersionedApiExplorer(setup =>
 builder.Services.AddEndpointsApiExplorer();
 
 // Add JWT Authentication Option in Swagger
-builder.Services.AddSwaggerGen(c =>{
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{ 
+builder.Services.AddSwaggerGen(c => {
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
         Description = "JWT Authorization",
         Name = "Authorization",
         In = ParameterLocation.Header,
@@ -102,7 +134,8 @@ builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
 // Configure JWT Validation
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-    options.TokenValidationParameters = new TokenValidationParameters { 
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
@@ -111,6 +144,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidAudience = builder.Configuration["JWTSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWTSettings:Key"]))
     };
+});
+
+//Cors policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Policy1",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000/");
+        });
+
+    options.AddPolicy("Policy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+
+
 });
 
 //Cors policy
@@ -161,6 +214,8 @@ if (app.Environment.IsDevelopment())
         {
             options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
                 description.GroupName.ToUpperInvariant());
+
+            options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
         }
     });
 }

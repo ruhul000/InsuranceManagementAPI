@@ -160,5 +160,13 @@ namespace InsuranceManagementAPI.Services
 
         }
 
+        public async Task<User> GetById(int userId)
+        {
+            var userDto = await _userRepository.GetById(userId);
+
+            return _userFactory.CreateFrom(userDto);
+        }
+
+
     }
 }

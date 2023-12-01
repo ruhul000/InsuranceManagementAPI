@@ -7,6 +7,8 @@ namespace InsuranceManagementAPI.Data.Repository
     {
         Task<IEnumerable<BankDto>> GetAllBanks();
         Task<BankDto> GetBankByID(long id);
-        Task<bool> Add(BankDto bankDto);
+        Task<bool> Add(BankDto bankDto, int userId);
+        Task<bool> Update(BankDto bankDto, int userId);
+        Task<bool> Remove(int bankId);
     }
 }

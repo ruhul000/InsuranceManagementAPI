@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using InsuranceManagementAPI.Data.Models;
 using InsuranceManagementAPI.Extensions;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace InsuranceManagementAPI.Data.Repository
 {
@@ -15,8 +16,26 @@ namespace InsuranceManagementAPI.Data.Repository
         }
         public async Task<IEnumerable<ClientDto>> GetAllClients()
         {
-            return await _context.Clients.ToListAsync();
+            //return await _context.Clients.Where(p => p.ClientName.StartsWith("As")).ToListAsync().Take(10);
+            return await _context.Clients.Take(50).OrderBy(c => c.ClientName).ToListAsync();
         }
+
+        public async Task<IEnumerable<ClientDto>> GetAllClientsByName(ClientDto clientDto)
+        {
+            String searchWord = "";
+            if (clientDto.ClientName.StartsWith("%"))
+            {
+                searchWord = clientDto.ClientName.Substring(1, clientDto.ClientName.Length - 1);
+                return await _context.Clients.Where(c => c.ClientName.Contains(searchWord)).OrderBy(c => c.ClientName).Take(50).ToListAsync();
+            }
+            else
+            {
+                searchWord = clientDto.ClientName;
+                return await _context.Clients.Where(c => c.ClientName.StartsWith(searchWord)).OrderBy(c => c.ClientName).Take(50).ToListAsync();
+            }
+            
+        }
+
 
         public async Task<ClientDto> GetClientByID(long id)
         {
@@ -66,42 +85,7 @@ namespace InsuranceManagementAPI.Data.Repository
             paramList.Add(new SqlParameter { ParameterName = "@Date_C", Value = client.Date_C.ToDBNullIfNothing() });
             paramList.Add(new SqlParameter { ParameterName = "@BackupType", Value = client.BackupType.ToDBNullIfNothing() });
 
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientKey", SqlDbType = System.Data.SqlDbType.BigInt, Direction = System.Data.ParameterDirection.Output });
-            //paramList.Add(new SqlParameter { ParameterName = "@BranchKey", Value = client.BranchKey, SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientName", Value = client.ClientName, SqlDbType = System.Data.SqlDbType.VarChar, Size = 1000, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientNameExtar", Value = client.ClientNameExtar, SqlDbType = System.Data.SqlDbType.VarChar, Size = 1000, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientAddress", Value = client.ClientAddress, SqlDbType = System.Data.SqlDbType.VarChar, Size = 1000, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientMobile", Value = client.ClientMobile, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientType", Value = client.ClientType, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientTypeTwo", Value = client.ClientTypeTwo, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientSector", Value = client.ClientSector, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientVATNo", Value = client.ClientVATNo, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientBINNo", Value = client.ClientBINNo, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientTINNo", Value = client.ClientTINNo, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Client_VAT_Exemption", Value = client.Client_VAT_Exemption, SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@GroupKey", Value = client.GroupKey, SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientPhone", Value = client.ClientPhone, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientFax", Value = client.ClientFax, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientEMail", Value = client.ClientEMail, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientRelation", Value = client.ClientRelation, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientWeb", Value = client.ClientWeb, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientContractPer", Value = client.ClientContractPer, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@ClientDesignation", Value = client.ClientDesignation, SqlDbType = System.Data.SqlDbType.VarChar, Size = 100, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@SpecDiscount", Value = client.SpecDiscount, SqlDbType = System.Data.SqlDbType.Decimal, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@EmpKeyDirectorRef", Value = client.EmpKeyDirectorRef, SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Status", Value = client.Status, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Int_A", Value = client.Int_A, SqlDbType = System.Data.SqlDbType.Decimal, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Int_B", Value = client.Int_B, SqlDbType = System.Data.SqlDbType.Decimal, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Int_C", Value = client.Int_C, SqlDbType = System.Data.SqlDbType.Decimal, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Int_D", Value = client.Int_D, SqlDbType = System.Data.SqlDbType.Decimal, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Str_A", Value = client.Str_A, SqlDbType = System.Data.SqlDbType.VarChar, Size = 250, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Str_B", Value = client.Str_B, SqlDbType = System.Data.SqlDbType.VarChar, Size = 250, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Str_C", Value = client.Str_C, SqlDbType = System.Data.SqlDbType.VarChar, Size = 250, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Str_D", Value = client.Str_D, SqlDbType = System.Data.SqlDbType.VarChar, Size = 250, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Date_A", Value = client.Date_A, SqlDbType = System.Data.SqlDbType.SmallDateTime, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Date_B", Value = client.Date_B, SqlDbType = System.Data.SqlDbType.SmallDateTime, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@Date_C", Value = client.Date_C, SqlDbType = System.Data.SqlDbType.SmallDateTime, Direction = System.Data.ParameterDirection.Input });
-            //paramList.Add(new SqlParameter { ParameterName = "@BackupType", Value = client.BackupType, SqlDbType = System.Data.SqlDbType.Bit, Direction = System.Data.ParameterDirection.Input });
+            
 
             await _context.Database.ExecuteSqlRawAsync("EXECUTE AddClient @ClientKey OUT, @BranchKey, @ClientName, @ClientNameExtar, @ClientAddress, @ClientMobile, @ClientType, @ClientTypeTwo, " +
                 "@ClientSector, @ClientVATNo, @ClientBINNo, @ClientTINNo, @Client_VAT_Exemption, @GroupKey, @ClientPhone, @ClientFax, @ClientEMail, @ClientRelation, @ClientWeb, @ClientContractPer, " +

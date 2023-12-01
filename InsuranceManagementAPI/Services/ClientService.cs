@@ -21,6 +21,14 @@ namespace InsuranceManagementAPI.Services
 
             return _clientFactory.CreateMultipleFrom(clientDtos);
         }
+
+        public async Task<IEnumerable<Client>> GetAllClientsByName(Client client)
+        {
+            ClientDto clientDto = _clientFactory.CreateFrom(client);
+            var clientDtos = await _clientRepository.GetAllClientsByName(clientDto);
+
+            return _clientFactory.CreateMultipleFrom(clientDtos);
+        }
         public async Task<Client> GetClientById(long clientKey)
         {
             var clientDto = await _clientRepository.GetClientByID(clientKey);

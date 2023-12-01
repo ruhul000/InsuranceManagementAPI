@@ -7,7 +7,11 @@ namespace InsuranceManagementAPI.Data
     public class BankDto
     {
         [Key]
-        public int BankId { get; set; }
+        public int BankId { get; set; } 
         public string BankName { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public int? UpdatedBy { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

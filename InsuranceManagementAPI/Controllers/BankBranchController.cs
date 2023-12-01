@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/BankBranch")]
     [ApiVersion("1.0")]
@@ -21,15 +21,60 @@ namespace InsuranceManagementAPI.Controllers
 
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
-        [HttpGet("BankBranches")]
-        public ActionResult<IEnumerable<BankBranch>> GetAllBankBranches()
+        [HttpPost("Search")]
+        public ActionResult<IEnumerable<BankBranch>> GetAllBankBranches(BankBranch bankBranch)
         {
             IEnumerable<BankBranch> response;
             try
             {
-                response = _bankBranchService.GetAllBankBranches().Result;
+                response = _bankBranchService.GetAllBankBranches(bankBranch).Result;
 
                 if (response == null || !response.Any())
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+
+        [EnableCors("Policy")]
+        [MapToApiVersion("1.0")]
+        [HttpGet("BankBranches/{BankId}")]
+        public ActionResult<IEnumerable<BankBranch>> GetBankBranches(int BankId)
+        {
+            IEnumerable<BankBranch> response;
+            try
+            {
+                response = _bankBranchService.GetBankBranches(BankId).Result;
+
+                if (response == null || !response.Any())
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpGet("{BranchId}")]
+        public ActionResult<BankBranch> GetBankBranchById(int BranchId)
+        {
+            BankBranch? response;
+            try
+            {
+                response = _bankBranchService.GetBankBranchById(BranchId).Result;
+
+                if (response == null)
                 {
                     return NotFound();
                 }
@@ -44,7 +89,7 @@ namespace InsuranceManagementAPI.Controllers
         [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
-        public ActionResult<BankBranch> CreateBank(BankBranch bankBranch)
+        public ActionResult<BankBranch> CreateBranch(BankBranch bankBranch)
         {
             BankBranch? response;
             try
@@ -61,6 +106,51 @@ namespace InsuranceManagementAPI.Controllers
                 return BadRequest(ex.Message);
             }
             return Ok(response);
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpPut("Update")]
+        public ActionResult<BankBranch> Update(BankBranch bankBranch)
+        {
+            BankBranch? response;
+            try
+            {
+                response = _bankBranchService.Update(bankBranch).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Bank Branch update failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+
+        }
+
+        [EnableCors]
+        [MapToApiVersion("1.0")]
+        [HttpDelete("Delete")]
+        public ActionResult DeleteClient(int branchId)
+        {
+            bool deleted;
+            try
+            {
+                deleted = _bankBranchService.Delete(branchId).Result;
+
+                if (!deleted)
+                {
+                    return BadRequest("Client deleted failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(deleted);
         }
     }
 }
