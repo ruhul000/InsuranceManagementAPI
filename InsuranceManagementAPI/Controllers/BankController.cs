@@ -1,4 +1,5 @@
 ﻿using InsuranceManagementAPI.Data;
+using InsuranceManagementAPI.Extensions;
 using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/Bank")]
     [ApiVersion("1.0")]
@@ -71,7 +72,9 @@ namespace InsuranceManagementAPI.Controllers
             Bank? response;
             try
             {
-                response = _bankService.Update(bank).Result;
+                var userId = AuthExtensions.GetClaimsUserId(HttpContext);
+
+                response = _bankService.Update(bank, userId).Result;
 
                 if (response == null)
                 {
@@ -94,7 +97,9 @@ namespace InsuranceManagementAPI.Controllers
             Bank? response;
             try
             {
-                response = _bankService.Create(bank).Result;
+                var userId = AuthExtensions.GetClaimsUserId(HttpContext);
+
+                response = _bankService.Create(bank, userId).Result;
 
                 if (response == null)
                 {
