@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\ReportsTemplate\rptBanks.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
@@ -21,40 +25,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Data\Dataset\dsBanks.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>dsBanks.xsd</DependentUpon>
-    </Compile>
+    <None Include="wwwroot\ReportsTemplate\rptBanks.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Data\Dataset\Reports\dsBanks.Designer.cs">
+      <DependentUpon>dsBanks.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>dsBanks.xsd</DependentUpon>
-    </Compile>
-    <Compile Update="Data\ReportsDataset\dsBanks.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>dsBanks.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\Dataset\dsBanks.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
-    </None>
     <None Update="Data\Dataset\Reports\dsBanks.xsd">
-      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="Data\ReportsDataset\dsBanks.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ReportsDownload\" />
+    <Folder Include="Models\Reports\" />
+    <Folder Include="wwwroot\Reports\" />
   </ItemGroup>
 
 </Project>
