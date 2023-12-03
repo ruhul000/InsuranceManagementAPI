@@ -14,7 +14,15 @@ namespace InsuranceManagementAPI.Data.Repository
         }
         public async Task<IEnumerable<MarineCargoTariffDto>> GetTariffCategories()
         {
-            var result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff").ToList();
+            List<MarineCargoTariffDto> result = new List<MarineCargoTariffDto>();
+            try
+            {
+                result = _context.MarineCargoTariff.FromSqlRaw<MarineCargoTariffDto>("EXECUTE SpMC_Tariff").ToList();
+            }
+            catch (Exception ex)
+            {
+
+            }            
 
             return result;
         }

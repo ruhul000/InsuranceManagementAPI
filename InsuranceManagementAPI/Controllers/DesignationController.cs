@@ -19,7 +19,7 @@ namespace InsuranceManagementAPI.Controllers
         }
 
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Designation> Create(Designation Designation)
@@ -42,7 +42,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Designations")]
         public ActionResult<IEnumerable<Designation>> GetAll()
@@ -65,7 +65,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{DesKey}")]
         public ActionResult<Designation> GetByID(int DesKey)
@@ -87,7 +87,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Designation> Update(Designation designation)

@@ -19,7 +19,7 @@ namespace InsuranceManagementAPI.Controllers
         }
 
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Employee> Create(Employee employee)
@@ -42,7 +42,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Employees")]
         public ActionResult<IEnumerable<Employee>> GetAll()
@@ -65,7 +65,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{EmpKey}")]
         public ActionResult<Employee> GetByID(int EmpKey)
@@ -87,7 +87,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Employee> Update(Employee employee)

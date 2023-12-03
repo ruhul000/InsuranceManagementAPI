@@ -17,7 +17,16 @@ namespace InsuranceManagementAPI.Data.Repository
         }
         public async Task<IEnumerable<BankDto>> GetAllBanks()
         {
-            return await _context.Bank.ToListAsync();
+            List<BankDto> banks = new List<BankDto>();
+            try
+            {
+                banks = await _context.Bank.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return banks;
         }
 
         public async Task<BankDto> GetBankByID(long id)
@@ -27,8 +36,8 @@ namespace InsuranceManagementAPI.Data.Repository
 
         public async Task<bool> Add(BankDto bank, int userId)
         {
-            bank.CreatedBy = userId;
-            bank.CreatedAt = DateTime.Now;
+            bank.EUser = userId;
+            bank.EDate = DateTime.Now;
 
             _context.Bank.Add(bank);
             return (await _context.SaveChangesAsync() > 0);
@@ -36,17 +45,17 @@ namespace InsuranceManagementAPI.Data.Repository
 
         public async Task<bool> Update(BankDto bank, int userId)
         {
-            bank.UpdatedBy = userId;
-            bank.UpdatedAt = DateTime.Now;
+            bank.UUser = userId;
+            bank.UDate = DateTime.Now;
 
             var paramList = new List<SqlParameter>();
             paramList.Add(new SqlParameter { ParameterName = "@Result", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output });
             paramList.Add(new SqlParameter { ParameterName = "@BankId", Value = bank.BankId});
             paramList.Add(new SqlParameter { ParameterName = "@BankName", Value = bank.BankName });
-            paramList.Add(new SqlParameter { ParameterName = "@UpdatedBy", Value = bank.UpdatedBy });
-            paramList.Add(new SqlParameter { ParameterName = "@UpdatedAt", Value = bank.UpdatedAt });
+            paramList.Add(new SqlParameter { ParameterName = "@UUser", Value = bank.UUser });
+            
 
-            await _context.Database.ExecuteSqlRawAsync("EXECUTE BankUpdate @Result OUT, @BankId, @BankName, @UpdatedBy, @UpdatedAt",
+            await _context.Database.ExecuteSqlRawAsync("EXECUTE BankUpdate @Result OUT, @BankId, @BankName, @UUser",
                 paramList);
 
             var result = Convert.ToBoolean(paramList[0].Value);

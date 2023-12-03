@@ -9,9 +9,9 @@ namespace InsuranceManagementAPI.Data
         [Key]
         public int BankId { get; set; } 
         public string BankName { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public int? UpdatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public int? EUser { get; set; }
+        public DateTime? EDate { get; set; }
+        public int? UUser { get; set; }
+        public DateTime? UDate { get; set; }
     }
 }

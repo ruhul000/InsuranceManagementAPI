@@ -21,7 +21,7 @@ namespace InsuranceManagementAPI.Controllers
             _clientService = clientService;
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Clients")]
         public ActionResult<IEnumerable<Client>> GetAllClients()
@@ -51,7 +51,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("search")]
         public ActionResult<IEnumerable<Client>> GetAllClientsByName(Client client)
@@ -75,7 +75,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{clientKey}")]
         public ActionResult<Client> GetClientByID(long clientKey)
@@ -97,7 +97,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Client> CreateClient(Client client) 
@@ -119,7 +119,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Client> UpdateClient(Client client)
@@ -142,7 +142,7 @@ namespace InsuranceManagementAPI.Controllers
 
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpDelete("Delete")]
         public ActionResult DeleteClient(long clientKey) 

@@ -20,7 +20,6 @@ namespace InsuranceManagementAPI.Controllers
             _bankService = bankService;
         }
 
-        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpGet("Banks")]
         public  ActionResult<IEnumerable<Bank>> GetAllBanks()
@@ -42,7 +41,6 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpGet("{bankId}")]
         public ActionResult<Bank> GetBankByID(int bankId)
@@ -64,7 +62,6 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Bank> Update(Bank bank)
@@ -89,7 +86,6 @@ namespace InsuranceManagementAPI.Controllers
 
         }
 
-        [EnableCors("Policy")]
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Bank> CreateBank(Bank bank)
@@ -113,7 +109,6 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
         [MapToApiVersion("1.0")]
         [HttpDelete("Delete")]
         public ActionResult<bool>DeleteBank(int  bankId)

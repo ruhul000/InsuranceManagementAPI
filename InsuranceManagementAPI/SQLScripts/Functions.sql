@@ -1,3 +1,27 @@
+CREATE FUNCTION [dbo].[LPAD]  (@STR VARCHAR(8000), @FORMAT_STR CHAR(1), @PAD_LEN INT) 
+RETURNS VARCHAR(8000) 
+AS
+BEGIN 
+	IF (@FORMAT_STR IS NULL)
+	BEGIN
+		SET @FORMAT_STR = ''
+	END
+	DECLARE @REMAIN AS BIGINT 
+	SET @REMAIN = @PAD_LEN - LEN(@STR)
+	DECLARE @i AS INT
+	SET @i = 0
+	IF (@REMAIN > 0) 
+	BEGIN	
+		WHILE @i < @REMAIN
+		BEGIN
+			SET @STR = @FORMAT_STR + @STR
+			SET @i = @i + 1
+		END
+	END
+
+	RETURN @STR
+END
+
 CREATE FUNCTION [dbo].[FnGetDocCode](@Class_Name varchar(100), @Sub_Class_Name varchar(100), @YearName int)
 RETURNS int
 AS
