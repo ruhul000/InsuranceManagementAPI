@@ -1,4 +1,5 @@
-﻿using InsuranceManagementAPI.Models;
+﻿using InsuranceManagementAPI.Extensions;
+using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -19,14 +20,14 @@ namespace InsuranceManagementAPI.Controllers
             _bankBranchService = bankBranchService;
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Search")]
         public ActionResult<IEnumerable<BankBranch>> GetAllBankBranches(BankBranch bankBranch)
         {
             IEnumerable<BankBranch> response;
             try
-            {
+            {                
                 response = _bankBranchService.GetAllBankBranches(bankBranch).Result;
 
                 if (response == null || !response.Any())
@@ -42,7 +43,7 @@ namespace InsuranceManagementAPI.Controllers
         }
 
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("BankBranches/{BankId}")]
         public ActionResult<IEnumerable<BankBranch>> GetBankBranches(int BankId)
@@ -64,7 +65,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{BranchId}")]
         public ActionResult<BankBranch> GetBankBranchById(int BranchId)
@@ -86,7 +87,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<BankBranch> CreateBranch(BankBranch bankBranch)
@@ -94,6 +95,10 @@ namespace InsuranceManagementAPI.Controllers
             BankBranch? response;
             try
             {
+                var userId = AuthExtensions.GetClaimsUserId(HttpContext);
+                bankBranch.EUser = userId;
+                bankBranch.UUser = userId;
+
                 response = _bankBranchService.Create(bankBranch).Result;
 
                 if (response == null)
@@ -108,7 +113,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<BankBranch> Update(BankBranch bankBranch)
@@ -116,6 +121,10 @@ namespace InsuranceManagementAPI.Controllers
             BankBranch? response;
             try
             {
+                var userId = AuthExtensions.GetClaimsUserId(HttpContext);
+                bankBranch.EUser = userId;
+                bankBranch.UUser = userId;
+
                 response = _bankBranchService.Update(bankBranch).Result;
 
                 if (response == null)
@@ -131,7 +140,7 @@ namespace InsuranceManagementAPI.Controllers
 
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpDelete("Delete")]
         public ActionResult DeleteClient(int branchId)

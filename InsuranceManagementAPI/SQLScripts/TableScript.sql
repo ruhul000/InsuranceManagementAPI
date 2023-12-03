@@ -8,6 +8,10 @@ GO
 CREATE TABLE [dbo].[Bank](
 	[BankId] [int] IDENTITY(1,1) NOT NULL,
 	[BankName] [nvarchar](200) NULL,
+	[EUser] [int] NULL,
+	[EDate] [datetime] NULL,
+	[UUser] [int] NULL,
+	[UDate] [datetime] NULL,
  CONSTRAINT [PK_Bank] PRIMARY KEY CLUSTERED 
 (
 	[BankId] ASC
@@ -21,19 +25,26 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[BankBranch](
 	[BranchId] [int] IDENTITY(1,1) NOT NULL,
-	[BranchName] [varchar](200) NULL,
-	[BankId] [int] NULL,
-	[BranchAddress] [varchar](500) NULL,
+	[BranchName] [nvarchar](200) NULL,
+	[BankId] [int] NOT NULL,
+	[BranchAddress] [nvarchar](500) NULL,
 	[SwiftCode] [varchar](50) NULL,
 	[RoutingNumber] [varchar](50) NULL,
 	[Status] [bit] NULL,
-	[EntryUserID] [int] NULL,
-	[EntryTime] [datetime] NULL,
-	[UpdateUserID] [int] NULL,
-	[UpdateTime] [datetime] NULL
+	[EUser] [int] NULL,
+	[EDate] [datetime] NULL,
+	[UUsar] [int] NULL,
+	[UDate] [datetime] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[InsuranceCompany]    Script Date: 21/09/2023 17:07:59 ******/
+
+ALTER TABLE [dbo].[BankBranch]  WITH CHECK ADD  CONSTRAINT [FK_BankBranch_Bank] FOREIGN KEY([BankId])
+REFERENCES [dbo].[Bank] ([BankId])
+GO
+
+ALTER TABLE [dbo].[BankBranch] CHECK CONSTRAINT [FK_BankBranch_Bank]
+GO
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -42,10 +53,10 @@ CREATE TABLE [dbo].[InsuranceCompany](
 	[CompanyId] [int] IDENTITY(1,1) NOT NULL,
 	[CompanyName] [varchar](100) NULL,
 	[status] [bit] NULL,
-	[EntryUserID] [int] NULL,
-	[EntryTime] [datetime] NULL,
-	[UpdateUserID] [int] NULL,
-	[UpdateTime] [datetime] NULL,
+	[EUser] [int] NULL,
+	[EDate] [datetime] NULL,
+	[UUser] [int] NULL,
+	[UDate] [datetime] NULL,
  CONSTRAINT [PK_InsuranceCompany] PRIMARY KEY CLUSTERED 
 (
 	[CompanyId] ASC
@@ -147,6 +158,10 @@ CREATE TABLE [dbo].[tab_Client](
 	[Date_B] [smalldatetime] NULL,
 	[Date_C] [smalldatetime] NULL,
 	[BackupType] [bit] NULL,
+	[EUser] [int] NULL,
+	[EDate] [datetime] NULL,
+	[UUser] [int] NULL,
+	[UDate] [datetime] NULL,
  CONSTRAINT [PK_tab_Client] PRIMARY KEY CLUSTERED 
 (
 	[ClientKey] ASC

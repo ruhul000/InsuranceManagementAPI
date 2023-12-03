@@ -16,9 +16,9 @@ namespace InsuranceManagementAPI.Data.Models
         public String? RoutingNumber { get; set; } = String.Empty;
         
         public bool? Status { get; set; }
-        public int? EntryUserID { get; set; }
-        public DateTime? EntryTime { get; set; }
-        public int? UpdateUserID { get; set; }
-        public DateTime? UpdateTime { get; set; }
+        public int? EUser { get; set; }
+        public DateTime? EDate { get; set; }
+        public int? UUser { get; set; }
+        public DateTime? UDate { get; set; }
     }
 }

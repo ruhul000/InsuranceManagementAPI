@@ -169,20 +169,23 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE [dbo].[BankBranchAdd]
-	@BranchId [int] OUT,
+	@BranchId [int] OUT,	
+	@BranchName nvarchar(200) = NULL,
 	@BankId [int],
-	@BranchName varchar(200) = NULL,
-	@BranchAddress [varchar](1000) = NULL,
-	@SwiftCode [varchar](1000) = NULL,	
-	@RoutingNumber [varchar](100) = NULL,
+	@BranchAddress nvarchar(500) = NULL,
+	@SwiftCode varchar(50) = NULL,
+	@RoutingNumber varchar(50) = NULL,
 	@Status bit = NULL,
-	@EntryUserID [varchar](100) = NULL,
-	@EntryTime [varchar](100) = NULL,
-	@UpdateUserID [varchar](100) = NULL,
-	@UpdateTime [varchar](100) = NULL
+	@EUser int = NULL,	
+	@UUser int = NULL
+	
 AS
 BEGIN
-	
+	DECLARE @EDate smalldatetime
+	DECLARE @UDate smalldatetime
+	SET @EDate = GETDATE()
+	SET @UDate = GETDATE()
+
 	SET NOCOUNT ON;
 	INSERT INTO dbo.BankBranch
 	(
@@ -191,11 +194,11 @@ BEGIN
 		BranchAddress,
 		SwiftCode,
 		RoutingNumber,
-		[Status],
-		EntryUserID,
-		EntryTime,
-		UpdateUserID,
-		UpdateTime
+		Status,
+		EUser,
+		EDate,
+		UUser,
+		UDate
 	)
 	VALUES
 	(	
@@ -205,10 +208,10 @@ BEGIN
 		@SwiftCode,
 		@RoutingNumber,
 		@Status,
-		@EntryUserID,
-		@EntryTime,
-		@UpdateUserID,
-		@UpdateTime
+		@EUser,
+		@EDate,
+		@UUser,
+		@UDate
 	)
 	SET @BranchId=SCOPE_IDENTITY()
     
@@ -230,12 +233,11 @@ CREATE PROCEDURE [dbo].[BankBranchUpdate]
 	@SwiftCode varchar(50),
 	@RoutingNumber varchar(50),
 	@Status bit,
-	@UpdateUserID int,
-	@UpdateTime datetime
+	@UUser int
 AS
 BEGIN
 	UPDATE BankBranch SET BranchName=@BranchName, BankId=@BankId,BranchAddress=@BranchAddress,SwiftCode=@SwiftCode,
-	RoutingNumber=@RoutingNumber,Status=@Status,UpdateUserID=@UpdateUserID,UpdateTime=@UpdateTime WHEre BranchId=@BranchId
+	RoutingNumber=@RoutingNumber,Status=@Status,UUser=@UUser,UDate=GETDATE() WHEre BranchId=@BranchId
 	SET @Result = 1
 END
 GO
@@ -249,10 +251,13 @@ GO
 CREATE PROCEDURE [dbo].[BankUpdate]
 	@Result [int] OUT,
 	@BankId int,
-	@BankName varchar(100)
+	@BankName varchar(100),
+	@UUser int
 AS
 BEGIN
-	UPDATE Bank SET BankName=@BankName WHEre BankId=@BankId
+	Declare @UDate datetime
+	set @UDate = GETDATE()
+	UPDATE Bank SET BankName=@BankName, UUser=@UUser, UDate=@UDate WHEre BankId=@BankId
 	SET @Result = 1
 END
 GO
@@ -267,15 +272,15 @@ GO
 -- Description:	<Description,,>
 -- =============================================
 CREATE PROCEDURE [dbo].[GetAllBankBranches] 
-	@BankName nvarchar(200) ,
-	@Branchname nvarchar(200) 
+	@BankName nvarchar(200)= null ,
+	@Branchname nvarchar(200) = null 
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EDate,BankBranch.UDate,BankBranch.EUser,BankBranch.UUser,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
 	WHERe Bank.BankName like '%' + @BankName +'%' AND BankBranch.BranchName like '%' + @Branchname +'%'
 	Order by Bank.BankName, BankBranch.BranchName
     
@@ -311,7 +316,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EDate,BankBranch.UDate,BankBranch.EUser,BankBranch.UUser,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
 	WHERe BankBranch.Branchid= @BranchId
 	
     
@@ -331,7 +336,7 @@ BEGIN
 	
 	SET NOCOUNT ON;
 
-	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EntryTime,BankBranch.UpdateTime,BankBranch.EntryUserID,BankBranch.UpdateUserID,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
+	SELECT Bank.BankName,BankBranch.BranchId,BankBranch.BranchName,BankBranch.BranchAddress,BankBranch.SwiftCode,BankBranch.RoutingNumber,BankBranch.BankId, BankBranch.EDate,BankBranch.UDate,BankBranch.EUser,BankBranch.UUser,BankBranch.Status  from BankBranch inner join Bank on BankBranch.BankId= Bank.BankId
 	WHERe BankBranch.BankId= @BankId
 	
     

@@ -19,7 +19,7 @@ namespace InsuranceManagementAPI.Controllers
         }
 
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Agent> Create(Agent Agent)
@@ -42,7 +42,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Agents")]
         public ActionResult<IEnumerable<Agent>> GetAll()
@@ -65,7 +65,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{AgentKey}")]
         public ActionResult<Agent> GetByID(int AgentKey)
@@ -87,7 +87,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Agent> Update(Agent agent)

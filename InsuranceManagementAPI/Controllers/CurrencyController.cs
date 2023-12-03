@@ -19,7 +19,7 @@ namespace InsuranceManagementAPI.Controllers
         }
 
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Currency> Create(Currency currency)
@@ -42,7 +42,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Currencies")]
         public ActionResult<IEnumerable<Currency>> GetAll()
@@ -65,7 +65,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{CurrencyKey}")]
         public ActionResult<Currency> GetByID(int CurrencyKey)
@@ -87,7 +87,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Currency> Update(Currency currency)

@@ -18,7 +18,7 @@ namespace InsuranceManagementAPI.Controllers
             _marineCargoTariffService = marineCargoTariffService;
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Category")]
         public ActionResult<IEnumerable<MarineCargoTariff>> GetAll()
@@ -41,7 +41,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("ItemNames")]
         public ActionResult<IEnumerable<MarineCargoTariff>> GetItemNames(MarineCargoTariff marineCargoTariff)
@@ -64,7 +64,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("TypeA")]
         public ActionResult<IEnumerable<MarineCargoTariff>> GetTypeA(MarineCargoTariff marineCargoTariff)
@@ -87,7 +87,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("TypeB")]
         public ActionResult<IEnumerable<MarineCargoTariff>> GetTypeB(MarineCargoTariff marineCargoTariff)
@@ -110,7 +110,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("TypeC")]
         public ActionResult<IEnumerable<MarineCargoTariff>> GetTypeC(MarineCargoTariff marineCargoTariff)
@@ -133,7 +133,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Rate")]
         public ActionResult<IEnumerable<MarineCargoTariff>> GetRate(MarineCargoTariff marineCargoTariff)

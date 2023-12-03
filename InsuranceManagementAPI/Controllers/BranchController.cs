@@ -20,7 +20,7 @@ namespace InsuranceManagementAPI.Controllers
             _branchService = branchService;
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpPost("Create")]
         public ActionResult<Branch> Create(Branch branch)
@@ -42,7 +42,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("Branches")]
         public ActionResult<IEnumerable<Branch>> GetAll()
@@ -64,7 +64,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("company/{ComKey}")]
         public ActionResult<IEnumerable<Branch>> GetAllByCompanyId(int ComKey)
@@ -91,7 +91,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors("Policy")]
+        
         [MapToApiVersion("1.0")]
         [HttpGet("{BranchKey}")]
         public ActionResult<Branch> GetById(int BranchKey)
@@ -114,7 +114,7 @@ namespace InsuranceManagementAPI.Controllers
             return Ok(response);
         }
 
-        [EnableCors]
+        
         [MapToApiVersion("1.0")]
         [HttpPut("Update")]
         public ActionResult<Branch> Update(Branch branch)
