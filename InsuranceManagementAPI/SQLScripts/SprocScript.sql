@@ -1035,6 +1035,7 @@ CREATE PROCEDURE [dbo].[Sptab_Final_MR]
 @SumInsuredCoIns	numeric(18,0) = 0,
 @MRNetPremium	numeric(18,2) = 0,
 @NetPremium	numeric(18,2) = 0,
+@VatPer numeric(18,2) = 0,
 @VatAmount	numeric(18,2) = 0,
 @StampDuty	numeric(18,2) = 0,
 @OthersAmount	numeric(18,0) = 0,
@@ -1127,7 +1128,7 @@ CREATE PROCEDURE [dbo].[Sptab_Final_MR]
 @Date_Field_2	smalldatetime = NULL,
 @Date_Field_3	smalldatetime = NULL,
 @Bank_Guarantee	int = 0,
-@Coll_Our_Share	nchar = 0,
+@Coll_Our_Share	varchar(50) = null,
 @NewClient	int = 0,
 @WithChargeAmount	int = 0,
 @DocCancel	bit = 0,
@@ -1177,6 +1178,11 @@ BEGIN
 	BEGIN	
 		set @DocNo =  dbo.FnGetDocNo(@Class_Name, @Sub_Class_Name, @BranchKey ,@YearName);
 		set @DocCode = dbo.FnGetDocCode(@Class_Name, @Sub_Class_Name,@YearName);
+
+		if(@Class_Name = 'Marine Cargo' and @Sub_Class_Name='Cover Note')
+		BEGIN
+			SET @CoverNoteNo = @DocNo
+		END
 	END
 	
 	BEGIN
@@ -1210,6 +1216,7 @@ BEGIN
 			SumInsuredCoIns,
 			MRNetPremium,
 			NetPremium,
+			VatPer,
 			VatAmount,
 			StampDuty,
 			OthersAmount,
@@ -1375,6 +1382,7 @@ BEGIN
 			@SumInsuredCoIns,
 			@MRNetPremium,
 			@NetPremium,
+			@VatPer,
 			@VatAmount,
 			@StampDuty,
 			@OthersAmount,

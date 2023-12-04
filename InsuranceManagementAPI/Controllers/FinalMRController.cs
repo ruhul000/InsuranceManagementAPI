@@ -47,5 +47,49 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
         }
+
+        [MapToApiVersion("1.0")]
+        [HttpPut("Update")]
+        public ActionResult<FinalMR> Update(FinalMR finalMR)
+        {
+            FinalMR? response;
+            try
+            {
+                response = _finalMRService.Update(finalMR).Result;
+
+                if (response == null)
+                {
+                    return BadRequest("Client update failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+
+        }
+
+        
+        [MapToApiVersion("1.0")]
+        [HttpGet("{finalMrKey}")]
+        public ActionResult<FinalMR> GetFinalMRByID(long finalMrKey)
+        {
+            FinalMR? response;
+            try
+            {
+                response = _finalMRService.GetFinalMRByKey(finalMrKey).Result;
+
+                if (response == null)
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
     }
 }

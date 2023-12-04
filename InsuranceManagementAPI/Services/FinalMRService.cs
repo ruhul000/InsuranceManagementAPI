@@ -38,5 +38,36 @@ namespace InsuranceManagementAPI.Services
 
             return response;
         }
+
+        public async Task<FinalMR?> Update(FinalMR finalMR)
+        {
+            FinalMR? response = null;
+            var finalMRDto = _finalMRFactory.CreateFrom(finalMR);
+
+            try
+            {
+                var result = _finalMRRepository.Update(finalMRDto).Result;
+                if (!result)
+                {
+                    return response;
+                }
+
+                finalMRDto = await _finalMRRepository.GetFinalMRByID(finalMRDto.FinalMRKey);
+
+                response = _finalMRFactory.CreateFrom(finalMRDto);
+            }
+            catch (Exception ex)
+            {
+                return response;
+            }
+
+            return response;
+        }
+        public async Task<FinalMR> GetFinalMRByKey(long finalMRKey)
+        {
+            var finalMRDto = await _finalMRRepository.GetFinalMRByID(finalMRKey);
+
+            return _finalMRFactory.CreateFrom(finalMRDto);
+        }
     }
 }
