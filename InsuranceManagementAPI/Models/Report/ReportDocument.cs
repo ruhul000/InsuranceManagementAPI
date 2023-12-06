@@ -1,9 +1,9 @@
 ﻿namespace InsuranceManagementAPI.Models.Report
 {
     public class ReportDocument
-
     {
-        public byte[]? FileStream { get; set; }
         public string? FileName { get; set; }
+        public string FilePath { get; set; }
+        public byte[]? FileStream { get; set; }
     }
 }

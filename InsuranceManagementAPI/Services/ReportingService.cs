@@ -56,8 +56,9 @@ namespace InsuranceManagementAPI.Services
                 fileStream.Write(res.MainStream, 0, res.MainStream.Length);
             }
 
-            report.FileStream = res.MainStream;
             report.FileName = ReportFileName;
+            report.FilePath = downloadPath;
+            report.FileStream = res.MainStream;
 
             return report;
         }
