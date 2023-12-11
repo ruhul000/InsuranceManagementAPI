@@ -14,12 +14,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>dsBanks.xsd</DependentUpon>
     </Compile>
+    <Compile Update="Reports\dsFinalMR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsFinalMR.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Reports\dsBanks.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\dsFinalMR.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsFinalMR.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

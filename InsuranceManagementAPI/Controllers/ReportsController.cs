@@ -29,7 +29,7 @@ namespace InsuranceManagementAPI.Controllers
         public ActionResult GetAllBanks(BankReportParam param)
         {
             ReportDocument file = _reportingService.GetBankList(param);
-            return File(file.FileStream, MediaTypeNames.Application.Octet, file.FileName);
+            return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
         }
     }
 }
