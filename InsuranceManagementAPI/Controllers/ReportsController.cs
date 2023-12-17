@@ -1,5 +1,7 @@
 ﻿using AspNetCore.Reporting;
 using AspNetCore.Reporting.ReportExecutionService;
+using InsuranceManagementAPI.Extensions;
+using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Models.Report;
 using InsuranceManagementAPI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +23,29 @@ namespace InsuranceManagementAPI.Controllers
         public ReportsController(IReportingService reportingService)
         {
             _reportingService = reportingService;
-            //System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
         [MapToApiVersion("1.0")]
         [HttpPost("GetAllBanks")]
         public ActionResult GetAllBanks(BankReportParam param)
         {
-            ReportDocument file = _reportingService.GetBankList(param);
-            return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
+            ReportDocument file;
+
+            try
+            {
+                file = _reportingService.GetBankList(param);
+
+                if (file.FilePath.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(file);
         }
     }
 }
