@@ -383,7 +383,7 @@ namespace InsuranceManagementAPI.Data.Repository
                 paramList.Add(new SqlParameter { ParameterName = "@BlockPIN", Value = finalMRDto.BlockPIN.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@CoInsBillRec", Value = finalMRDto.CoInsBillRec.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@CoInsBillDetails", Value = finalMRDto.CoInsBillDetails.ToDBNullIfNothing() });
-                paramList.Add(new SqlParameter { ParameterName = "@LockData", Value = finalMRDto.LockData.ToDBNullIfNothing() });
+                paramList.Add(new SqlParameter { ParameterName = "@LockData", Value = true });
                 paramList.Add(new SqlParameter { ParameterName = "@LockData_Yearly", Value = finalMRDto.LockData_Yearly.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@DelFlag", Value = finalMRDto.DelFlag.ToDBNullIfNothing() });
                 paramList.Add(new SqlParameter { ParameterName = "@PC_Name", Value = finalMRDto.PC_Name.ToDBNullIfNothing() });
@@ -428,6 +428,21 @@ namespace InsuranceManagementAPI.Data.Repository
             try
             {
                 FinalMR = await _context.FinalMR.FirstOrDefaultAsync(obj => obj.FinalMRKey == FinalMRKey);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return FinalMR;
+        }
+
+        public async Task<FinalMRDto> GetFinalMRByCodeBranchYear(FinalMRDto searchObj)
+        {
+
+            FinalMRDto FinalMR = null;
+            try
+            {
+                FinalMR = await _context.FinalMR.FirstOrDefaultAsync(obj => obj.DocCode == searchObj.DocCode && obj.Class_Name == searchObj.Class_Name && obj.Sub_Class_Name == searchObj.Sub_Class_Name && obj.BranchKey == searchObj.BranchKey && obj.YearName == searchObj.YearName);
             }
             catch (Exception ex)
             {
