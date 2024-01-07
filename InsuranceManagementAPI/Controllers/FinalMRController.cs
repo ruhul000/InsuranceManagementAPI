@@ -101,8 +101,6 @@ namespace InsuranceManagementAPI.Controllers
             FinalMR? response;
             try
             {
-
-
                 response = _finalMRService.GetFinalMRByCodeBranchYear(finalMR).Result;
 
                 if (response == null)

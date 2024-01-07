@@ -9,7 +9,6 @@ namespace InsuranceManagementAPI.Services
         Task<FinalMR?> Update(FinalMR finalMR);
 
         Task<FinalMR> GetFinalMRByKey(long finalMRKey);
-
         Task<FinalMR> GetFinalMRByCodeBranchYear(FinalMR finalMR);
     }
 }

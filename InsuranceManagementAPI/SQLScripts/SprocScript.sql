@@ -8,7 +8,7 @@ GO
 
 
 
-CREATE FUNCTION [dbo].[LPAD]  (@STR VARCHAR(8000), @FORMAT_STR CHAR(1), @PAD_LEN INT) 
+ALTER FUNCTION [dbo].[LPAD]  (@STR VARCHAR(8000), @FORMAT_STR CHAR(1), @PAD_LEN INT) 
 RETURNS VARCHAR(8000) 
 AS
 BEGIN 
@@ -42,7 +42,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[AddClient]
+ALTER PROCEDURE [dbo].[AddClient]
 (
 	@ClientKey [bigint] OUT,
 	@BranchKey [int],
@@ -168,7 +168,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[BankBranchAdd]
+ALTER PROCEDURE [dbo].[BankBranchAdd]
 	@BranchId [int] OUT,	
 	@BranchName nvarchar(200) = NULL,
 	@BankId [int],
@@ -224,7 +224,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[BankBranchUpdate]
+ALTER PROCEDURE [dbo].[BankBranchUpdate]
 	@Result [int] OUT,
 	@BranchId int,
 	@BranchName varchar(100),
@@ -248,7 +248,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[BankUpdate]
+ALTER PROCEDURE [dbo].[BankUpdate]
 	@Result [int] OUT,
 	@BankId int,
 	@BankName varchar(100),
@@ -268,10 +268,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[GetAllBankBranches] 
+ALTER PROCEDURE [dbo].[GetAllBankBranches] 
 	@BankName nvarchar(200)= null ,
 	@Branchname nvarchar(200) = null 
 AS
@@ -293,10 +293,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[GetAllInsuranceCompanies]
+ALTER PROCEDURE [dbo].[GetAllInsuranceCompanies]
 	
 AS
 BEGIN
@@ -308,7 +308,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-Create PROCEDURE [dbo].[GetBankBranchById] 
+ALTER PROCEDURE [dbo].[GetBankBranchById] 
 	@BranchId int
 AS
 BEGIN
@@ -329,7 +329,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-Create PROCEDURE [dbo].[GetBankBranches] 
+ALTER PROCEDURE [dbo].[GetBankBranches] 
 	@BankId int
 AS
 BEGIN
@@ -347,7 +347,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[GetInsuranceCompanyById] 
+ALTER PROCEDURE [dbo].[GetInsuranceCompanyById] 
 	@CompanyId int
 AS
 BEGIN
@@ -368,10 +368,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[InsuranceCompanyAdd]
+ALTER PROCEDURE [dbo].[InsuranceCompanyAdd]
 	@CompanyId int out,
 	@CompanyName varchar(100),
 	@status bit,
@@ -395,10 +395,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[InsuranceCompanyUpdate]
+ALTER PROCEDURE [dbo].[InsuranceCompanyUpdate]
 	@Result bit output,
 	@CompanyId int,
 	@CompanyName varchar(100),
@@ -428,7 +428,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[SP_Branch_Add]
+ALTER PROCEDURE [dbo].[SP_Branch_Add]
 
 @BranchKey	int OUT,
 @ComKey	int = 0,
@@ -533,7 +533,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[SP_Branch_Update]
+ALTER PROCEDURE [dbo].[SP_Branch_Update]
 @Result int OUT,
 @BranchKey	int,
 @ComKey	int = 0,
@@ -608,7 +608,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SP_Company_Add]
+ALTER PROCEDURE [dbo].[SP_Company_Add]
 	@ComKey int OUT,
 	@CompanyName varchar(100) ,
 	@ShortName varchar(10) ,
@@ -619,8 +619,8 @@ CREATE PROCEDURE [dbo].[SP_Company_Add]
 	@Email varchar(50) ,
 	@IssuingPlaceHO varchar(50) ,
 	@Web varchar(50) ,
-	@Logo varchar(MAX) null ,
-	@Banner varchar(MAX) null,
+	@Logo varchar(MAX) = null ,
+	@Banner varchar(MAX) = null,
 	@BackupType bit
 AS
 BEGIN
@@ -636,7 +636,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[SP_Company_Update]
+ALTER PROCEDURE [dbo].[SP_Company_Update]
 	@result int Out,
 	@ComKey int,
 	@CompanyName varchar(100) ,
@@ -648,8 +648,8 @@ CREATE PROCEDURE [dbo].[SP_Company_Update]
 	@Email varchar(50) ,
 	@IssuingPlaceHO varchar(50) ,
 	@Web varchar(50) ,
-	@Logo varchar(MAX) null ,
-	@Banner varchar(MAX) null,
+	@Logo varchar(MAX) = null ,
+	@Banner varchar(MAX) = null,
 	@BackupType bit
 AS
 BEGIN
@@ -674,7 +674,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[UpdateClient]
+ALTER PROCEDURE [dbo].[UpdateClient]
 (
 	@Result bit OUTPUT,
 	@ClientKey [bigint],
@@ -771,7 +771,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff]
+ALTER PROCEDURE [dbo].[SpMC_Tariff]
 AS
 BEGIN 
 	Select Distinct Tariff_Catagory, null as ItemName, null as Per, null as TariffKey, null as TypeA, null as TypeB, null as TypeC, null as TypeOfRisk from Marine_Cargo_Tariff
@@ -787,7 +787,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];2
+ALTER PROCEDURE [dbo].[SpMC_Tariff];2
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL
 AS
@@ -807,7 +807,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];3
+ALTER PROCEDURE [dbo].[SpMC_Tariff];3
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL
@@ -856,7 +856,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];4
+ALTER PROCEDURE [dbo].[SpMC_Tariff];4
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL,
@@ -907,7 +907,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];5
+ALTER PROCEDURE [dbo].[SpMC_Tariff];5
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL,
@@ -961,7 +961,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];6
+ALTER PROCEDURE [dbo].[SpMC_Tariff];6
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL,
@@ -996,7 +996,7 @@ GO
 
 
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];7
+ALTER PROCEDURE [dbo].[SpMC_Tariff];7
 AS
 BEGIN 
 	Select * from Marine_Cargo_Tariff_FBIG order by Item_Name
@@ -1005,7 +1005,7 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[Sptab_Final_MR]
+ALTER PROCEDURE [dbo].[Sptab_Final_MR]
 @FinalMRKey	bigint OUT ,
 @FinalMRKeyREF	bigint = 0,
 @BranchKey	int = 0,

@@ -56,7 +56,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Phone.Value</Value>
+                    <Value>=First(Fields!Phone.Value, "dsBranchInfo")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -64,7 +64,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Fax.Value</Value>
+                    <Value>=First(Fields!Fax.Value, "dsBranchInfo")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -94,7 +94,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!BranchName.Value</Value>
+                    <Value>=First(Fields!BranchName.Value, "dsBranchInfo")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -126,7 +126,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Fields!Address.Value</Value>
+                    <Value>=First(Fields!Address.Value, "dsBranchInfo")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -162,7 +162,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!EMail.Value</Value>
+                    <Value>=First(Fields!EMail.Value, "dsBranchInfo")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -712,11 +712,11 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Marine Cover Note No.:</Value>
+                <Value>Marine Cover Note No.: </Value>
                 <Style />
               </TextRun>
               <TextRun>
-                <Value>=Fields!DocNo.Value</Value>
+                <Value>=First(Fields!DocNo.Value, "dsFinalMR")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -750,7 +750,7 @@
                 <Style />
               </TextRun>
               <TextRun>
-                <Value>=Fields!MRDate.Value</Value>
+                <Value>=First(Fields!MRDate.Value, "dsFinalMR")</Value>
                 <Style>
                   <Format>=</Format>
                 </Style>
@@ -853,7 +853,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!BankName.Value</Value>
+                    <Value>=First(Fields!BranchName.Value, "dsBankBranch")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -861,15 +861,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!BranchName.Value</Value>
-                    <Style />
-                  </TextRun>
-                  <TextRun>
-                    <Value>,</Value>
-                    <Style />
-                  </TextRun>
-                  <TextRun>
-                    <Value>=Fields!BranchAddress.Value</Value>
+                    <Value>=First(Fields!BranchAddress.Value, "dsBankBranch")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -877,7 +869,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!ClientName.Value</Value>
+                    <Value>=First(Fields!ClientName.Value, "dsClient")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -885,7 +877,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!ClientAddress.Value</Value>
+                    <Value>=First(Fields!ClientAddress.Value, "dsClient")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -921,7 +913,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Text_Field_5.Value</Value>
+                    <Value>=First(Fields!Text_Field_5.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -957,7 +949,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Text_Field_4.Value</Value>
+                    <Value>=First(Fields!Text_Field_4.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -993,7 +985,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Text_Field_1.Value</Value>
+                    <Value>=eFirst(Fields!Text_Field_1.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -1001,7 +993,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Text_Field_2.Value</Value>
+                    <Value>=First(Fields!Text_Field_2.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -1009,7 +1001,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Text_Field_3.Value</Value>
+                    <Value>=First(Fields!Text_Field_3.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1042,7 +1034,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!CurrencyName.Value</Value>
+                    <Value>=First(Fields!CurrencyName.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -1050,7 +1042,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Num_Field_1.Value</Value>
+                    <Value>=First(Fields!Num_Field_1.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -1058,7 +1050,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Num_Field_4.Value</Value>
+                    <Value>=First(Fields!Num_Field_4.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                   <TextRun>
@@ -1066,7 +1058,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!SumInsured.Value</Value>
+                    <Value>=First(Fields!SumInsured.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1128,7 +1120,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!Text_Field_6.Value</Value>
+                    <Value>=First(Fields!Text_Field_6.Value, "dsFinalMR")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1225,7 +1217,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!PeriodFrom.Value</Value>
+                    <Value>=First(Fields!PeriodFrom.Value, "dsFinalMR")</Value>
                     <Style>
                       <Format>dd/MM/yyyy</Format>
                     </Style>
@@ -1235,7 +1227,7 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!PeriodTo.Value</Value>
+                    <Value>=First(Fields!PeriodTo.Value, "dsFinalMR")</Value>
                     <Style>
                       <Format>dd/MM/yyyy</Format>
                     </Style>
@@ -1651,16 +1643,200 @@ Re-Insurance Treaty</Value>
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
+    <DataSource Name="dsBanks">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>d8d617aa-f6b4-4b0b-ad85-2a372b8b11c3</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="dsBranchInfo">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>f3fd463b-7d22-4f8c-8313-c06dbf14330d</rd:DataSourceID>
+    </DataSource>
     <DataSource Name="dsFinalMR">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>36c0f331-98e4-4b60-bf77-f4a4647e3f35</rd:DataSourceID>
+      <rd:DataSourceID>0a162ced-306a-453f-b78c-3b9b79a35622</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="dsBankBranch">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>027c04c6-897b-4526-8f49-4824635f68c5</rd:DataSourceID>
+    </DataSource>
+    <DataSource Name="dsClient">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>97e90ca3-d266-46e7-8446-8bab01e9f6dc</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="daFinalMR">
+    <DataSet Name="dsBanks">
+      <Query>
+        <DataSourceName>dsBanks</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="BankId">
+          <DataField>BankId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="BankName">
+          <DataField>BankName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsBanks</rd:DataSetName>
+        <rd:SchemaPath>H:\Home Office\WORKSPACE\InsuranceManagementAPI\RDLCReport\Reports\DataSet\dsBanks.xsd</rd:SchemaPath>
+        <rd:TableName>dtBanks</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsBranchInfo">
+      <Query>
+        <DataSourceName>dsBranchInfo</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="BranchKey">
+          <DataField>BranchKey</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ComKey">
+          <DataField>ComKey</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="BranchID">
+          <DataField>BranchID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BranchOrderKey">
+          <DataField>BranchOrderKey</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Branch_Open_Date">
+          <DataField>Branch_Open_Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="BranchName">
+          <DataField>BranchName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ShortName">
+          <DataField>ShortName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ZoneKey">
+          <DataField>ZoneKey</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Branch_Address_2">
+          <DataField>Branch_Address_2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Branch_Address_3">
+          <DataField>Branch_Address_3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mobile">
+          <DataField>Mobile</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fax">
+          <DataField>Fax</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EMail">
+          <DataField>EMail</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpKeyIncharge">
+          <DataField>EmpKeyIncharge</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="IssuingPlace">
+          <DataField>IssuingPlace</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IssuingPlace_2">
+          <DataField>IssuingPlace_2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IssuingPlace_3">
+          <DataField>IssuingPlace_3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Computerized">
+          <DataField>Computerized</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="Seal">
+          <DataField>Seal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Signatore_Name_A">
+          <DataField>Signatore_Name_A</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Signatore_A">
+          <DataField>Signatore_A</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Signatore_Name_B">
+          <DataField>Signatore_Name_B</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Signatore_B">
+          <DataField>Signatore_B</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Signatore_Name_C">
+          <DataField>Signatore_Name_C</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Signatore_C">
+          <DataField>Signatore_C</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="BackupType">
+          <DataField>BackupType</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsBranchInfo</rd:DataSetName>
+        <rd:SchemaPath>H:\Home Office\WORKSPACE\InsuranceManagementAPI\RDLCReport\Reports\DataSet\dsBranchInfo.xsd</rd:SchemaPath>
+        <rd:TableName>tab_BranchInfo</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>tab_BranchInfoTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsFinalMR">
       <Query>
         <DataSourceName>dsFinalMR</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -1668,7 +1844,7 @@ Re-Insurance Treaty</Value>
       <Fields>
         <Field Name="FinalMRKey">
           <DataField>FinalMRKey</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
         <Field Name="FinalMRKeyREF">
           <DataField>FinalMRKeyREF</DataField>
@@ -1726,6 +1902,10 @@ Re-Insurance Treaty</Value>
           <DataField>DocNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DocDate">
+          <DataField>DocDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
         <Field Name="CoverNoteNo">
           <DataField>CoverNoteNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -1776,10 +1956,6 @@ Re-Insurance Treaty</Value>
         </Field>
         <Field Name="NetPremium">
           <DataField>NetPremium</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="VatPer">
-          <DataField>VatPer</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="VatAmount">
@@ -2150,6 +2326,10 @@ Re-Insurance Treaty</Value>
           <DataField>Bank_Guarantee</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="Coll_Our_Share">
+          <DataField>Coll_Our_Share</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NewClient">
           <DataField>NewClient</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -2264,7 +2444,7 @@ Re-Insurance Treaty</Value>
         </Field>
         <Field Name="EmpKeyOld">
           <DataField>EmpKeyOld</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="BlockPIN">
           <DataField>BlockPIN</DataField>
@@ -2310,14 +2490,258 @@ Re-Insurance Treaty</Value>
           <DataField>UDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="BackupType">
+          <DataField>BackupType</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="VatPer">
+          <DataField>VatPer</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsFinalMR</rd:DataSetName>
-        <rd:SchemaPath>D:\Source Code\InsuranceManagementAPI\RDLCReport\Reports\dsFinalMR.xsd</rd:SchemaPath>
+        <rd:SchemaPath>H:\Home Office\WORKSPACE\InsuranceManagementAPI\RDLCReport\Reports\DataSet\dsFinalMR.xsd</rd:SchemaPath>
         <rd:TableName>tab_Final_MR</rd:TableName>
-        <rd:TableAdapterFillMethod />
-        <rd:TableAdapterGetDataMethod />
-        <rd:TableAdapterName />
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>tab_Final_MRTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsBankBranch">
+      <Query>
+        <DataSourceName>dsBankBranch</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="BranchId">
+          <DataField>BranchId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="BranchName">
+          <DataField>BranchName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BankId">
+          <DataField>BankId</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="BranchAddress">
+          <DataField>BranchAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SwiftCode">
+          <DataField>SwiftCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RoutingNumber">
+          <DataField>RoutingNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="EUser">
+          <DataField>EUser</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="EDate">
+          <DataField>EDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="UUser">
+          <DataField>UUser</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="UDate">
+          <DataField>UDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsBankBranch</rd:DataSetName>
+        <rd:SchemaPath>H:\Home Office\WORKSPACE\InsuranceManagementAPI\RDLCReport\Reports\DataSet\dsBankBranch.xsd</rd:SchemaPath>
+        <rd:TableName>BankBranch</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>BankBranchTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsClient">
+      <Query>
+        <DataSourceName>dsClient</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="ClientKey">
+          <DataField>ClientKey</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="BranchKey">
+          <DataField>BranchKey</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ClientName">
+          <DataField>ClientName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientNameExtar">
+          <DataField>ClientNameExtar</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientAddress">
+          <DataField>ClientAddress</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientMobile">
+          <DataField>ClientMobile</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientType">
+          <DataField>ClientType</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientTypeTwo">
+          <DataField>ClientTypeTwo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientSector">
+          <DataField>ClientSector</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientVATNo">
+          <DataField>ClientVATNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientBINNo">
+          <DataField>ClientBINNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientTINNo">
+          <DataField>ClientTINNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Client_VAT_Exemption">
+          <DataField>Client_VAT_Exemption</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="GroupKey">
+          <DataField>GroupKey</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ClientPhone">
+          <DataField>ClientPhone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientFax">
+          <DataField>ClientFax</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientEMail">
+          <DataField>ClientEMail</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientRelation">
+          <DataField>ClientRelation</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientWeb">
+          <DataField>ClientWeb</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientContractPer">
+          <DataField>ClientContractPer</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClientDesignation">
+          <DataField>ClientDesignation</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SpecDiscount">
+          <DataField>SpecDiscount</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="EmpKeyDirectorRef">
+          <DataField>EmpKeyDirectorRef</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Status">
+          <DataField>Status</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="Int_A">
+          <DataField>Int_A</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Int_B">
+          <DataField>Int_B</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Int_C">
+          <DataField>Int_C</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Int_D">
+          <DataField>Int_D</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Str_A">
+          <DataField>Str_A</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Str_B">
+          <DataField>Str_B</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Str_C">
+          <DataField>Str_C</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Str_D">
+          <DataField>Str_D</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Date_A">
+          <DataField>Date_A</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Date_B">
+          <DataField>Date_B</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Date_C">
+          <DataField>Date_C</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="BackupType">
+          <DataField>BackupType</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="EUser">
+          <DataField>EUser</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="EDate">
+          <DataField>EDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="UUser">
+          <DataField>UUser</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="UDate">
+          <DataField>UDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsClient</rd:DataSetName>
+        <rd:SchemaPath>H:\Home Office\WORKSPACE\InsuranceManagementAPI\RDLCReport\Reports\DataSet\dsClient.xsd</rd:SchemaPath>
+        <rd:TableName>tab_Client</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>tab_ClientTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
