@@ -91,5 +91,28 @@ namespace InsuranceManagementAPI.Controllers
             }
             return Ok(response);
         }
+
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("GetFinalMRByCodeBranchYear")]
+        public ActionResult<FinalMR> GetFinalMRByCodeBranchYear(FinalMR finalMR)
+        {
+
+            FinalMR? response;
+            try
+            {
+                response = _finalMRService.GetFinalMRByCodeBranchYear(finalMR).Result;
+
+                if (response == null)
+                {
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(response);
+        }
     }
 }

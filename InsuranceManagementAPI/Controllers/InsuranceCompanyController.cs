@@ -24,10 +24,10 @@ namespace InsuranceManagementAPI.Controllers
         [HttpPost("Create")]
         public ActionResult<InsuranceCompany> Create(InsuranceCompany insuranceCompany)
         {
-            insuranceCompany.EntryTime = DateTime.Now;
-            insuranceCompany.UpdateTime = DateTime.Now;
-            insuranceCompany.EntryUserID = 1;
-            insuranceCompany.UpdateUserID = 1;
+            insuranceCompany.EDate = DateTime.Now;
+            insuranceCompany.UDate = DateTime.Now;
+            insuranceCompany.EUser = 1;
+            insuranceCompany.UUser = 1;
             
             InsuranceCompany? response;
             try

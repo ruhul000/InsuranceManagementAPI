@@ -7,5 +7,6 @@ namespace InsuranceManagementAPI.Data.Repository
         Task<long> Add(FinalMRDto finalMRDto);
         Task<bool> Update(FinalMRDto finalMRDto);
         Task<FinalMRDto> GetFinalMRByID(long FinalMRKey);
+        Task<FinalMRDto> GetFinalMRByCodeBranchYear(FinalMRDto searchObj);
     }
 }

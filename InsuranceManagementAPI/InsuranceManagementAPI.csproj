@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\ReportsTemplate\BanksReports\rptBanks.rdlc" />
+    <Content Remove="wwwroot\ReportsTemplate\FinalMRReports\rptFinalMR.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
@@ -31,10 +36,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>dsBanks.xsd</DependentUpon>
     </Compile>
-    <Compile Update="Data\ReportsDataset\dsBanks.Designer.cs">
+    <Compile Update="dsBank.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>dsBanks.xsd</DependentUpon>
+      <DependentUpon>dsBank.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -47,14 +52,19 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Data\ReportsDataset\dsBanks.xsd">
+    <None Update="dsBank.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
+      <LastGenOutput>dsBank.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\ReportsDownload\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\ReportsTemplate\BanksReports\rptBanks.rdlc" />
+    <None Include="wwwroot\ReportsTemplate\FinalMRReports\rptFinalMR.rdlc" />
   </ItemGroup>
 
 </Project>

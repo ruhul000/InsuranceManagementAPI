@@ -73,6 +73,7 @@ builder.Services.AddScoped<IAgentRepository, AgentRepository>();
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IMarineCargoTariffRepository, MarineCargoTariffRepository>();
 builder.Services.AddScoped<IFinalMRRepository, FinalMRRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
 #endregion
 
 // Configure App Factories
