@@ -1,12 +1,13 @@
 ﻿using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/FinalMR")]
     [ApiVersion("1.0")]
