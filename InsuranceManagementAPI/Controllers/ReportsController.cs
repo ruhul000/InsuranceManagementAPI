@@ -45,7 +45,8 @@ namespace InsuranceManagementAPI.Controllers
                 return BadRequest(ex.Message);
             }
 
-            return Ok(file);
+           return File(file.FileStream, MediaTypeNames.Application.Octet, file.FileName);
+            //return Ok(file);
         }
 
         [MapToApiVersion("1.0")]
@@ -77,7 +78,7 @@ namespace InsuranceManagementAPI.Controllers
         {
             ReportDocument file = _reportingService.ReportFinalMR(param);
 
-            return File(file.FileStream, MediaTypeNames.Application.Octet, file.FileName);
+            return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
         }
     }
 }

@@ -96,7 +96,7 @@ namespace InsuranceManagementAPI.Services
 
             LocalReport localReport = new LocalReport(reportSettings.TemplatePath);
             localReport.AddDataSource("dsBank", bankReportDS.Tables[0]);
-            localReport.AddDataSource("dsBranch", bankReportDS.Tables[1]);
+            //localReport.AddDataSource("dsBranch", bankReportDS.Tables[1]);
 
             var result = localReport.Execute(RenderType.Pdf, reportSettings.EXTENSION, parameters, reportSettings.MIMETYPE);
 
@@ -137,6 +137,8 @@ namespace InsuranceManagementAPI.Services
                     report.FilePath = reportSettings.DownloadPath;
                     report.FileStream = result.MainStream;
                 }
+
+                report.FileStream = result.MainStream;
             }
             catch(Exception ex)
             {}

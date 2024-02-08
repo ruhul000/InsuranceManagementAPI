@@ -54,6 +54,8 @@ builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IMarineCargoTariffService, MarineCargoTariffService>();
 builder.Services.AddScoped<IFinalMRService, FinalMRService>();
 builder.Services.AddScoped<IReportingService, ReportingService>();
+builder.Services.AddScoped<IMediclaimTariffService, MediclaimTariffService>();
+
 #endregion
 
 // Configure App Repositories
@@ -74,6 +76,7 @@ builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IMarineCargoTariffRepository, MarineCargoTariffRepository>();
 builder.Services.AddScoped<IFinalMRRepository, FinalMRRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IMediclaimTariffRepository, MediclaimTariffRepository>();
 #endregion
 
 // Configure App Factories
@@ -92,6 +95,7 @@ builder.Services.AddScoped<IAgentFactory, AgentFactory>();
 builder.Services.AddScoped<ICurrencyFactory, CurrencyFactory>();
 builder.Services.AddScoped<IMarineCargoTariffFactory, MarineCargoTariffFactory>();
 builder.Services.AddScoped<IFinalMRFactory, FinalMRFactory>();
+builder.Services.AddScoped<IMediclaimTariffFactory, MediclaimTariffFactory>();
 #endregion
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -203,6 +207,7 @@ app.UseRouting();
 app.UseCors();
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthentication();
 
