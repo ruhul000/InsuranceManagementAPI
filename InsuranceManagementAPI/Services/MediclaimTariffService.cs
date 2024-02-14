@@ -15,9 +15,9 @@ namespace InsuranceManagementAPI.Services
             _mediclaimTariffFactory = mediclaimTariffFactory;
         }
 
-        public async Task<IEnumerable<MediclaimTariff>> GetTravelRate(int Days, int Age, int Tariff_Type)
+        public async Task<IEnumerable<MediclaimTariff>> GetTravelRate(int Days, int Age, int Tariff_Type, int Travel_Type)
         {
-            var mediclaimTariffDtos = await _mediclaimTariffRepository.GetTravelRate(Days, Age, Tariff_Type);
+            var mediclaimTariffDtos = await _mediclaimTariffRepository.GetTravelRate(Days, Age, Tariff_Type, Travel_Type);
 
             return _mediclaimTariffFactory.CreateMultipleFrom(mediclaimTariffDtos);
         }

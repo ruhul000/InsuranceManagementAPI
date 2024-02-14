@@ -11,12 +11,12 @@ namespace InsuranceManagementAPI.Data.Repository
         {
             _context = context;
         }
-        public async Task<IEnumerable<MediclaimTariffDto>> GetTravelRate(int Days, int Age, int Tariff_Type)
+        public async Task<IEnumerable<MediclaimTariffDto>> GetTravelRate(int Days, int Age, int Tariff_Type, int Travel_Type)
         {
             
             try
             {
-               var result = _context.MediclaimTariff.FromSqlRaw<MediclaimTariffDto>("EXECUTE SpMediclaim_Travel_Tariff {0}, {1}, {2}", Days, Age, Tariff_Type ).ToList();
+               var result = _context.MediclaimTariff.FromSqlRaw<MediclaimTariffDto>("EXECUTE SpMediclaim_Travel_Tariff {0}, {1}, {2} , {3}", Days, Age, Tariff_Type,Travel_Type ).ToList();
 
                return result;  
                 
