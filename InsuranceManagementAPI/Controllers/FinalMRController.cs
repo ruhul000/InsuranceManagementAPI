@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/FinalMR")]
     [ApiVersion("1.0")]
@@ -30,10 +30,10 @@ namespace InsuranceManagementAPI.Controllers
             try
             {
                 //validation part
-                if(finalMR.ClientKey == 0 || finalMR.ClientKey == null)
-                {
-                    return BadRequest("Select a Client");
-                }
+                //if(finalMR.ClientKey == 0 || finalMR.ClientKey == null)
+                //{
+                //    return BadRequest("Select a Client");
+                //}
 
                 response = _finalMRService.Create(finalMR).Result;
 

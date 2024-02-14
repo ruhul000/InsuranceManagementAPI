@@ -16,5 +16,6 @@ namespace InsuranceManagementAPI.Data.Models
         public decimal? Rate { get; set; }
         public String? PlanType { get; set; }
         public int? Tariff_Type { get; set; }
+        public int Travel_Type { get; set; }
     }
 }

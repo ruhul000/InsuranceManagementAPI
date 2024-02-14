@@ -26,7 +26,7 @@ namespace InsuranceManagementAPI.Controllers
             IEnumerable<MediclaimTariff> response;
             try
             {
-                response = _mediclaimTariffService.GetTravelRate(mediclaimTariff.Days_From, mediclaimTariff.Age_From,mediclaimTariff.Tariff_Type).Result;
+                response = _mediclaimTariffService.GetTravelRate(mediclaimTariff.Days_From, mediclaimTariff.Age_From,mediclaimTariff.Tariff_Type, mediclaimTariff.Travel_Type).Result;
 
                 if (response == null || !response.Any())
                 {
