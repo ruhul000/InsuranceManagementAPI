@@ -9,6 +9,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\ReportsTemplate\BanksReports\rptBanks.rdlc" />
     <Content Remove="wwwroot\ReportsTemplate\FinalMRReports\rptFinalMR.rdlc" />
+    <Content Remove="wwwroot\ReportsTemplate\FinalMRReports\rptOMP.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.CodeDom" Version="8.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
@@ -60,11 +62,13 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\ReportsDownload\" />
+    <Folder Include="wwwroot\ReportsTemplate\OMPReport\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\ReportsTemplate\BanksReports\rptBanks.rdlc" />
     <None Include="wwwroot\ReportsTemplate\FinalMRReports\rptFinalMR.rdlc" />
+    <None Include="wwwroot\ReportsTemplate\rptOMP.rdlc" />
   </ItemGroup>
 
 </Project>

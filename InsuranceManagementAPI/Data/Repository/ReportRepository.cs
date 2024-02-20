@@ -79,42 +79,59 @@ namespace InsuranceManagementAPI.Data.Repository
                 da.Fill(dtFinalMR);
                 ds.Tables.Add(dtFinalMR);
 
+                DataTable dtBranchInfo = null;
+                DataTable dtBankBranch = null;
+                DataTable dtBank = null;
+                DataTable dtClient = null;
                 // Get BranchInfo
-                var BranchKey = dtFinalMR.Rows[0]["BranchKey"].ToString();
+                try
+                {
+                    var BranchKey = dtFinalMR.Rows[0]["BranchKey"].ToString();
 
-                cmd = new SqlCommand("SELECT * FROM tab_BranchInfo WHERE BranchKey=" + BranchKey, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dtBranchInfo = new DataTable { TableName = "dtBranchInfo" };
-                da.Fill(dtBranchInfo);
-                ds.Tables.Add(dtBranchInfo);
+                    cmd = new SqlCommand("SELECT * FROM tab_BranchInfo WHERE BranchKey=" + BranchKey, con);
+                    da = new SqlDataAdapter(cmd);
+                    dtBranchInfo = new DataTable { TableName = "dtBranchInfo" };
+                    da.Fill(dtBranchInfo);
+                    ds.Tables.Add(dtBranchInfo);
+                }catch(Exception ex) { }
 
                 // Get BankBranch
-                var BankBranchKey = dtFinalMR.Rows[0]["BankKey"].ToString();
+                try
+                {
+                    var BankBranchKey = dtFinalMR.Rows[0]["BankKey"].ToString();
 
-                cmd = new SqlCommand("SELECT * FROM BankBranch WHERE BranchId=" + BankBranchKey, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dtBankBranch = new DataTable { TableName = "dtBankBranch" };
-                da.Fill(dtBankBranch);
-                ds.Tables.Add(dtBankBranch);
+                    cmd = new SqlCommand("SELECT * FROM BankBranch WHERE BranchId=" + BankBranchKey, con);
+                    da = new SqlDataAdapter(cmd);
+                    dtBankBranch = new DataTable { TableName = "dtBankBranch" };
+                    da.Fill(dtBankBranch);
+                    ds.Tables.Add(dtBankBranch);
+                }catch (Exception ex) { }
 
                 // Get Bank
-                var BankID = dtBankBranch.Rows[0]["BankId"].ToString();
+                try
+                {
+                    var BankID = dtBankBranch.Rows[0]["BankId"].ToString();
 
-                cmd = new SqlCommand("SELECT * FROM Bank WHERE BankId=" + BankID, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dtBank = new DataTable { TableName = "dtBank" };
-                da.Fill(dtBank);
-                ds.Tables.Add(dtBank);
+                    cmd = new SqlCommand("SELECT * FROM Bank WHERE BankId=" + BankID, con);
+                    da = new SqlDataAdapter(cmd);
+                    dtBank = new DataTable { TableName = "dtBank" };
+                    da.Fill(dtBank);
+                    ds.Tables.Add(dtBank);
+                }catch(Exception ex) { }
 
                 //Get Client
-                var ClientKey = dtFinalMR.Rows[0]["ClientKey"].ToString();
 
-                cmd = new SqlCommand("SELECT * FROM tab_Client WHERE ClientKey=" + ClientKey, con);
-                da = new SqlDataAdapter(cmd);
-                DataTable dtClient = new DataTable { TableName = "dtClient" };
-                da.Fill(dtClient);
-                ds.Tables.Add(dtClient);
+                try
+                {
+                    var ClientKey = dtFinalMR.Rows[0]["ClientKey"].ToString();
 
+                    cmd = new SqlCommand("SELECT * FROM tab_Client WHERE ClientKey=" + ClientKey, con);
+                    da = new SqlDataAdapter(cmd);
+                    dtClient = new DataTable { TableName = "dtClient" };
+                    da.Fill(dtClient);
+                    ds.Tables.Add(dtClient);
+                }
+                catch (Exception ex) { }
                 con.Close();
 
             }
