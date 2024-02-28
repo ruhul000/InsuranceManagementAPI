@@ -6,7 +6,6 @@
         <ReportItems>
           <Line Name="Line1">
             <Top>0.52359in</Top>
-            <Left>0cm</Left>
             <Height>0in</Height>
             <Width>7.69792in</Width>
             <Style>
@@ -31,7 +30,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox9</rd:DefaultName>
             <Top>0.51945in</Top>
-            <Left>0cm</Left>
             <Height>0.54167in</Height>
             <Width>7.69792in</Width>
             <ZIndex>1</ZIndex>
@@ -47,7 +45,6 @@
           </Textbox>
           <Line Name="Line2">
             <Top>1.11389in</Top>
-            <Left>0cm</Left>
             <Height>0in</Height>
             <Width>7.69792in</Width>
             <ZIndex>2</ZIndex>
@@ -247,7 +244,6 @@
           </Textbox>
           <Line Name="Line3">
             <Top>1.4432in</Top>
-            <Left>0cm</Left>
             <Height>0in</Height>
             <Width>7.69792in</Width>
             <ZIndex>9</ZIndex>
@@ -371,7 +367,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
             <Top>1.73389in</Top>
-            <Left>0cm</Left>
             <Height>0.25in</Height>
             <Width>3.63194in</Width>
             <ZIndex>13</ZIndex>
@@ -553,7 +548,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox34</rd:DefaultName>
             <Top>2.52653in</Top>
-            <Left>0cm</Left>
             <Height>0.25in</Height>
             <Width>3.63194in</Width>
             <ZIndex>19</ZIndex>
@@ -643,7 +637,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox37</rd:DefaultName>
             <Top>2.8182in</Top>
-            <Left>0cm</Left>
             <Height>0.25in</Height>
             <Width>3.63194in</Width>
             <ZIndex>22</ZIndex>
@@ -1013,7 +1006,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox50</rd:DefaultName>
             <Top>4.02653in</Top>
-            <Left>0cm</Left>
             <Height>0.25in</Height>
             <Width>3.63194in</Width>
             <ZIndex>34</ZIndex>
@@ -1711,7 +1703,6 @@ Emergency Dental Care : US$ 50</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox60</rd:DefaultName>
             <Top>6.79041in</Top>
-            <Left>0cm</Left>
             <Height>0.25in</Height>
             <Width>3.63194in</Width>
             <ZIndex>56</ZIndex>
@@ -3106,6 +3097,7 @@ Covid-19 Endorsement Clause as attached.</Value>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>fdccb974-42ea-430c-ad68-e43358ee1f69</rd:ReportID>
 </Report>

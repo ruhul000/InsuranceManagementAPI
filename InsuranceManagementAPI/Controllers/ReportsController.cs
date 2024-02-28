@@ -90,5 +90,28 @@ namespace InsuranceManagementAPI.Controllers
 
             return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
         }
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("RepoetOMP")]
+        public ActionResult GenerateReportOMP(FinalMRReporParam param)
+        {
+            ReportDocument file;
+
+            try
+            {
+                file = _reportingService.ReportOMP(param);
+
+                if (file.FilePath.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(file);
+        }
     }
 }
