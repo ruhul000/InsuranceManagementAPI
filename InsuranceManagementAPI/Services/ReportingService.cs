@@ -1,15 +1,9 @@
 ﻿using AspNetCore.Reporting;
-using AspNetCore.Reporting.ReportExecutionService;
-using InsuranceManagementAPI.Data.Models;
 using InsuranceManagementAPI.Data.Repository;
-using InsuranceManagementAPI.Extensions;
-using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Models.Report;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using QRCoder;
 using System.Data;
-using System.Data.SqlClient;
-using System.Net.Mime;
+using System.Drawing;
 
 namespace InsuranceManagementAPI.Services
 {
@@ -157,7 +151,12 @@ namespace InsuranceManagementAPI.Services
                 var reportSettings = GetReportsSettings("OMP");
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
-                //parameters.Add("rptTitle", param.Title);
+
+                string qrCodeText = $"https://localhost:7141/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
+                string base64QRCode = ImageToBase64(qrCodeImage);
+
+                parameters.Add("QRCode", base64QRCode);
 
                 DataSet bankReportDS = _reportRepository.GetFinalMRReportDataSet(param).Result;
 
@@ -183,6 +182,25 @@ namespace InsuranceManagementAPI.Services
             { }
 
             return report;
+        }
+
+        private Image GenerateQRCodeImage(string qrCodeText)
+        {
+            QRCodeGenerator qr = new QRCodeGenerator();
+            QRCodeData data = qr.CreateQrCode(qrCodeText, QRCodeGenerator.ECCLevel.Q);
+            QRCode code = new QRCode(data);
+            return code.GetGraphic(3);
+        }
+
+        // Convert image to base64 string
+        private string ImageToBase64(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
         }
     }
 }
