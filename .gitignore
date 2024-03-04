@@ -367,3 +367,4 @@ FodyWeavers.xsd
 /InsuranceManagementAPI/Models/BankBranch.cs
 /InsuranceManagementAPI/Services/IBankBranchService.cs
 /InsuranceManagementAPI/appsettings.Development.json
+/InsuranceManagementAPI/wwwroot/ReportsDownload
