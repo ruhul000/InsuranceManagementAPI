@@ -64,6 +64,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\ReportsDownload\" />
     <Folder Include="wwwroot\ReportsDownload\" />
+    <Folder Include="wwwroot\ReportsDownload\" />
     <Folder Include="wwwroot\ReportsTemplate\OMPReport\" />
     <Folder Include="wwwroot\ReportsTemplate\OMPReport\" />
   </ItemGroup>
