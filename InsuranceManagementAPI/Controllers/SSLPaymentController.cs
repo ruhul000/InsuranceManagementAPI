@@ -1,37 +1,52 @@
-﻿using InsuranceManagementAPI.Models;
+﻿using InsuranceManagementAPI.Data.Repository;
+using InsuranceManagementAPI.Models;
+using InsuranceManagementAPI.Models.Report;
+using InsuranceManagementAPI.Services;
 using InsuranceManagementAPI.Services.PaymentGateway;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Specialized;
 
 namespace InsuranceManagementAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class SSLPaymentController : ControllerBase
     {
-        [MapToApiVersion("1.0")]
-        [HttpGet("Checkout")]
-        public IActionResult Checkout()
+        private readonly IFinalMRService _finalMRService;
+        private readonly IReportingService _reportingService;
+        public SSLPaymentController(IFinalMRService finalMRService, IReportingService reportingService)
         {
-            var productName = "HP Pavilion Series Laptop";
-            var price = 85000;
+            _finalMRService = finalMRService;
+            _reportingService = reportingService;
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("Checkout/{transId}")]
+        public IActionResult Checkout(int transId)
+        {
+            var productName = "Overseas Mediclaim Health Plan";
+
+            FinalMR finalMR = _finalMRService.GetFinalMRByKey(transId).Result;
+            var price = 1603;
 
             var baseUrl = Request.Scheme + "://" + Request.Host;
+
+
 
             // CREATING LIST OF POST DATA
             NameValueCollection PostData = new NameValueCollection();
 
-            PostData.Add("total_amount", $"{price}");
-            PostData.Add("tran_id", "TESTASPNET1234");
-            PostData.Add("success_url", baseUrl + "/api/SSLPayment/CheckoutConfirmation");
-            PostData.Add("fail_url", baseUrl + "/api/SSLPayment/CheckoutFail");
-            PostData.Add("cancel_url", baseUrl + "/api/SSLPayment/CheckoutCancel");
+            PostData.Add("total_amount", $"{finalMR.MRNetPremium}");
+            PostData.Add("tran_id", $"{transId}");
+            PostData.Add("success_url", baseUrl + "/api/v1/SSLPayment/CheckoutConfirmation");
+            PostData.Add("fail_url", baseUrl + "/api/v1/SSLPayment/CheckoutFail");
+            PostData.Add("cancel_url", baseUrl + "/api/v1/SSLPayment/CheckoutCancel");
 
             PostData.Add("version", "3.00");
-            PostData.Add("cus_name", "ABC XY");
-            PostData.Add("cus_email", "abc.xyz@mail.co");
-            PostData.Add("cus_add1", "Address Line On");
-            PostData.Add("cus_add2", "Address Line Tw");
+            PostData.Add("cus_name", $"{finalMR.Text_Field_2} {finalMR.Text_Field_3}");
+            PostData.Add("cus_email", $"{finalMR.Text_Field_7}");
+            PostData.Add("cus_add1", "Address Line One");
+            PostData.Add("cus_add2", "Address Line Two");
             PostData.Add("cus_city", "City Nam");
             PostData.Add("cus_state", "State Nam");
             PostData.Add("cus_postcode", "Post Cod");
@@ -56,8 +71,8 @@ namespace InsuranceManagementAPI.Controllers
             PostData.Add("product_category", "Demo");
 
             //we can get from email notificaton
-            var storeId = "sales65cf73323b2a8";
-            var storePassword = "sales65cf73323b2a8@ssl";
+            var storeId = "unite65c84df9aed2e";
+            var storePassword = "unite65c84df9aed2e@ssl";
             var isSandboxMood = true;
 
             SSLCommerzGatewayProcessor sslcz = new SSLCommerzGatewayProcessor(storeId, storePassword, isSandboxMood);
@@ -79,16 +94,55 @@ namespace InsuranceManagementAPI.Controllers
 
             string TrxID = Request.Form["tran_id"];
             // AMOUNT and Currency FROM DB FOR THIS TRANSACTION
-            string amount = "85000";
+
+            FinalMR finalMR = _finalMRService.GetFinalMRByKey(Convert.ToInt64(TrxID)).Result;
+            string amount = $"{finalMR.MRNetPremium}";
             string currency = "BDT";
 
-            var storeId = "rejgsggsgsgsgsgeabc28c1c8";
-            var storePassword = "rfgsgejagsggsgsgsgsg8c1c8@ssl";
+            var storeId = "unite65c84df9aed2e";
+            var storePassword = "unite65c84df9aed2e@ssl";
 
             SSLCommerzGatewayProcessor sslcz = new SSLCommerzGatewayProcessor(storeId, storePassword, true);
             var resonse = sslcz.OrderValidate(TrxID, amount, currency, Request);
             var successInfo = $"Validation Response: {resonse}";
 
+            if (resonse == true)
+            {
+                finalMR.Pay_Status = true;
+
+                _finalMRService.Update(finalMR);
+
+                //finalMR = _finalMRService.GetFinalMRByKey(Convert.ToInt64(TrxID)).Result;
+
+                if(finalMR.Pay_Status == true)
+                {
+                    FinalMRReporParam rParam = new FinalMRReporParam();
+                    rParam.FinalMRKey = Convert.ToInt32(TrxID);
+
+                    //ReportDocument file =_reportingService.ReportOMP(rParam);
+
+                    ReportDocument file;
+
+                    try
+                    {
+                        file = _reportingService.ReportOMP(rParam);
+
+                        //if (file.FilePath.IsNullOrEmpty())
+                        //{
+                        //    return NotFound();
+                        //}
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+
+                    var baseUrl = Request.Scheme + "://" + Request.Host;
+                    return Redirect(baseUrl + "/ReportsDownload/" + file.FileName);
+
+                }
+            }
+            
             return Ok(successInfo);
         }
 
@@ -97,7 +151,7 @@ namespace InsuranceManagementAPI.Controllers
         public IActionResult CheckoutFail()
         {
             var Result = "There some error while processing your payment. Please try again.";
-            return BadRequest(Result);
+            return Ok(Result);
         }
 
         [MapToApiVersion("1.0")]

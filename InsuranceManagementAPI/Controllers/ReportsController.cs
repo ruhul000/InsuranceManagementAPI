@@ -14,7 +14,7 @@ using System.Net.Mime;
 namespace InsuranceManagementAPI.Controllers
 {
     [ApiController]
-    [Route("api/v{version:apiVersion}/Bank")]
+    [Route("api/v{version:apiVersion}/Reports")]
     [ApiVersion("1.0")]
     public class ReportsController : ControllerBase
     {
@@ -79,6 +79,42 @@ namespace InsuranceManagementAPI.Controllers
             ReportDocument file = _reportingService.ReportFinalMR(param);
 
             return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
+        }
+
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("OMPReport/{finalMRKey}")]
+        public ActionResult GenerateOMPReport(int finalMRKey)
+        {
+            FinalMRReporParam param = new FinalMRReporParam();
+            param.FinalMRKey = finalMRKey;
+
+            ReportDocument file = _reportingService.ReportOMP(param);
+
+            return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("RepoetOMP")]
+        public ActionResult GenerateReportOMP(FinalMRReporParam param)
+        {
+            ReportDocument file;
+
+            try
+            {
+                file = _reportingService.ReportOMP(param);
+
+                if (file.FilePath.IsNullOrEmpty())
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(file);
         }
     }
 }

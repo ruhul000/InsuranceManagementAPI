@@ -1,15 +1,9 @@
 ﻿using AspNetCore.Reporting;
-using AspNetCore.Reporting.ReportExecutionService;
-using InsuranceManagementAPI.Data.Models;
 using InsuranceManagementAPI.Data.Repository;
-using InsuranceManagementAPI.Extensions;
-using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Models.Report;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using QRCoder;
 using System.Data;
-using System.Data.SqlClient;
-using System.Net.Mime;
+using System.Drawing;
 
 namespace InsuranceManagementAPI.Services
 {
@@ -53,7 +47,8 @@ namespace InsuranceManagementAPI.Services
             var name = reportype switch
             {
                 "BankList" => "rptBanks.rdlc",
-                "FinalMR" => "rptFinalMR.rdlc"
+                "FinalMR" => "rptFinalMR.rdlc",
+                "OMP" => "rptOMP.rdlc"
             };
 
             return name;
@@ -64,6 +59,7 @@ namespace InsuranceManagementAPI.Services
             {
                 "BankList" => _configuration.GetValue<string>("ReportTemplatePath:Bank"),
                 "FinalMR" => _configuration.GetValue<string>("ReportTemplatePath:FinalMR"),
+                "OMP" => _configuration.GetValue<string>("ReportTemplatePath:OMP"),
             };
 
             return subDirectory;
@@ -144,6 +140,67 @@ namespace InsuranceManagementAPI.Services
             {}
 
             return report;
+        }
+
+        public ReportDocument ReportOMP(FinalMRReporParam param)
+        {
+            ReportDocument report = new ReportDocument();
+
+            try
+            {
+                var reportSettings = GetReportsSettings("OMP");
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+                string qrCodeText = $"https://localhost:7141/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
+                string base64QRCode = ImageToBase64(qrCodeImage);
+
+                parameters.Add("QRCode", base64QRCode);
+
+                DataSet bankReportDS = _reportRepository.GetFinalMRReportDataSet(param).Result;
+
+                LocalReport localReport = new LocalReport(reportSettings.TemplatePath);
+                localReport.AddDataSource("dsFinalMR", bankReportDS.Tables["dtFinalMR"]);
+                localReport.AddDataSource("dsBranchInfo", bankReportDS.Tables["dtBranchInfo"]);
+                localReport.AddDataSource("dsBankBranch", bankReportDS.Tables["dtBankBranch"]);
+                localReport.AddDataSource("dsBanks", bankReportDS.Tables["dtBank"]);
+                localReport.AddDataSource("dsClient", bankReportDS.Tables["dtClient"]);
+
+                var result = localReport.Execute(RenderType.Pdf, reportSettings.EXTENSION, parameters, reportSettings.MIMETYPE);
+
+                if (SaveReport(reportSettings, result))
+                {
+                    report.FileName = reportSettings.ReportFileName;
+                    report.FilePath = reportSettings.DownloadPath;
+                    report.FileStream = result.MainStream;
+                }
+
+                report.FileStream = result.MainStream;
+            }
+            catch (Exception ex)
+            { }
+
+            return report;
+        }
+
+        private Image GenerateQRCodeImage(string qrCodeText)
+        {
+            QRCodeGenerator qr = new QRCodeGenerator();
+            QRCodeData data = qr.CreateQrCode(qrCodeText, QRCodeGenerator.ECCLevel.Q);
+            QRCode code = new QRCode(data);
+            return code.GetGraphic(3);
+        }
+
+        // Convert image to base64 string
+        private string ImageToBase64(Image image)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
         }
     }
 }
