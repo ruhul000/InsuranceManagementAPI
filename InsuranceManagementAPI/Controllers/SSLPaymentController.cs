@@ -137,7 +137,8 @@ namespace InsuranceManagementAPI.Controllers
                         return BadRequest(ex.Message);
                     }
 
-                    return Redirect("https://localhost:7141/ReportsDownload/" + file.FileName);
+                    var baseUrl = Request.Scheme + "://" + Request.Host;
+                    return Redirect(baseUrl + "/ReportsDownload/" + file.FileName);
 
                 }
             }
