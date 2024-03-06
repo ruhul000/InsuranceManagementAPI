@@ -15,7 +15,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions 
+{ 
+    Args = args,
+    ContentRootPath = Directory.GetCurrentDirectory(),
+    WebRootPath = "wwwroot"
+});
 
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options => {
@@ -33,6 +38,7 @@ builder.Services.AddScoped(typeof(IMappingFactory<>), typeof(MappingFactory<>));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 // Configure App Services
+#region--------- APP SERVICES
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBankService, BankService>();
 builder.Services.AddScoped<IBankBranchService, BankBranchService>();
@@ -47,9 +53,13 @@ builder.Services.AddScoped<IAgentService, AgentService>();
 builder.Services.AddScoped<ICurrencyService, CurrencyService>();
 builder.Services.AddScoped<IMarineCargoTariffService, MarineCargoTariffService>();
 builder.Services.AddScoped<IFinalMRService, FinalMRService>();
+builder.Services.AddScoped<IReportingService, ReportingService>();
+builder.Services.AddScoped<IMediclaimTariffService, MediclaimTariffService>();
 
+#endregion
 
 // Configure App Repositories
+#region--------- APP REPOSITORIES
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IBankRepository, BankRepository>();
 builder.Services.AddScoped<IBankBranchRepository, BankBranchRepository>();
@@ -65,8 +75,12 @@ builder.Services.AddScoped<IAgentRepository, AgentRepository>();
 builder.Services.AddScoped<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<IMarineCargoTariffRepository, MarineCargoTariffRepository>();
 builder.Services.AddScoped<IFinalMRRepository, FinalMRRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IMediclaimTariffRepository, MediclaimTariffRepository>();
+#endregion
 
 // Configure App Factories
+#region--------- APP FACTORIES
 builder.Services.AddScoped<IBankFactory, BankFactory>();
 builder.Services.AddScoped<IBankBranchFactory, BankBranchFactory>();
 builder.Services.AddScoped<IUserFactory, UserFactory>();
@@ -81,10 +95,13 @@ builder.Services.AddScoped<IAgentFactory, AgentFactory>();
 builder.Services.AddScoped<ICurrencyFactory, CurrencyFactory>();
 builder.Services.AddScoped<IMarineCargoTariffFactory, MarineCargoTariffFactory>();
 builder.Services.AddScoped<IFinalMRFactory, FinalMRFactory>();
+builder.Services.AddScoped<IMediclaimTariffFactory, MediclaimTariffFactory>();
+#endregion
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 // Configure API Version
+#region--------- API VERSIONING
 builder.Services.AddApiVersioning(opt =>
 {
     opt.DefaultApiVersion = new ApiVersion(1, 0);
@@ -103,6 +120,7 @@ builder.Services.AddVersionedApiExplorer(setup =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
+#endregion
 
 // Add JWT Authentication Option in Swagger
 builder.Services.AddSwaggerGen(c => {
@@ -180,11 +198,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-
 builder.Services.AddControllers();
-
-
 
 app.UseHttpsRedirection();
 
@@ -193,6 +207,7 @@ app.UseRouting();
 app.UseCors();
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthentication();
 

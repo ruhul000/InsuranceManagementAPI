@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="PolicyDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PolicyDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\DataSet\dsBankBranch.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBankBranch.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\DataSet\dsBanks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBanks.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\DataSet\dsBranchInfo.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBranchInfo.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\DataSet\dsClient.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsClient.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\DataSet\dsFinalMR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsFinalMR.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Reports\DataSet\dsBankBranch.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBankBranch.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\DataSet\dsBanks.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\DataSet\dsBranchInfo.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBranchInfo.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\DataSet\dsClient.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsClient.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\DataSet\dsFinalMR.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsFinalMR.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
