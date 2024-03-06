@@ -183,20 +183,19 @@ var app = builder.Build();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
-        {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                description.GroupName.ToUpperInvariant());
 
-            options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-        }
-    });
-}
+app.UseSwagger();
+app.UseSwaggerUI(options =>
+{
+    foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
+    {
+        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant());
+
+        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    }
+});
+
 
 builder.Services.AddControllers();
 
@@ -207,6 +206,7 @@ app.UseRouting();
 app.UseCors();
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseAuthentication();
