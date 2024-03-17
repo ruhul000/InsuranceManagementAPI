@@ -1,4 +1,5 @@
 using InsuranceManagementAPI;
+using InsuranceManagementAPI.CustomAttribute;
 using InsuranceManagementAPI.Data;
 using InsuranceManagementAPI.Data.Repository;
 using InsuranceManagementAPI.Extensions;
@@ -36,7 +37,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Configure Helper
 builder.Services.AddScoped(typeof(IMappingFactory<>), typeof(MappingFactory<>));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
+builder.Services.AddScoped<ApiKeyAuthFilter>();
+builder.Services.AddHttpContextAccessor();
 // Configure App Services
 #region--------- APP SERVICES
 builder.Services.AddScoped<IUserService, UserService>();
@@ -147,6 +149,31 @@ builder.Services.AddSwaggerGen(c => {
             new string[]{ }
         }
     });
+
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "The API Key to access the API",
+        Name = "x-api-key",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "ApiKeyScheme"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id= "ApiKey"
+                }
+            },
+            new string[]{ }
+        }
+    });
+
 });
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
