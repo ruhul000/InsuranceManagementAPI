@@ -57,6 +57,7 @@ builder.Services.AddScoped<IMarineCargoTariffService, MarineCargoTariffService>(
 builder.Services.AddScoped<IFinalMRService, FinalMRService>();
 builder.Services.AddScoped<IReportingService, ReportingService>();
 builder.Services.AddScoped<IMediclaimTariffService, MediclaimTariffService>();
+builder.Services.AddScoped<IBankPaymentService, BankPaymentService>();
 
 #endregion
 
@@ -79,6 +80,7 @@ builder.Services.AddScoped<IMarineCargoTariffRepository, MarineCargoTariffReposi
 builder.Services.AddScoped<IFinalMRRepository, FinalMRRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IMediclaimTariffRepository, MediclaimTariffRepository>();
+builder.Services.AddScoped<IBankPaymentRepository, BankPaymentRepository>();
 #endregion
 
 // Configure App Factories
@@ -98,6 +100,7 @@ builder.Services.AddScoped<ICurrencyFactory, CurrencyFactory>();
 builder.Services.AddScoped<IMarineCargoTariffFactory, MarineCargoTariffFactory>();
 builder.Services.AddScoped<IFinalMRFactory, FinalMRFactory>();
 builder.Services.AddScoped<IMediclaimTariffFactory, MediclaimTariffFactory>();
+builder.Services.AddScoped<IBankPaymentFactory, BankPaymentFactory>();
 #endregion
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
