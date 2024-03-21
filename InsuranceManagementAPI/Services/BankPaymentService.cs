@@ -24,7 +24,7 @@ namespace InsuranceManagementAPI.Services
             BankPayment? response = null ;
             var bankPaymentDto = _bankPaymentFactory.CreateFrom(bankPayment);
 
-            var finalMr = _finalMRRepository.GetFinalMRByID(bankPaymentDto.FinalMRKey);
+            //var finalMr = _finalMRRepository.GetFinalMRByID(bankPaymentDto.FinalMRKey);
                 
 
             var result = _bankPaymentRepository.Update(bankPaymentDto);

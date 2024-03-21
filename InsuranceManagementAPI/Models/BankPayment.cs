@@ -9,7 +9,15 @@
         {
             get
             {
-                return Convert.ToInt64(Reference.Substring(4));
+                if(Reference.Length == 17)
+                {
+                    return Convert.ToInt64(Reference.Substring(4));
+                }
+                else
+                {
+                    return 0;
+                }
+                
             }
 
         }

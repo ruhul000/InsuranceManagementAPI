@@ -227,7 +227,7 @@ app.UseSwaggerUI(options =>
 });
 
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
 
 app.UseHttpsRedirection();
 

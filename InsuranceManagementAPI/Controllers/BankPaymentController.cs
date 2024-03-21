@@ -13,9 +13,11 @@ namespace InsuranceManagementAPI.Controllers
     public class BankPaymentController : ControllerBase
     {        
         private readonly IBankPaymentService _bankPaymentService;
-        public BankPaymentController(IBankPaymentService bankPaymentService)
+        private readonly IFinalMRService _finalMRService;
+        public BankPaymentController(IBankPaymentService bankPaymentService, IFinalMRService finalMrService)
         {     
             _bankPaymentService = bankPaymentService;
+            _finalMRService = finalMrService;
         }
 
         [MapToApiVersion("1.0")]
@@ -25,9 +27,12 @@ namespace InsuranceManagementAPI.Controllers
         {
             bool response = false;
             try
-            {    
-                 response =  _bankPaymentService.Update(bankPayment).Result;
-                 
+            {
+                FinalMR finalMR = _finalMRService.GetFinalMRByKey(Convert.ToInt64(bankPayment.Reference.Substring(4))).Result;
+                if (finalMR.MRNetPremium == bankPayment.Amount)
+                {
+                    response = _bankPaymentService.Update(bankPayment).Result;
+                }
 
                  if (response == null)
                  {
