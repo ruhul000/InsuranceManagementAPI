@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="PolicyDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PolicyDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\dsBanks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBanks.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\dsBranchInfo.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBranchInfo.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="PolicyDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PolicyDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\dsBanks.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Reports\dsBranchInfo.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBranchInfo.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

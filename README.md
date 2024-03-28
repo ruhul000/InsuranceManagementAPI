@@ -17,6 +17,10 @@ Nuget Packages:
 5. Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer
 6. AutoMapper.Extensions.Microsoft.DependencyInjection
 7. Microsoft.AspNetCore.Authentication.JwtBearer
+8. System.Security.Permissions
+9. System.Drawing.Common
+10.System.CodeDom
+11.AspNetCore.Reporting
 
 References: 
 1. https://github.com/nitishwebgentle/asp-net-core-web-api/tree/main/BookStore/BookStore.API
