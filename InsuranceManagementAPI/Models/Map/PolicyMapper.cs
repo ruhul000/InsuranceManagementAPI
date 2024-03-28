@@ -25,6 +25,8 @@ namespace InsuranceManagementAPI.Models.Map
             CreateMap<MarineCargoTariffDto, MarineCargoTariff>().ReverseMap();
             CreateMap<FinalMRDto, FinalMR>().ReverseMap();
             CreateMap<MediclaimTariffDto, MediclaimTariff>().ReverseMap();
+            CreateMap<BankPaymentDto, BankPayment>().ReverseMap();
+            CreateMap<MotorTariffDto, MotorTariff>().ReverseMap();
 
         }
     }

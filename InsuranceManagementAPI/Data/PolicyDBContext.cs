@@ -25,6 +25,7 @@ namespace InsuranceManagementAPI.Data
         public virtual DbSet<MarineCargoTariffDto> MarineCargoTariff { get; set; }
         public virtual DbSet<FinalMRDto> FinalMR{ get; set; }
         public virtual DbSet<MediclaimTariffDto> MediclaimTariff { get; set; }
+        public virtual DbSet<MotorTariffDto> MotorTariff { get; set; }
 
     }
 }
