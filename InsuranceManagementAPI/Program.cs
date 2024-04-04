@@ -210,6 +210,17 @@ builder.Services.AddCors(options =>
         });
 });
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("myAppCors", policy =>
+    {
+        policy.WithOrigins("http://192.168.1.235", "http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
@@ -236,6 +247,8 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseCors();
+
+//app.UseCors("myAppCors");
 
 app.UseHttpsRedirection();
 

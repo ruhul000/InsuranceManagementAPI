@@ -20,7 +20,8 @@ namespace InsuranceManagementAPI.Controllers
 
 
         [MapToApiVersion("1.0")]
-        [HttpPost("GetTravelRate")]        
+        [HttpPost("GetTravelRate")]
+        
         public ActionResult<IEnumerable<MediclaimTariff>> GetTravelRate(MediclaimTariff mediclaimTariff)
         {
 
