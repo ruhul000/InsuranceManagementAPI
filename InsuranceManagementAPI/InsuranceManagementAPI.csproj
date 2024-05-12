@@ -1,19 +1,76 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\ReportsTemplate\BanksReports\rptBanks.rdlc" />
+    <Content Remove="wwwroot\ReportsTemplate\FinalMRReports\rptFinalMR.rdlc" />
+    <Content Remove="wwwroot\ReportsTemplate\FinalMRReports\rptOMP.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="QRCoder" Version="1.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.CodeDom" Version="8.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+    <PackageReference Include="System.Security.Permissions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Data\Dataset\dsBanks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBanks.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Data\Dataset\Reports\dsBanks.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBanks.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="dsBank.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsBank.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\Dataset\dsBanks.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Data\Dataset\Reports\dsBanks.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBanks.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="dsBank.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBank.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\ReportsDownload\" />
+    <Folder Include="wwwroot\ReportsTemplate\OMPReport\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\ReportsTemplate\BanksReports\rptBanks.rdlc" />
+    <None Include="wwwroot\ReportsTemplate\FinalMRReports\rptFinalMR.rdlc" />
+    <None Include="wwwroot\ReportsTemplate\rptOMP.rdlc" />
   </ItemGroup>
 
 </Project>

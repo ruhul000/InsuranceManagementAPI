@@ -28,12 +28,10 @@ namespace InsuranceManagementAPI.Data.Repository
             }
             return banks;
         }
-
         public async Task<BankDto> GetBankByID(long id)
         {
             return await _context.Bank.FirstOrDefaultAsync(obj => obj.BankId == id);
         }
-
         public async Task<bool> Add(BankDto bank, int userId)
         {
             bank.EUser = userId;
@@ -42,7 +40,6 @@ namespace InsuranceManagementAPI.Data.Repository
             _context.Bank.Add(bank);
             return (await _context.SaveChangesAsync() > 0);
         }
-
         public async Task<bool> Update(BankDto bank, int userId)
         {
             bank.UUser = userId;

@@ -79,5 +79,15 @@ namespace InsuranceManagementAPI.Helper
                 return Convert.ToBase64String(randomNumber);
             }
         }
+        public bool IsValidApiKey(string? apiKey)
+        {
+            if(string.IsNullOrEmpty(apiKey)) return false;
+
+            var apiKeySettings = _configuration.GetSection("APIKeySettings").Get<APIKeySettings>();
+
+            if(apiKeySettings == null || apiKeySettings.ApiKey != apiKey) return false;
+
+            return true;
+        }
     }
 }

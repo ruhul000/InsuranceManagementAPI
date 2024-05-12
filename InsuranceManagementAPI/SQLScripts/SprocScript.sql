@@ -8,7 +8,7 @@ GO
 
 
 
-CREATE FUNCTION [dbo].[LPAD]  (@STR VARCHAR(8000), @FORMAT_STR CHAR(1), @PAD_LEN INT) 
+ALTER FUNCTION [dbo].[LPAD]  (@STR VARCHAR(8000), @FORMAT_STR CHAR(1), @PAD_LEN INT) 
 RETURNS VARCHAR(8000) 
 AS
 BEGIN 
@@ -42,7 +42,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[AddClient]
+ALTER PROCEDURE [dbo].[AddClient]
 (
 	@ClientKey [bigint] OUT,
 	@BranchKey [int],
@@ -168,7 +168,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[BankBranchAdd]
+ALTER PROCEDURE [dbo].[BankBranchAdd]
 	@BranchId [int] OUT,	
 	@BranchName nvarchar(200) = NULL,
 	@BankId [int],
@@ -224,7 +224,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[BankBranchUpdate]
+ALTER PROCEDURE [dbo].[BankBranchUpdate]
 	@Result [int] OUT,
 	@BranchId int,
 	@BranchName varchar(100),
@@ -248,7 +248,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[BankUpdate]
+ALTER PROCEDURE [dbo].[BankUpdate]
 	@Result [int] OUT,
 	@BankId int,
 	@BankName varchar(100),
@@ -268,10 +268,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[GetAllBankBranches] 
+ALTER PROCEDURE [dbo].[GetAllBankBranches] 
 	@BankName nvarchar(200)= null ,
 	@Branchname nvarchar(200) = null 
 AS
@@ -293,10 +293,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[GetAllInsuranceCompanies]
+ALTER PROCEDURE [dbo].[GetAllInsuranceCompanies]
 	
 AS
 BEGIN
@@ -308,7 +308,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-Create PROCEDURE [dbo].[GetBankBranchById] 
+ALTER PROCEDURE [dbo].[GetBankBranchById] 
 	@BranchId int
 AS
 BEGIN
@@ -329,7 +329,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-Create PROCEDURE [dbo].[GetBankBranches] 
+ALTER PROCEDURE [dbo].[GetBankBranches] 
 	@BankId int
 AS
 BEGIN
@@ -347,7 +347,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[GetInsuranceCompanyById] 
+ALTER PROCEDURE [dbo].[GetInsuranceCompanyById] 
 	@CompanyId int
 AS
 BEGIN
@@ -368,10 +368,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[InsuranceCompanyAdd]
+ALTER PROCEDURE [dbo].[InsuranceCompanyAdd]
 	@CompanyId int out,
 	@CompanyName varchar(100),
 	@status bit,
@@ -395,10 +395,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 -- =============================================
 -- Author:		<Author,,Name>
--- Create date: <Create Date,,>
+-- ALTER date: <ALTER Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE [dbo].[InsuranceCompanyUpdate]
+ALTER PROCEDURE [dbo].[InsuranceCompanyUpdate]
 	@Result bit output,
 	@CompanyId int,
 	@CompanyName varchar(100),
@@ -428,7 +428,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[SP_Branch_Add]
+ALTER PROCEDURE [dbo].[SP_Branch_Add]
 
 @BranchKey	int OUT,
 @ComKey	int = 0,
@@ -533,7 +533,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[SP_Branch_Update]
+ALTER PROCEDURE [dbo].[SP_Branch_Update]
 @Result int OUT,
 @BranchKey	int,
 @ComKey	int = 0,
@@ -608,7 +608,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SP_Company_Add]
+ALTER PROCEDURE [dbo].[SP_Company_Add]
 	@ComKey int OUT,
 	@CompanyName varchar(100) ,
 	@ShortName varchar(10) ,
@@ -619,8 +619,8 @@ CREATE PROCEDURE [dbo].[SP_Company_Add]
 	@Email varchar(50) ,
 	@IssuingPlaceHO varchar(50) ,
 	@Web varchar(50) ,
-	@Logo varchar(MAX) null ,
-	@Banner varchar(MAX) null,
+	@Logo varchar(MAX) = null ,
+	@Banner varchar(MAX) = null,
 	@BackupType bit
 AS
 BEGIN
@@ -636,7 +636,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-CREATE PROCEDURE [dbo].[SP_Company_Update]
+ALTER PROCEDURE [dbo].[SP_Company_Update]
 	@result int Out,
 	@ComKey int,
 	@CompanyName varchar(100) ,
@@ -648,8 +648,8 @@ CREATE PROCEDURE [dbo].[SP_Company_Update]
 	@Email varchar(50) ,
 	@IssuingPlaceHO varchar(50) ,
 	@Web varchar(50) ,
-	@Logo varchar(MAX) null ,
-	@Banner varchar(MAX) null,
+	@Logo varchar(MAX) = null ,
+	@Banner varchar(MAX) = null,
 	@BackupType bit
 AS
 BEGIN
@@ -674,7 +674,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[UpdateClient]
+ALTER PROCEDURE [dbo].[UpdateClient]
 (
 	@Result bit OUTPUT,
 	@ClientKey [bigint],
@@ -771,7 +771,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff]
+ALTER PROCEDURE [dbo].[SpMC_Tariff]
 AS
 BEGIN 
 	Select Distinct Tariff_Catagory, null as ItemName, null as Per, null as TariffKey, null as TypeA, null as TypeB, null as TypeC, null as TypeOfRisk from Marine_Cargo_Tariff
@@ -787,7 +787,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];2
+ALTER PROCEDURE [dbo].[SpMC_Tariff];2
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL
 AS
@@ -807,7 +807,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];3
+ALTER PROCEDURE [dbo].[SpMC_Tariff];3
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL
@@ -856,7 +856,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];4
+ALTER PROCEDURE [dbo].[SpMC_Tariff];4
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL,
@@ -907,7 +907,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];5
+ALTER PROCEDURE [dbo].[SpMC_Tariff];5
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL,
@@ -961,7 +961,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];6
+ALTER PROCEDURE [dbo].[SpMC_Tariff];6
 @Tariff_Catagory VARCHAR(50)=NULL,
 @TypeOfRisk	 VARCHAR(50)=NULL,
 @ItemName	 VARCHAR(250)=NULL,
@@ -996,7 +996,7 @@ GO
 
 
 
-CREATE PROCEDURE [dbo].[SpMC_Tariff];7
+ALTER PROCEDURE [dbo].[SpMC_Tariff];7
 AS
 BEGIN 
 	Select * from Marine_Cargo_Tariff_FBIG order by Item_Name
@@ -1005,7 +1005,7 @@ END
 
 GO
 
-CREATE PROCEDURE [dbo].[Sptab_Final_MR]
+ALTER PROCEDURE [dbo].[Sptab_Final_MR]
 @FinalMRKey	bigint OUT ,
 @FinalMRKeyREF	bigint = 0,
 @BranchKey	int = 0,
@@ -1035,6 +1035,7 @@ CREATE PROCEDURE [dbo].[Sptab_Final_MR]
 @SumInsuredCoIns	numeric(18,0) = 0,
 @MRNetPremium	numeric(18,2) = 0,
 @NetPremium	numeric(18,2) = 0,
+@VatPer numeric(18,2) = 0,
 @VatAmount	numeric(18,2) = 0,
 @StampDuty	numeric(18,2) = 0,
 @OthersAmount	numeric(18,0) = 0,
@@ -1127,7 +1128,7 @@ CREATE PROCEDURE [dbo].[Sptab_Final_MR]
 @Date_Field_2	smalldatetime = NULL,
 @Date_Field_3	smalldatetime = NULL,
 @Bank_Guarantee	int = 0,
-@Coll_Our_Share	nchar = 0,
+@Coll_Our_Share	varchar(50) = null,
 @NewClient	int = 0,
 @WithChargeAmount	int = 0,
 @DocCancel	bit = 0,
@@ -1177,6 +1178,11 @@ BEGIN
 	BEGIN	
 		set @DocNo =  dbo.FnGetDocNo(@Class_Name, @Sub_Class_Name, @BranchKey ,@YearName);
 		set @DocCode = dbo.FnGetDocCode(@Class_Name, @Sub_Class_Name,@YearName);
+
+		if(@Class_Name = 'Marine Cargo' and @Sub_Class_Name='Cover Note')
+		BEGIN
+			SET @CoverNoteNo = @DocNo
+		END
 	END
 	
 	BEGIN
@@ -1210,6 +1216,7 @@ BEGIN
 			SumInsuredCoIns,
 			MRNetPremium,
 			NetPremium,
+			VatPer,
 			VatAmount,
 			StampDuty,
 			OthersAmount,
@@ -1375,6 +1382,7 @@ BEGIN
 			@SumInsuredCoIns,
 			@MRNetPremium,
 			@NetPremium,
+			@VatPer,
 			@VatAmount,
 			@StampDuty,
 			@OthersAmount,
@@ -1517,3 +1525,344 @@ END
 
 
 GO
+
+CREATE PROCEDURE [dbo].[Sptab_Final_MR_UPDATE]
+@Result bit OUT,
+@FinalMRKey	bigint = 0,
+@FinalMRKeyREF	bigint = 0,
+@BranchKey	int = 0,
+@Class_Name	varchar(50) = NULL,
+@Sub_Class_Name	varchar(50) = NULL,
+@YearName	smallint = 0,
+@MRType	varchar(50) = NULL,
+@MRType_2	varchar(50) = NULL,
+@MRType_3	varchar(50) = NULL,
+@MRType_4	varchar(50) = NULL,
+@MRCode	int = 0,
+@MRCode_Dis	varchar(50) = NULL,
+@MRDate	smalldatetime = NULL,
+@DocCode	int = 0,
+@DocNo	varchar(500) = NULL,
+@DocDate	smalldatetime = NULL,
+@CoverNoteNo	varchar(500) = NULL,
+@CNDate	smalldatetime = NULL,
+@PolicyNo	varchar(500) = NULL,
+@PODate	smalldatetime = NULL,
+@CoIns	bit = 0,
+@ComKeyCoIns	int = 0,
+@LeaderDocNo	varchar(500) = NULL,
+@CoInsPer	numeric(18,2) = 0,
+@We_Leader	bit = 0,
+@SumInsured	numeric(18,0) = 0,
+@SumInsuredCoIns	numeric(18,0) = 0,
+@MRNetPremium	numeric(18,2) = 0,
+@NetPremium	numeric(18,2) = 0,
+@VatPer		numeric(18,2) = 0,
+@VatAmount	numeric(18,2) = 0,
+@StampDuty	numeric(18,2) = 0,
+@OthersAmount	numeric(18,0) = 0,
+@Ref_SumInsured	numeric(18,0) = 0,
+@Ref_SumInsuredCoIns	numeric(18,0) = 0,
+@Ref_NetPremium	numeric(18,2) = 0,
+@Ref_VatAmount	numeric(18,2) = 0,
+@Ref_StampDuty	numeric(18,2) = 0,
+@Ref_ChargeAmount	numeric(18,2) = 0,
+@Ref_DocNo	varchar(1000) = NULL,
+@Ref_CoInsSumInsured	numeric(18,0) = 0,
+@Ref_CoInsNetPremium	numeric(18,2) = 0,
+@Active	bit = 0,
+@DepositDate	smalldatetime = NULL,
+@Depo_NetPremium	numeric(18,0) = 0,
+@Depo_NetPremium_CoIns	numeric(18,0) = 0,
+@Depo_VatAmount	numeric(18,0) = 0,
+@Depo_StampDuty	numeric(18,0) = 0,
+@MR_Allowable	int = 0,
+@Business	int = 0,
+@ClientKey	bigint = 0,
+@BankKey	bigint = 0,
+@ClientKey_Old	bigint = 0,
+@BankKey_Old	bigint = 0,
+@EmpKey	int = 0,
+@AgentKey	int = 0,
+@PeriodFrom	smalldatetime = NULL,
+@PeriodTo	smalldatetime = NULL,
+@Text_Field_1	varchar(500) = NULL,
+@Text_Field_2	varchar(500) = NULL,
+@Text_Field_3	varchar(500) = NULL,
+@Text_Field_4	varchar(500) = NULL,
+@Text_Field_5	varchar(500) = NULL,
+@Text_Field_6	varchar(500) = NULL,
+@Text_Field_7	varchar(500) = NULL,
+@Text_Field_8	varchar(500) = NULL,
+@Text_Field_9	varchar(500) = NULL,
+@Text_Field_10	varchar(500) = NULL,
+@Text_Field_11	varchar(500) = NULL,
+@Text_Field_12	varchar(500) = NULL,
+@Text_Field_13	varchar(500) = NULL,
+@Text_Field_14	varchar(500) = NULL,
+@Text_Field_15	varchar(500) = NULL,
+@Text_Field_16	varchar(500) = NULL,
+@Text_Field_17	varchar(500) = NULL,
+@Text_Field_18	varchar(500) = NULL,
+@Text_Field_19	varchar(500) = NULL,
+@Text_Field_20	varchar(500) = NULL,
+@Text_Field_21	varchar(500) = NULL,
+@Text_Field_22	varchar(500) = NULL,
+@Text_Field_23	varchar(500) = NULL,
+@Text_Field_24	varchar(500) = NULL,
+@Text_Field_25	varchar(500) = NULL,
+@Text_Field_26	varchar(500) = NULL,
+@Text_Field_27	varchar(500) = NULL,
+@Text_Field_28	varchar(500) = NULL,
+@Text_Field_29	varchar(500) = NULL,
+@Text_Field_30	varchar(500) = NULL,
+@Num_Field_1	numeric(18,4) = 0,
+@Num_Field_2	numeric(18,4) = 0,
+@Num_Field_3	numeric(18,4) = 0,
+@Num_Field_4	numeric(18,4) = 0,
+@Num_Field_5	numeric(18,4) = 0,
+@Num_Field_6	numeric(18,4) = 0,
+@Num_Field_7	numeric(18,4) = 0,
+@Num_Field_8	numeric(18,4) = 0,
+@Num_Field_9	numeric(18,4) = 0,
+@Num_Field_10	numeric(18,4) = 0,
+@Num_Field_11	numeric(18,4) = 0,
+@Num_Field_12	numeric(18,4) = 0,
+@Num_Field_13	numeric(18,4) = 0,
+@Num_Field_14	numeric(18,4) = 0,
+@Num_Field_15	numeric(18,4) = 0,
+@Num_Field_16	numeric(18,4) = 0,
+@Num_Field_17	numeric(18,4) = 0,
+@Num_Field_18	numeric(18,4) = 0,
+@Num_Field_19	numeric(18,4) = 0,
+@Num_Field_20	numeric(18,4) = 0,
+@Num_Field_21	numeric(18,4) = 0,
+@Num_Field_22	numeric(18,4) = 0,
+@Num_Field_23	numeric(18,4) = 0,
+@Num_Field_24	numeric(18,4) = 0,
+@Num_Field_25	numeric(18,4) = 0,
+@Num_Field_26	numeric(18,4) = 0,
+@Num_Field_27	numeric(18,4) = 0,
+@Num_Field_28	numeric(18,4) = 0,
+@Num_Field_29	numeric(18,4) = 0,
+@Num_Field_30	numeric(18,4) = 0,
+@Date_Field_1	smalldatetime = NULL,
+@Date_Field_2	smalldatetime = NULL,
+@Date_Field_3	smalldatetime = NULL,
+@Bank_Guarantee	int = 0,
+@Coll_Our_Share	nchar = 0,
+@NewClient	int = 0,
+@WithChargeAmount	int = 0,
+@DocCancel	bit = 0,
+@DocCancelDate	smalldatetime = NULL,
+@NotUtilized	bit = 0,
+@DocEdit	bit = 0,
+@ReinsuranceAmount	numeric(18,2) = 0,
+@ClaimAmount	numeric(18,2) = 0,
+@VoucherKey	bigint = 0,
+@HO	bit = 0,
+@Pay_Status	bit = 0,
+@BoughKey	int = 0,
+@TargetKey	numeric(18,0) = 0,
+@Remarks	varchar(1000) = NULL,
+@PaymentType	varchar(50) = NULL,
+@CurrencyName	varchar(50) = NULL,
+@FCurrText	varchar(50) = NULL,
+@AmountInWord	varchar(1000) = NULL,
+@BankName	varchar(50) = NULL,
+@BranchName	varchar(50) = NULL,
+@ChequeNo	varchar(50) = NULL,
+@ChequeDate	smalldatetime = NULL,
+@ChargeAmount	numeric(18,0) = 0,
+@PrintStatus	bit = 0,
+@PrintStatus_CN	bit = 0,
+@PrintStatus_PO	bit = 0,
+@Transfer	int = 0,
+@VATStop	bit = 0,
+@EmpKeyOld	int = 0,
+@BlockPIN	bit = 0,
+@CoInsBillRec	bit = 0,
+@CoInsBillDetails	varchar(500) = NULL,
+@LockData	bit = 0,
+@LockData_Yearly	bit = 0,
+@DelFlag	bit=0,
+@PC_Name	varchar(100) = NULL,
+@UUser	int = 0,
+@BackupType	bit = 0
+AS
+DECLARE @UDate smalldatetime
+
+SET @UDate = GETDATE()
+BEGIN
+
+
+	
+	UPDATE tab_Final_MR SET
+		FinalMRKeyREF=@FinalMRKeyREF,
+		BranchKey=@BranchKey,
+		Class_Name=@Class_Name,
+		Sub_Class_Name=@Sub_Class_Name,
+		YearName=@YearName,
+		MRType=@MRType,
+		MRType_2=@MRType_2,
+		MRType_3=@MRType_3,
+		MRType_4=@MRType_4,
+		MRCode=@MRCode,
+		MRCode_Dis=@MRCode_Dis,
+		MRDate=@MRDate,
+		DocCode=@DocCode,
+		DocNo=@DocNo,
+		DocDate=@DocDate,
+		CoverNoteNo=@CoverNoteNo,
+		CNDate=@CNDate,
+		PolicyNo=@PolicyNo,
+		PODate=@PODate,
+		CoIns=@CoIns,
+		ComKeyCoIns=@ComKeyCoIns,
+		LeaderDocNo=@LeaderDocNo,
+		CoInsPer=@CoInsPer,
+		We_Leader=@We_Leader,
+		SumInsured=@SumInsured,
+		SumInsuredCoIns=@SumInsuredCoIns,
+		MRNetPremium=@MRNetPremium,
+		NetPremium=@NetPremium,
+		VatPer = @VatPer,
+		VatAmount=@VatAmount,
+		StampDuty=@StampDuty,
+		OthersAmount=@OthersAmount,
+		Ref_SumInsured=@Ref_SumInsured,
+		Ref_SumInsuredCoIns=@Ref_SumInsuredCoIns,
+		Ref_NetPremium=@Ref_NetPremium,
+		Ref_VatAmount=@Ref_VatAmount,
+		Ref_StampDuty=@Ref_StampDuty,
+		Ref_ChargeAmount=@Ref_ChargeAmount,
+		Ref_DocNo=@Ref_DocNo,
+		Ref_CoInsSumInsured=@Ref_CoInsSumInsured,
+		Ref_CoInsNetPremium=@Ref_CoInsNetPremium,
+		Active=@Active,
+		DepositDate=@DepositDate,
+		Depo_NetPremium=@Depo_NetPremium,
+		Depo_NetPremium_CoIns=@Depo_NetPremium_CoIns,
+		Depo_VatAmount=@Depo_VatAmount,
+		Depo_StampDuty=@Depo_StampDuty,
+		MR_Allowable=@MR_Allowable,
+		Business=@Business,
+		ClientKey=@ClientKey,
+		BankKey=@BankKey,
+		ClientKey_Old=@ClientKey_Old,
+		BankKey_Old=@BankKey_Old,
+		EmpKey=@EmpKey,
+		AgentKey=@AgentKey,
+		PeriodFrom=@PeriodFrom,
+		PeriodTo=@PeriodTo,
+		Text_Field_1=@Text_Field_1,
+		Text_Field_2=@Text_Field_2,
+		Text_Field_3=@Text_Field_3,
+		Text_Field_4=@Text_Field_4,
+		Text_Field_5=@Text_Field_5,
+		Text_Field_6=@Text_Field_6,
+		Text_Field_7=@Text_Field_7,
+		Text_Field_8=@Text_Field_8,
+		Text_Field_9=@Text_Field_9,
+		Text_Field_10=@Text_Field_10,
+		Text_Field_11=@Text_Field_11,
+		Text_Field_12=@Text_Field_12,
+		Text_Field_13=@Text_Field_13,
+		Text_Field_14=@Text_Field_14,
+		Text_Field_15=@Text_Field_15,
+		Text_Field_16=@Text_Field_16,
+		Text_Field_17=@Text_Field_17,
+		Text_Field_18=@Text_Field_18,
+		Text_Field_19=@Text_Field_19,
+		Text_Field_20=@Text_Field_20,
+		Text_Field_21=@Text_Field_21,
+		Text_Field_22=@Text_Field_22,
+		Text_Field_23=@Text_Field_23,
+		Text_Field_24=@Text_Field_24,
+		Text_Field_25=@Text_Field_25,
+		Text_Field_26=@Text_Field_26,
+		Text_Field_27=@Text_Field_27,
+		Text_Field_28=@Text_Field_28,
+		Text_Field_29=@Text_Field_29,
+		Text_Field_30=@Text_Field_30,
+		Num_Field_1=@Num_Field_1,
+		Num_Field_2=@Num_Field_2,
+		Num_Field_3=@Num_Field_3,
+		Num_Field_4=@Num_Field_4,
+		Num_Field_5=@Num_Field_5,
+		Num_Field_6=@Num_Field_6,
+		Num_Field_7=@Num_Field_7,
+		Num_Field_8=@Num_Field_8,
+		Num_Field_9=@Num_Field_9,
+		Num_Field_10=@Num_Field_10,
+		Num_Field_11=@Num_Field_11,
+		Num_Field_12=@Num_Field_12,
+		Num_Field_13=@Num_Field_13,
+		Num_Field_14=@Num_Field_14,
+		Num_Field_15=@Num_Field_15,
+		Num_Field_16=@Num_Field_16,
+		Num_Field_17=@Num_Field_17,
+		Num_Field_18=@Num_Field_18,
+		Num_Field_19=@Num_Field_19,
+		Num_Field_20=@Num_Field_20,
+		Num_Field_21=@Num_Field_21,
+		Num_Field_22=@Num_Field_22,
+		Num_Field_23=@Num_Field_23,
+		Num_Field_24=@Num_Field_24,
+		Num_Field_25=@Num_Field_25,
+		Num_Field_26=@Num_Field_26,
+		Num_Field_27=@Num_Field_27,
+		Num_Field_28=@Num_Field_28,
+		Num_Field_29=@Num_Field_29,
+		Num_Field_30=@Num_Field_30,
+		Date_Field_1=@Date_Field_1,
+		Date_Field_2=@Date_Field_2,
+		Date_Field_3=@Date_Field_3,
+		Bank_Guarantee=@Bank_Guarantee,
+		Coll_Our_Share=@Coll_Our_Share,
+		NewClient=@NewClient,
+		WithChargeAmount=@WithChargeAmount,
+		DocCancel=@DocCancel,
+		DocCancelDate=@DocCancelDate,
+		NotUtilized=@NotUtilized,
+		DocEdit=@DocEdit,
+		ReinsuranceAmount=@ReinsuranceAmount,
+		ClaimAmount=@ClaimAmount,
+		VoucherKey=@VoucherKey,
+		HO=@HO,
+		Pay_Status=@Pay_Status,
+		BoughKey=@BoughKey,
+		TargetKey=@TargetKey,
+		Remarks=@Remarks,
+		PaymentType=@PaymentType,
+		CurrencyName=@CurrencyName,
+		FCurrText=@FCurrText,
+		AmountInWord=@AmountInWord,
+		BankName=@BankName,
+		BranchName=@BranchName,
+		ChequeNo=@ChequeNo,
+		ChequeDate=@ChequeDate,
+		ChargeAmount=@ChargeAmount,
+		PrintStatus=@PrintStatus,
+		PrintStatus_CN=@PrintStatus_CN,
+		PrintStatus_PO=@PrintStatus_PO,
+		Transfer=@Transfer,
+		VATStop=@VATStop,
+		EmpKeyOld=@EmpKeyOld,
+		BlockPIN=@BlockPIN,
+		CoInsBillRec=@CoInsBillRec,
+		CoInsBillDetails=@CoInsBillDetails,
+		LockData=@LockData,
+		LockData_Yearly=@LockData_Yearly,
+		PC_Name=@PC_Name,		
+		UUser=@UUser,
+		UDate=@UDate,
+		BackupType=@BackupType
+	WHERE FinalMRKey = @FinalMRKey
+	SET @Result = 1
+
+END
+
+
+GO
+

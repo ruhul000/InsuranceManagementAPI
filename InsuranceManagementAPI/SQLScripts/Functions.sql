@@ -21,6 +21,7 @@ BEGIN
 
 	RETURN @STR
 END
+GO
 
 CREATE FUNCTION [dbo].[FnGetDocCode](@Class_Name varchar(100), @Sub_Class_Name varchar(100), @YearName int)
 RETURNS int
