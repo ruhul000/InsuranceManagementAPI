@@ -116,5 +116,17 @@ namespace InsuranceManagementAPI.Controllers
 
             return Ok(file);
         }
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("MotorReport/{finalMRKey}")]
+        public ActionResult GenerateMotorReport(int finalMRKey)
+        {
+            FinalMRReporParam param = new FinalMRReporParam();
+            param.FinalMRKey = finalMRKey;
+
+            ReportDocument file = _reportingService.ReportMotor(param);
+
+            return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
+        }
     }
 }
