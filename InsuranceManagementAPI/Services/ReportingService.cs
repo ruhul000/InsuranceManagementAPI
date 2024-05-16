@@ -154,7 +154,7 @@ namespace InsuranceManagementAPI.Services
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-                string qrCodeText = $"https://192.168.1.25/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                string qrCodeText = $"https://localhost:7141/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
                 Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
                 string base64QRCode = ImageToBase64(qrCodeImage);
 
