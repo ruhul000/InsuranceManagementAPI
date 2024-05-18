@@ -64,7 +64,7 @@ namespace InsuranceManagementAPI.Data.Repository
             return ds;
         }
 
-        public async Task<DataSet> GetFinalMRReportDataSet(FinalMRReporParam param)
+        public async Task<DataSet> GetFinalMRReportDataSet(FinalMRReportParam param)
         {
             DataSet ds = new DataSet();
             try

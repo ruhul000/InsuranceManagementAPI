@@ -131,7 +131,8 @@ builder.Services.AddEndpointsApiExplorer();
 #endregion
 
 // Add JWT Authentication Option in Swagger
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c => 
+{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization",

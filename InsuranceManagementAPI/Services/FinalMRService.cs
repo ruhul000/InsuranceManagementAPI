@@ -39,7 +39,6 @@ namespace InsuranceManagementAPI.Services
 
             return response;
         }
-
         public async Task<FinalMR?> Update(FinalMR finalMR)
         {
             FinalMR? response = null;
@@ -70,7 +69,6 @@ namespace InsuranceManagementAPI.Services
 
             return _finalMRFactory.CreateFrom(finalMRDto);
         }
-
         public async Task<FinalMR> GetFinalMRByCodeBranchYear(FinalMR finalMR)
         {
             FinalMRDto searObj = _finalMRFactory.CreateFrom(finalMR);

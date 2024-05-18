@@ -116,16 +116,25 @@ namespace InsuranceManagementAPI.Controllers
 
                 if(finalMR.Pay_Status == true)
                 {
-                    FinalMRReporParam rParam = new FinalMRReporParam();
+                    FinalMRReportParam rParam = new FinalMRReportParam();
                     rParam.FinalMRKey = Convert.ToInt32(TrxID);
 
                     //ReportDocument file =_reportingService.ReportOMP(rParam);
 
-                    ReportDocument file;
+                    ReportDocument file = new ReportDocument();
 
                     try
                     {
-                        file = _reportingService.ReportOMP(rParam);
+                        if(finalMR.Class_Name.Trim().ToLower() == "miscellaneous" 
+                            && finalMR.Sub_Class_Name.Trim().ToLower() == "overseas mediclaim")
+                        {
+                            file = _reportingService.ReportOMP(rParam);
+                        }
+                        else if (finalMR.Class_Name.Trim().ToLower() == "motor"
+                            && finalMR.Sub_Class_Name.Trim().ToLower() == "certificate")
+                        {
+                            file = _reportingService.ReportMotor(rParam);
+                        }
 
                         //if (file.FilePath.IsNullOrEmpty())
                         //{

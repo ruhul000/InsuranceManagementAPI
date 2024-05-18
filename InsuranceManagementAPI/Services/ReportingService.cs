@@ -11,18 +11,14 @@ namespace InsuranceManagementAPI.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IBankService _bankService;
         private readonly IReportRepository _reportRepository;
-
         public ReportingService(
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
-            IBankService bankService,
             IReportRepository reportRepository)
         {
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
-            _bankService = bankService;
             _reportRepository = reportRepository;
         }
         private ReportsSettings GetReportsSettings(string reportType)
@@ -107,7 +103,7 @@ namespace InsuranceManagementAPI.Services
 
             return report;
         }
-        public ReportDocument ReportFinalMR(FinalMRReporParam param)
+        public ReportDocument ReportFinalMR(FinalMRReportParam param)
         {
             ReportDocument report = new ReportDocument();
 
@@ -144,7 +140,7 @@ namespace InsuranceManagementAPI.Services
             return report;
         }
 
-        public ReportDocument ReportOMP(FinalMRReporParam param)
+        public ReportDocument ReportOMP(FinalMRReportParam param)
         {
             ReportDocument report = new ReportDocument();
 
@@ -154,7 +150,7 @@ namespace InsuranceManagementAPI.Services
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-                string qrCodeText = $"https://localhost:7141/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                string qrCodeText = $"https://united-api.azurewebsites.net/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
                 Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
                 string base64QRCode = ImageToBase64(qrCodeImage);
 
@@ -171,6 +167,8 @@ namespace InsuranceManagementAPI.Services
 
                 var result = localReport.Execute(RenderType.Pdf, reportSettings.EXTENSION, parameters, reportSettings.MIMETYPE);
 
+                Console.WriteLine("FileName: " + reportSettings.ReportFileName + " | DownloadPath: " + reportSettings.DownloadPath + " | ReportTemplatePath: " + reportSettings.TemplatePath);
+
                 if (SaveReport(reportSettings, result))
                 {
                     report.FileName = reportSettings.ReportFileName;
@@ -186,7 +184,7 @@ namespace InsuranceManagementAPI.Services
             return report;
         }
 
-        public ReportDocument ReportMotor(FinalMRReporParam param)
+        public ReportDocument ReportMotor(FinalMRReportParam param)
         {
             ReportDocument report = new ReportDocument();
 
