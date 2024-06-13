@@ -1,5 +1,6 @@
 ﻿using InsuranceManagementAPI.Models;
 using InsuranceManagementAPI.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,7 @@ namespace InsuranceManagementAPI.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("GetTravelRate")]
+        
         public ActionResult<IEnumerable<MediclaimTariff>> GetTravelRate(MediclaimTariff mediclaimTariff)
         {
 

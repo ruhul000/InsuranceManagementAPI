@@ -11,18 +11,14 @@ namespace InsuranceManagementAPI.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IBankService _bankService;
         private readonly IReportRepository _reportRepository;
-
         public ReportingService(
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
-            IBankService bankService,
             IReportRepository reportRepository)
         {
             _webHostEnvironment = webHostEnvironment;
             _configuration = configuration;
-            _bankService = bankService;
             _reportRepository = reportRepository;
         }
         private ReportsSettings GetReportsSettings(string reportType)
@@ -48,7 +44,8 @@ namespace InsuranceManagementAPI.Services
             {
                 "BankList" => "rptBanks.rdlc",
                 "FinalMR" => "rptFinalMR.rdlc",
-                "OMP" => "rptOMP.rdlc"
+                "OMP" => "rptOMP.rdlc",
+                "Motor" => "rptMotor.rdlc"
             };
 
             return name;
@@ -60,6 +57,7 @@ namespace InsuranceManagementAPI.Services
                 "BankList" => _configuration.GetValue<string>("ReportTemplatePath:Bank"),
                 "FinalMR" => _configuration.GetValue<string>("ReportTemplatePath:FinalMR"),
                 "OMP" => _configuration.GetValue<string>("ReportTemplatePath:OMP"),
+                "Motor" => _configuration.GetValue<string>("ReportTemplatePath:Motor"),
             };
 
             return subDirectory;
@@ -105,7 +103,7 @@ namespace InsuranceManagementAPI.Services
 
             return report;
         }
-        public ReportDocument ReportFinalMR(FinalMRReporParam param)
+        public ReportDocument ReportFinalMR(FinalMRReportParam param)
         {
             ReportDocument report = new ReportDocument();
 
@@ -142,7 +140,7 @@ namespace InsuranceManagementAPI.Services
             return report;
         }
 
-        public ReportDocument ReportOMP(FinalMRReporParam param)
+        public ReportDocument ReportOMP(FinalMRReportParam param)
         {
             ReportDocument report = new ReportDocument();
 
@@ -152,7 +150,51 @@ namespace InsuranceManagementAPI.Services
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-                string qrCodeText = $"https://localhost:7141/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                string qrCodeText = $"http://online.unitedinsurance.com.bd:8083/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
+                string base64QRCode = ImageToBase64(qrCodeImage);
+
+                parameters.Add("QRCode", base64QRCode);
+
+                DataSet bankReportDS = _reportRepository.GetFinalMRReportDataSet(param).Result;
+
+                LocalReport localReport = new LocalReport(reportSettings.TemplatePath);
+                localReport.AddDataSource("dsFinalMR", bankReportDS.Tables["dtFinalMR"]);
+                localReport.AddDataSource("dsBranchInfo", bankReportDS.Tables["dtBranchInfo"]);
+                localReport.AddDataSource("dsBankBranch", bankReportDS.Tables["dtBankBranch"]);
+                localReport.AddDataSource("dsBanks", bankReportDS.Tables["dtBank"]);
+                localReport.AddDataSource("dsClient", bankReportDS.Tables["dtClient"]);
+
+                var result = localReport.Execute(RenderType.Pdf, reportSettings.EXTENSION, parameters, reportSettings.MIMETYPE);
+
+                Console.WriteLine("FileName: " + reportSettings.ReportFileName + " | DownloadPath: " + reportSettings.DownloadPath + " | ReportTemplatePath: " + reportSettings.TemplatePath);
+
+                if (SaveReport(reportSettings, result))
+                {
+                    report.FileName = reportSettings.ReportFileName;
+                    report.FilePath = reportSettings.DownloadPath;
+                    report.FileStream = result.MainStream;
+                }
+
+                report.FileStream = result.MainStream;
+            }
+            catch (Exception ex)
+            { }
+
+            return report;
+        }
+
+        public ReportDocument ReportMotor(FinalMRReportParam param)
+        {
+            ReportDocument report = new ReportDocument();
+
+            try
+            {
+                var reportSettings = GetReportsSettings("Motor");
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+                string qrCodeText = $"http://online.unitedinsurance.com.bd:8083/api/v1/Reports/MotorReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
                 Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
                 string base64QRCode = ImageToBase64(qrCodeImage);
 

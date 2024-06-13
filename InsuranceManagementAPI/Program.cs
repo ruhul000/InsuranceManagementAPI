@@ -1,4 +1,5 @@
 using InsuranceManagementAPI;
+using InsuranceManagementAPI.CustomAttribute;
 using InsuranceManagementAPI.Data;
 using InsuranceManagementAPI.Data.Repository;
 using InsuranceManagementAPI.Extensions;
@@ -13,7 +14,10 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection.PortableExecutable;
 using System.Text;
+using static QRCoder.PayloadGenerator.ShadowSocksConfig;
+using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions 
 { 
@@ -36,7 +40,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Configure Helper
 builder.Services.AddScoped(typeof(IMappingFactory<>), typeof(MappingFactory<>));
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-
+builder.Services.AddScoped<ApiKeyAuthFilter>();
+builder.Services.AddHttpContextAccessor();
 // Configure App Services
 #region--------- APP SERVICES
 builder.Services.AddScoped<IUserService, UserService>();
@@ -55,6 +60,8 @@ builder.Services.AddScoped<IMarineCargoTariffService, MarineCargoTariffService>(
 builder.Services.AddScoped<IFinalMRService, FinalMRService>();
 builder.Services.AddScoped<IReportingService, ReportingService>();
 builder.Services.AddScoped<IMediclaimTariffService, MediclaimTariffService>();
+builder.Services.AddScoped<IBankPaymentService, BankPaymentService>();
+builder.Services.AddScoped<IMotorTariffService, MotorTariffService>();
 
 #endregion
 
@@ -77,6 +84,8 @@ builder.Services.AddScoped<IMarineCargoTariffRepository, MarineCargoTariffReposi
 builder.Services.AddScoped<IFinalMRRepository, FinalMRRepository>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IMediclaimTariffRepository, MediclaimTariffRepository>();
+builder.Services.AddScoped<IBankPaymentRepository, BankPaymentRepository>();
+builder.Services.AddScoped<IMotorTariffRepository, MotorTariffRepository>();
 #endregion
 
 // Configure App Factories
@@ -96,6 +105,8 @@ builder.Services.AddScoped<ICurrencyFactory, CurrencyFactory>();
 builder.Services.AddScoped<IMarineCargoTariffFactory, MarineCargoTariffFactory>();
 builder.Services.AddScoped<IFinalMRFactory, FinalMRFactory>();
 builder.Services.AddScoped<IMediclaimTariffFactory, MediclaimTariffFactory>();
+builder.Services.AddScoped<IBankPaymentFactory, BankPaymentFactory>();
+builder.Services.AddScoped<IMotorTariffFactory, MotorTariffFactory>();
 #endregion
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -123,7 +134,8 @@ builder.Services.AddEndpointsApiExplorer();
 #endregion
 
 // Add JWT Authentication Option in Swagger
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c => 
+{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization",
@@ -147,6 +159,31 @@ builder.Services.AddSwaggerGen(c => {
             new string[]{ }
         }
     });
+
+    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+        Description = "The API Key to access the API",
+        Name = "x-api-key",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "ApiKeyScheme"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id= "ApiKey"
+                }
+            },
+            new string[]{ }
+        }
+    });
+
 });
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
@@ -170,35 +207,49 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000")
-                                .AllowAnyHeader()
-                                .AllowAnyMethod()
-                                .AllowAnyOrigin();
-                                
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
         });
 });
+
+/*
+HTTP Response Header in iis settings 
+
+Access-Control-Allow-Origin; value *
+Access-Control-Allow-Methods; 
+Access-Control-Allow-Headers;
+*/
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("myAppCors", policy =>
+//    {
+//        policy.WithOrigins("http://192.168.1.235", "http://localhost:3000")
+//                .AllowAnyHeader()
+//                .AllowAnyMethod();
+//    });
+//});
 
 var app = builder.Build();
 
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
+    foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
     {
-        foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
-        {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                description.GroupName.ToUpperInvariant());
+        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+            description.GroupName.ToUpperInvariant());
 
-            options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-        }
-    });
-}
+        options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    }
+});
 
-builder.Services.AddControllers();
+
+//builder.Services.AddControllers();
 
 app.UseHttpsRedirection();
 
@@ -206,7 +257,10 @@ app.UseRouting();
 
 app.UseCors();
 
+//app.UseCors("myAppCors");
+
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseAuthentication();

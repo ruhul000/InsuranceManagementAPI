@@ -7,6 +7,6 @@ namespace InsuranceManagementAPI.Data.Repository
     public interface IReportRepository
     {
         Task<DataSet> GetBankReportDataSet(int branchKey);
-        Task<DataSet> GetFinalMRReportDataSet(FinalMRReporParam param);
+        Task<DataSet> GetFinalMRReportDataSet(FinalMRReportParam param);
     }
 }

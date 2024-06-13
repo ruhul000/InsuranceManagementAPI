@@ -1,6 +1,6 @@
 ﻿namespace InsuranceManagementAPI.Models.Report
 {
-    public class FinalMRReporParam
+    public class FinalMRReportParam
     {
         public int FinalMRKey { get; set; }
     }

@@ -51,7 +51,7 @@ namespace InsuranceManagementAPI.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("ReportFinalMR")]
-        public ActionResult GenerateReportFinalMR(FinalMRReporParam param)
+        public ActionResult GenerateReportFinalMR(FinalMRReportParam param)
         {
             ReportDocument file;
 
@@ -74,7 +74,7 @@ namespace InsuranceManagementAPI.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("FinalMRReport")]
-        public ActionResult GenerateFinalMRReport(FinalMRReporParam param)
+        public ActionResult GenerateFinalMRReport(FinalMRReportParam param)
         {
             ReportDocument file = _reportingService.ReportFinalMR(param);
 
@@ -86,7 +86,7 @@ namespace InsuranceManagementAPI.Controllers
         [HttpGet("OMPReport/{finalMRKey}")]
         public ActionResult GenerateOMPReport(int finalMRKey)
         {
-            FinalMRReporParam param = new FinalMRReporParam();
+            FinalMRReportParam param = new FinalMRReportParam();
             param.FinalMRKey = finalMRKey;
 
             ReportDocument file = _reportingService.ReportOMP(param);
@@ -95,8 +95,8 @@ namespace InsuranceManagementAPI.Controllers
         }
 
         [MapToApiVersion("1.0")]
-        [HttpPost("RepoetOMP")]
-        public ActionResult GenerateReportOMP(FinalMRReporParam param)
+        [HttpPost("ReportOMP")]
+        public ActionResult GenerateReportOMP(FinalMRReportParam param)
         {
             ReportDocument file;
 
@@ -115,6 +115,18 @@ namespace InsuranceManagementAPI.Controllers
             }
 
             return Ok(file);
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("MotorReport/{finalMRKey}")]
+        public ActionResult GenerateMotorReport(int finalMRKey)
+        {
+            FinalMRReportParam param = new FinalMRReportParam();
+            param.FinalMRKey = finalMRKey;
+
+            ReportDocument file = _reportingService.ReportMotor(param);
+
+            return File(file.FileStream, MediaTypeNames.Application.Pdf, file.FileName);
         }
     }
 }
