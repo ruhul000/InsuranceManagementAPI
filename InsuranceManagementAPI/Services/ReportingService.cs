@@ -150,7 +150,7 @@ namespace InsuranceManagementAPI.Services
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-                string qrCodeText = $"https://united-api.azurewebsites.net/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                string qrCodeText = $"http://online.unitedinsurance.com.bd:8083/api/v1/Reports/OMPReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
                 Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
                 string base64QRCode = ImageToBase64(qrCodeImage);
 
@@ -194,7 +194,7 @@ namespace InsuranceManagementAPI.Services
 
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
 
-                string qrCodeText = $"https://localhost:7141/api/v1/Reports/MotorReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
+                string qrCodeText = $"http://online.unitedinsurance.com.bd:8083/api/v1/Reports/MotorReport/{param.FinalMRKey}"; // Change this to the appropriate data for your QR code
                 Image qrCodeImage = GenerateQRCodeImage(qrCodeText);
                 string base64QRCode = ImageToBase64(qrCodeImage);
 
