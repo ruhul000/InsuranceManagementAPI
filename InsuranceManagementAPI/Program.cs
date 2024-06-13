@@ -14,7 +14,10 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection.PortableExecutable;
 using System.Text;
+using static QRCoder.PayloadGenerator.ShadowSocksConfig;
+using static System.Net.WebRequestMethods;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions 
 { 
@@ -131,7 +134,8 @@ builder.Services.AddEndpointsApiExplorer();
 #endregion
 
 // Add JWT Authentication Option in Swagger
-builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c => 
+{
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization",
@@ -203,23 +207,28 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.AllowAnyHeader()
-                                .AllowAnyMethod()
-                                .AllowAnyOrigin();
-                                
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
         });
 });
 
+/*
+HTTP Response Header in iis settings 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("myAppCors", policy =>
-    {
-        policy.WithOrigins("http://192.168.1.235", "http://localhost:3000")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-    });
-});
+Access-Control-Allow-Origin; value *
+Access-Control-Allow-Methods; 
+Access-Control-Allow-Headers;
+*/
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("myAppCors", policy =>
+//    {
+//        policy.WithOrigins("http://192.168.1.235", "http://localhost:3000")
+//                .AllowAnyHeader()
+//                .AllowAnyMethod();
+//    });
+//});
 
 var app = builder.Build();
 

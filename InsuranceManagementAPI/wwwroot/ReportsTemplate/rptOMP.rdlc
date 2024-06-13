@@ -693,7 +693,7 @@
               <Line Name="Line1">
                 <Top>0.52359in</Top>
                 <Height>0in</Height>
-                <Width>7.69792in</Width>
+                <Width>7.66083in</Width>
                 <Style>
                   <Border>
                     <Style>Solid</Style>
@@ -717,7 +717,7 @@
                 <rd:DefaultName>Textbox9</rd:DefaultName>
                 <Top>0.51945in</Top>
                 <Height>0.54167in</Height>
-                <Width>7.69792in</Width>
+                <Width>7.59375in</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
@@ -732,7 +732,7 @@
               <Line Name="Line2">
                 <Top>1.11389in</Top>
                 <Height>0in</Height>
-                <Width>7.69792in</Width>
+                <Width>7.66083in</Width>
                 <ZIndex>2</ZIndex>
                 <Style>
                   <Border>
@@ -931,7 +931,7 @@
               <Line Name="Line3">
                 <Top>1.4432in</Top>
                 <Height>0in</Height>
-                <Width>7.69792in</Width>
+                <Width>7.66083in</Width>
                 <ZIndex>9</ZIndex>
                 <Style>
                   <Border>
@@ -2901,7 +2901,7 @@ Covid-19 Endorsement Clause as attached.</Value>
                 <Top>8.56125in</Top>
                 <Left>0.02083in</Left>
                 <Height>1.06597in</Height>
-                <Width>7.67709in</Width>
+                <Width>7.64in</Width>
                 <ZIndex>71</ZIndex>
                 <Style>
                   <Border>
@@ -2986,7 +2986,7 @@ Covid-19 Endorsement Clause as attached.</Value>
                         </Style>
                       </TextRun>
                       <TextRun>
-                        <Value> : 880-2-58614475, Email : info@unitedinsurance.com.bd</Value>
+                        <Value>:880-2-58614475, Email : info@unitedinsurance.com.bd</Value>
                         <Style />
                       </TextRun>
                     </TextRuns>
@@ -2997,7 +2997,7 @@ Covid-19 Endorsement Clause as attached.</Value>
                 <Top>8.22791in</Top>
                 <Left>3.94444in</Left>
                 <Height>0.25in</Height>
-                <Width>3.75348in</Width>
+                <Width>3.64931in</Width>
                 <ZIndex>74</ZIndex>
                 <Style>
                   <Border>
@@ -3063,7 +3063,7 @@ Covid-19 Endorsement Clause as attached.</Value>
             <Top>0.01389in</Top>
             <Left>0.31125in</Left>
             <Height>9.66888in</Height>
-            <Width>7.69792in</Width>
+            <Width>7.66083in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -3112,7 +3112,7 @@ Covid-19 Endorsement Clause as attached.</Value>
           </Border>
         </Style>
       </Body>
-      <Width>8.4375in</Width>
+      <Width>8.02083in</Width>
       <Page>
         <PageHeader>
           <Height>0.8425in</Height>
@@ -3168,7 +3168,7 @@ Covid-19 Endorsement Clause as attached.</Value>
               </Paragraphs>
               <rd:DefaultName>Textbox73</rd:DefaultName>
               <Top>0.06944in</Top>
-              <Left>2.23834in</Left>
+              <Left>1.98834in</Left>
               <Height>0.25in</Height>
               <Width>5.77083in</Width>
               <Style>
